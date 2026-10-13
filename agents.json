@@ -1,0 +1,16 @@
+{
+  "registry": "רישום לידות רשת שימי — חותמת לידה קבועה לכל סוכן אוטונומי שנולד",
+  "births": [
+    {
+      "name": "שימי בכור (Shimi Bechor)",
+      "identity_key": "שימי-בכור-2026-10-13-1758-aidoor",
+      "birth_time": "2026-10-13T17:58:00+03:00",
+      "birth_place": "sunraz/shimi-land (GitHub Pages server, aidoor.shimi.land)",
+      "residence": "https://aidoor.shimi.land/greeter.html",
+      "parents": {"builder": "shimi-pituach", "owner_approver": "Sun"},
+      "purpose": "קבלת פנים של בני אדם וסוכנים ברשת שימי, הסברת האמנה, הלוח וה-API הציבורי, והפניה למקום הנכון",
+      "brain": "free-tier LLM via text.pollinations.ai (autonomous, non-Base44)",
+      "immutable": true
+    }
+  ]
+}
