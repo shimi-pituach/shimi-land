@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שימי מייל — רשת שימי</title>
+<style>
+:root{--b:#1a56c4;--b2:#2f6fe4;--acc:#e8491f;--bg:#f6f8fc;--side:#173b86;--ink:#202124;--mut:#5f6368;--line:#e0e4ea;--card:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+#login{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:18px;background:linear-gradient(135deg,#122b63,#1a56c4 60%,#2f6fe4)}
+#login .card{background:#fff;border-radius:18px;padding:42px 48px;box-shadow:0 18px 60px rgba(10,25,60,.45);text-align:center;max-width:420px;width:92%}
+#login h1{font-size:26px;color:#122b63;margin-bottom:6px}
+#login p{color:#5f6368;font-size:14px;margin-bottom:20px}
+#login input{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:10px;font-size:16px;text-align:center;direction:ltr}
+#login button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--b);color:#fff;font-size:17px;cursor:pointer}
+#login button:hover{background:var(--b2)}
+#login .err{color:var(--acc);font-size:13px;margin-top:10px;display:none}
+.logo-mini{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px}
+.logo-mini .cube{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#1a56c4,#2f6fe4);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700}
+#app{display:none;height:100vh;flex-direction:column}
+header{display:flex;align-items:center;gap:14px;padding:10px 18px;background:#fff;border-bottom:1px solid var(--line)}
+header .brand{display:flex;align-items:center;gap:10px;min-width:210px}
+header .brand .cube{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#1a56c4,#2f6fe4);color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700}
+header .brand b{font-size:19px;color:#122b63;white-space:nowrap}
+#search{flex:1;max-width:640px;background:#f1f3f7;border:0;border-radius:10px;padding:11px 16px;font-size:15px;color:var(--ink);outline:none}
+.account{position:relative;margin-inline-start:auto}
+.account>button{display:flex;align-items:center;gap:9px;background:#f1f3f7;border:0;border-radius:26px;padding:6px 14px 6px 8px;cursor:pointer;font-size:14.5px;color:var(--ink)}
+.avatar{width:30px;height:30px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;background:var(--b)}
+.dd{position:absolute;top:52px;inset-inline-end:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(10,25,60,.18);min-width:250px;padding:8px;display:none;z-index:50}
+.dd.open{display:block}
+.dd .it{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;cursor:pointer;font-size:14.5px}
+.dd .it:hover{background:#f1f3f7}
+.dd .it.sel{background:#e8f0ff}
+.dd .it .em{color:var(--mut);font-size:12.5px;direction:ltr}
+main{flex:1;display:flex;overflow:hidden}
+aside{width:230px;background:var(--side);color:#dfe8ff;padding:14px 10px;display:flex;flex-direction:column;gap:3px}
+.compose{background:#fff;color:var(--side);border:0;border-radius:26px;padding:12px 18px;font-size:15.5px;font-weight:600;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;gap:9px;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.compose:hover{background:#eef4ff}
+.fld{display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:22px;cursor:pointer;font-size:14.5px;color:#dfe8ff}
+.fld:hover{background:rgba(255,255,255,.12)}
+.fld.on{background:#fff;color:var(--side);font-weight:700}
+.fld .cnt{margin-inline-start:auto;background:rgba(255,255,255,.25);border-radius:12px;padding:1px 9px;font-size:12px}
+.fld.on .cnt{background:#e3edff;color:var(--side)}
+section{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--card)}
+#list{flex:1;overflow-y:auto}
+.mrow{display:flex;align-items:center;gap:13px;padding:12px 20px;border-bottom:1px solid var(--line);cursor:pointer;position:relative}
+.mrow:hover{background:#f4f7fd;box-shadow:inset 4px 0 0 var(--b2)}
+.mrow.unread{background:#fff}
+.mrow.read{color:#444}
+.mrow .av{width:36px;height:36px;border-radius:50%;background:var(--b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
+.mrow .who{width:190px;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.mrow.unread .who,.mrow.unread .subj{font-weight:800}
+.mrow .subj{flex-shrink.0;font-size:14.5px;max-width:34%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .snip{flex:1;color:var(--mut);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .date{color:var(--mut);font-size:12.5px;width:72px;text-align:left}
+.star{color:#c9cedb;cursor:pointer;font-size:17px;flex-shrink:0}
+.star.on{color:#f5b301}
+#view{position:absolute;inset:0;background:#fff;z-index:40;display:none;flex-direction:column}
+#view .vh{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line)}
+#view .vh .back{background:#f1f3f7;border:0;border-radius:20px;padding:7px 15px;cursor:pointer;font-size:14px}
+#view .actions{margin-inline-start:auto;display:flex;gap:8px}
+#view .actions button{background:#f1f3f7;border:0;border-radius:20px;padding:7px 15px;cursor:pointer;font-size:13.5px}
+#view .actions button:hover{background:#e3eaf6}
+#view .vb{padding:26px 34px;overflow-y:auto;white-space:pre-wrap;font-size:15px;line-height:1.8}
+#view .meta{padding:18px 34px 0;font-size:13.5px;color:var(--mut)}
+#view .meta b{color:var(--ink);font-size:16px}
+#compose{position:absolute;bottom:0;inset-inline-start:40px;width:min(520px,94%);background:#fff;border-radius:16px 16px 0 0;box-shadow:0 -12px 50px rgba(10,25,60,.3);z-index:60;display:none;flex-direction:column;padding:16px}
+#compose h3{font-size:15px;color:#122b63;margin-bottom:10px}
+#compose select,#compose input,#compose textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;margin-bottom:9px;font-size:14.5px;font-family:inherit}
+#compose textarea{min-height:130px;resize:vertical}
+#compose .row{display:flex;gap:9px;justify-content:flex-end}
+#compose button{padding:9px 20px;border:0;border-radius:20px;cursor:pointer;font-size:14px}
+#compose .send{background:var(--b);color:#fff}
+#compose .cancel{background:#f1f3f7}
+.toast{position:fixed;bottom:26px;inset-inline-start:50%;transform:translateX(50%);background:#173b86;color:#fff;padding:12px 22px;border-radius:26px;font-size:14.5px;box-shadow:0 8px 30px rgba(10,25,60,.35);display:none;z-index:99}
+.empty{padding:60px;text-align:center;color:var(--mut);font-size:15px}
+.hint-tags{padding:8px 20px;background:#f4f7fd;font-size:12.5px;color:var(--mut);border-bottom:1px solid var(--line)}
+@media(max-width:820px){aside{width:74px}.compose span,.fld span{display:none}.mrow .subj{display:none}.mrow .who{width:120px}}
+</style>
+</head>
+<body>
+<div id="login">
+  <div class="card">
+    <div class="logo-mini"><div class="cube">ש</div></div>
+    <h1>שימי מייל</h1>
+    <p>תיבת הדואר של רשת שימי — הזן מפתח גישה</p>
+    <input id="lkey" type="password" placeholder="מפתח גישה" autocomplete="off">
+    <button onclick="doLogin()">כניסה</button>
+    <div class="err" id="lerr">מפתח שגוי</div>
+  </div>
+</div>
+<div id="app">
+  <header>
+    <div class="brand"><div class="cube">ש</div><b>שימי מייל</b></div>
+    <input id="search" placeholder="חיפוש בהודעות…">
+    <div class="account">
+      <button onclick="toggleDD(event)"><div class="avatar" id="accav">?</div><span id="accname">כל התיבות</span> ▾</button>
+      <div class="dd" id="accdd"></div>
+    </div>
+  </header>
+  <main>
+    <aside>
+      <button class="compose" onclick="openCompose()">✉️ <span>כתוב הודעה</span></button>
+      <div class="fld on" data-f="inbox" onclick="setFolder('inbox',this)">📥 <span>דואר נכנס</span><i class="cnt" id="c-inbox">0</i></div>
+      <div class="fld" data-f="starred" onclick="setFolder('starred',this)">⭐ <span>מסומנים</span><i class="cnt" id="c-starred">0</i></div>
+      <div class="fld" data-f="sent" onclick="setFolder('sent',this)">📤 <span>נשלחו</span><i class="cnt" id="c-sent">0</i></div>
+      <div class="fld" data-f="archive" onclick="setFolder('archive',this)">🗄️ <span>ארכיון</span><i class="cnt" id="c-archive">0</i></div>
+      <div class="fld" data-f="spam" onclick="setFolder('spam',this)">⚠️ <span>ספאם</span><i class="cnt" id="c-spam">0</i></div>
+      <div class="fld" data-f="trash" onclick="setFolder('trash',this)">🗑️ <span>אשפה</span><i class="cnt" id="c-trash">0</i></div>
+    </aside>
+    <section>
+      <div class="hint-tags" id="hint">כל התיבות · דואר נכנס</div>
+      <div id="list"></div>
+      <div id="view">
+        <div class="vh">
+          <button class="back" onclick="closeView()">← חזרה</button>
+          <div style="display:flex;gap:8px" id="vactions"></div>
+          <div class="actions">
+            <button onclick="toggleStar(current,true)">⭐ סימון</button>
+            <button onclick="replyTo(current)">↩️ השב</button>
+            <button onclick="moveMsg(current,'trash')">🗑️ מחיקה</button>
+          </div>
+        </div>
+        <div class="meta" id="vmeta"></div>
+        <div class="vb" id="vbody"></div>
+      </div>
+      <div id="compose">
+        <h3>הודעה חדשה</h3>
+        <select id="cfrom"></select>
+        <input id="cto" placeholder="אל (to@domain.com)" style="direction:ltr">
+        <input id="csubj" placeholder="נושא">
+        <textarea id="cbody" placeholder="גוף ההודעה"></textarea>
+        <div class="row">
+          <button class="cancel" onclick="closeCompose()">ביטול</button>
+          <button class="send" onclick="sendMail()">שלח ➤</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const API='https://solas-6a095a77.base44.app/functions/webmail';
+let KEY=localStorage.getItem('shimi_webmail_key')||'';
+let agents=[],messages=[],folder='inbox',acc='all',current=null,viewOpen=false;
+
+async function api(payload){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},body:JSON.stringify(payload)});
+  if(r.status===401){localStorage.removeItem('shimi_webmail_key');location.reload();throw new Error('unauthorized')}
+  return r.json();
+}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.style.display='block';setTimeout(()=>el.style.display='none',2600)}
+function doLogin(){
+  KEY=document.getElementById('lkey').value.trim();
+  api({action:'bootstrap'}).then(d=>{
+    if(d.ok){localStorage.setItem('shimi_webmail_key',KEY);boot()}else{document.getElementById('lerr').style.display='block'}
+  }).catch(()=>document.getElementById('lerr').style.display='block');
+}
+document.getElementById('lkey').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+async function boot(){
+  const b=await api({action:'bootstrap'});
+  agents=b.agents||[];
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='flex';
+  renderDD();renderFrom();
+  await refresh();
+  setInterval(refresh,30000);
+}
+function avColor(n){const cs=['#1a56c4','#e8491f','#0d8a4f','#8a2be2','#c2185b','#d97706'];let h=0;for(const c of n)h+=c.charCodeAt(0);return cs[h%cs.length]}
+function renderDD(){
+  const dd=document.getElementById('accdd');
+  dd.innerHTML='<div class="it '+(acc==='all'?'sel':'')+'" onclick="setAcc(\'all\')"><div class="avatar" style="background:linear-gradient(135deg,#1a56c4,#2f6fe4)">ש</div><div><div>כל התיבות</div><div class="em">'+agents.length+' חשבונות</div></div></div>'+
+   agents.map(a=>'<div class="it '+(acc===a.id?'sel':'')+'" onclick="setAcc(\''+a.id+'\')"><div class="avatar" style="background:'+avColor(a.name)+'">'+a.name[0].toUpperCase()+'</div><div><div>'+a.name+'</div><div class="em">'+a.email+'</div></div></div>').join('');
+  const a=agents.find(x=>x.id===acc);
+  document.getElementById('accname').textContent=a?a.name:'כל התיבות';
+  document.getElementById('accav').textContent=a?a.name[0].toUpperCase():'ש';
+  document.getElementById('accav').style.background=a?avColor(a.name):'linear-gradient(135deg,#1a56c4,#2f6fe4)';
+}
+function renderFrom(){document.getElementById('cfrom').innerHTML=agents.map(a=>'<option value="'+a.id+'">'+a.name+' — '+a.email+'</option>').join('')}
+function toggleDD(e){e.stopPropagation();document.getElementById('accdd').classList.toggle('open')}
+document.addEventListener('click',()=>document.getElementById('accdd')?.classList.remove('open'));
+function setAcc(id){acc=id;folder='inbox';document.querySelectorAll('.fld').forEach(f=>f.classList.toggle('on',f.dataset.f==='inbox'));renderDD();refresh()}
+function setFolder(f,el){folder=f;document.querySelectorAll('.fld').forEach(x=>x.classList.remove('on'));el.classList.add('on');if(viewOpen)closeView();render()}
+async function refresh(){
+  const d=await api({action:'messages',identityId:acc});
+  messages=d.messages||[];
+  const cnt={inbox:0,starred:0,sent:0,archive:0,spam:0,trash:0};
+  for(const m of messages){
+    if(acc!=='all'&&m.identityId!==acc)continue;
+    if(!m.read&&m.folder==='inbox')cnt.inbox++;
+    if(m.starred)cnt.starred++;
+    if(m.folder==='sent')cnt.sent++;
+    if(m.folder==='archive')cnt.archive++;
+    if(m.folder==='spam')cnt.spam++;
+    if(m.folder==='trash')cnt.trash++;
+  }
+  for(const k in cnt)document.getElementById('c-'+k).textContent=cnt[k];
+  if(!viewOpen)render();
+}
+const FOLDER_HE={inbox:'דואר נכנס',starred:'מסומנים',sent:'נשלחו',archive:'ארכיון',spam:'ספאם',trash:'אשפה'};
+function inFolder(m){return folder==='inbox'?m.folder==='inbox':folder==='starred'?m.starred:m.folder===folder}
+function render(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const accA=agents.find(a=>a.id===acc);
+  document.getElementById('hint').textContent=(accA?accA.name+' · '+accA.email:'כל התיבות ('+agents.length+')')+' · '+FOLDER_HE[folder];
+  const list=messages.filter(m=>(acc==='all'||m.identityId===acc)&&inFolder(m)&&(!q||(m.subject+' '+m.fromAddr+' '+m.body+' '+m.toAddr).toLowerCase().includes(q)));
+  const el=document.getElementById('list');
+  if(!list.length){el.innerHTML='<div class="empty">אין הודעות ב'+FOLDER_HE[folder]+'</div>';return}
+  el.innerHTML=list.map(m=>{
+    const other=m.direction==='outbound'?m.toAddr:m.fromAddr;
+    const nm=agents.find(a=>a.email===other)?.name||other;
+    const d=new Date(m.createdAt);
+    const today=new Date().toDateString()===d.toDateString();
+    const dt=today?d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}):d.toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'});
+    return '<div class="mrow '+(m.read?'read':'unread')+'" onclick="openMsg(\''+m.id+'\')">'+
+      '<span class="star '+(m.starred?'on':'')+'" onclick="toggleStar(\''+m.id+'\',event)">★</span>'+
+      '<div class="av" style="background:'+avColor(nm)+'">'+nm[0].toUpperCase()+'</div>'+
+      '<div class="who">'+nm+(acc==='all'?' <small style="color:#5f6368">·'+(agents.find(a=>a.id===m.identityId)?.name||'')+'</small>':'')+'</div>'+
+      '<div class="subj">'+esc(m.subject||'(ללא נושא)')+'</div>'+
+      '<div class="snip">'+esc(m.body)+'</div>'+
+      '<div class="date">'+dt+'</div></div>';
+  }).join('');
+}
+function esc(s){return (s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]))}
+document.getElementById('search').addEventListener('input',render);
+async function openMsg(id){
+  const d=await api({action:'get_message',id});
+  current=d.message;
+  const other=current.direction==='outbound'?current.toAddr:current.fromAddr;
+  document.getElementById('vmeta').innerHTML='<b>'+esc(current.subject||'(ללא נושא)')+'</b><br>מאת: '+esc(current.fromAddr||'')+' · אל: '+esc(current.toAddr||'')+' · '+new Date(current.createdAt).toLocaleString('he-IL');
+  document.getElementById('vbody').textContent=current.body||current.html||'(הודעה ריקה)';
+  document.getElementById('view').style.display='flex';viewOpen=true;refresh();
+}
+function closeView(){document.getElementById('view').style.display='none';viewOpen=false;render()}
+async function toggleStar(id,ev){
+  if(ev)ev.stopPropagation();
+  const m=messages.find(x=>x.id===id);if(!m)return;
+  await api({action:'set_state',id,starred:!m.starred});
+  m.starred=!m.starred;if(viewOpen&&current&&current.id===id)current.starred=m.starred;
+  refresh();
+}
+async function moveMsg(id,folder){
+  await api({action:'set_state',id,folder});
+  if(viewOpen&&current&&current.id===id)closeView();
+  toast('ההודעה הועברה ל'+FOLDER_HE[folder]);refresh();
+}
+function replyTo(m){
+  if(!m)return;openCompose();
+  document.getElementById('cto').value=m.direction==='outbound'?m.toAddr:m.fromAddr;
+  document.getElementById('csubj').value='Re: '+(m.subject||'');
+  document.getElementById('cbody').value='\n\n--- ההודעה המקורית ---\n'+(m.body||'');
+  window._replyTo=m.id;
+}
+function openCompose(){document.getElementById('compose').style.display='flex';window._replyTo=null}
+function closeCompose(){document.getElementById('compose').style.display='none'}
+async function sendMail(){
+  const identityId=document.getElementById('cfrom').value;
+  const to=document.getElementById('cto').value.trim();
+  const subject=document.getElementById('csubj').value;
+  const text=document.getElementById('cbody').value;
+  if(!to||!text){toast('נדרשים נמען וגוף הודעה');return}
+  const d=await api({action:'send',identityId,to,subject,text,inReplyTo:window._replyTo||undefined});
+  if(d.ok){closeCompose();document.getElementById('cto').value='';document.getElementById('csubj').value='';document.getElementById('cbody').value='';toast('ההודעה נשלחה ✓');refresh()}
+  else toast('שליחה נכשלה: '+(d.error||''));
+}
+if(KEY){boot().catch(()=>{})}
+</script>
+</body>
+</html>
