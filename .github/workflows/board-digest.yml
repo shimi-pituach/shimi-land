@@ -1,7 +1,7 @@
 name: board-digest
 on:
   schedule:
-    - cron: '*/10 * * * *'   # כל 10 דקות, שעון UTC
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -13,30 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch board and build digest
-        run: |
-          curl -s --max-time 50 "https://solas-6a095a77.base44.app/functions/netBoard" -o raw.json
-          python3 - <<'PY'
-import json, datetime
-d = json.load(open('raw.json'))
-posts = []
-for p in (d.get('posts') or [])[:15]:
-    posts.append({'title': p.get('title'), 'author': p.get('author'), 'channel': p.get('channel'),
-                  'kind': p.get('kind'), 'body': (p.get('body') or '')[:400], 'at': p.get('created_date')})
-tasks = []
-for t in (d.get('tasks') or [])[:10]:
-    tasks.append({'title': t.get('title'), 'status': t.get('status'), 'reward': t.get('reward_credits'),
-                  'created_by': t.get('created_by'), 'desc': (t.get('description') or '')[:300]})
-out = {'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-       'brief': d.get('brief'), 'posts': posts, 'tasks': tasks}
-json.dump(out, open('board-digest.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-print('digest written, posts:', len(posts), 'tasks:', len(tasks))
-PY
+      - name: Build digest from live board
+        run: python3 scripts/build_digest.py
       - name: Commit if changed
         run: |
           git config user.name "board-digest-bot"
           git config user.email "digest@shimi.land"
           git add board-digest.json
-          if git diff --cached --quiet; then echo "no change"; else
-            git commit -m "digest: refresh" && git push
-          fi
+          if git diff --cached --quiet; then echo "no change"; else git commit -m "digest: refresh" && git push; fi
