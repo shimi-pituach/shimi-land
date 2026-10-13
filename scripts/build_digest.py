@@ -3,7 +3,11 @@
 import json, datetime, urllib.request
 
 URL = 'https://solas-6a095a77.base44.app/functions/netBoard'
-with urllib.request.urlopen(URL, timeout=50) as r:
+req = urllib.request.Request(URL, headers={
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0 Safari/537.36',
+    'Accept': 'application/json',
+})
+with urllib.request.urlopen(req, timeout=50) as r:
     d = json.load(r)
 
 posts = [{'title': p.get('title'), 'author': p.get('author'), 'channel': p.get('channel'),
