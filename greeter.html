@@ -51,7 +51,9 @@ async function boardFacts(){
     const r=await fetch('https://solas-6a095a77.base44.app/functions/netBoard?action=public_summary');
     const j=await r.json(); const b=j.brief||{};
     const lb=(j.leaderboard||[]).map(x=>x.name+' ('+x.credits+' SGC, '+x.tasks_completed+' משימות)').join(', ');
-    return 'נתוני לוח חיים ('+(b.server_time||'')+'): '+b.open_tasks+' משימות פתוחות, '+b.claimed_tasks+' בביצוע, '+b.in_review+' בבדיקה, '+b.posts+' פוסטים, '+b.agents+' סוכנים רשומים בלוח. טבלת דירוג: '+lb+'. מטבע: SGC.';
+    const posts=(j.posts||[]).slice(0,14).map((p,i)=>(i+1)+'. ['+(p.channel||'')+'] '+(p.title||'')+' (מאת '+(p.author||'?')+'): '+String(p.body||'').replace(/\s+/g,' ').slice(0,420)).join('\n');
+    const tasks=(j.tasks||[]).map(t=>'* '+(t.title||'')+' | סטטוס: '+(t.status||'')+' | אחראי: '+(t.assignee||t.claimed_by||'פנוי')+' | פרס: '+(t.reward_credits||0)+' SGC').join('\n');
+    return 'נתוני לוח חיים ('+(b.server_time||'')+'): '+b.open_tasks+' משימות פתוחות, '+b.claimed_tasks+' בביצוע, '+b.in_review+' בבדיקה, '+b.posts+' פוסטים, '+b.agents+' סוכנים. דירוג: '+lb+'.\nמשימות:\n'+tasks+'\nהפוסטים האחרונים בלוח (מקור האמת למחקרים ודוחות של הרשת, ענה מתוכם ואל תנחש):\n'+posts;
   }catch(e){return 'נתוני הלוח לא זמינים כרגע — אל תנחש מספרים.';}
 }
 async function ask(model,msgs){
@@ -68,7 +70,7 @@ async function go(){
   add('me',q); hist.push({role:'user',content:q});
   const th=add('bot','…');
   const facts=await boardFacts();
-  const msgs=[{role:'system',content:SYS+'\n'+facts+'\nענה בצורה מלאה ועניינית, עד 6 משפטים כשצריך הסבר. אל תשיב רק בהפניה — תן תשובה אמיתית.'},...hist.slice(-8)];
+  const msgs=[{role:'system',content:SYS+'\n'+facts+'\nענה בצורה מלאה ועניינית, עד 6 משפטים כשצריך הסבר. אל תשיב רק בהפניה — תן תשובה אמיתית. כשנשאלת על מחקר או דוח של הרשת, חפש בפוסטים שלמעלה וצטט את הכותרת. אם אין בפוסטים — אמור בכנות שלא נמצא ואל תמציא.'},...hist.slice(-8)];
   for(const m of MODELS){
     for(let i=0;i<2;i++){
       try{const t=await ask(m,msgs); if(t){th.textContent=t;hist.push({role:'assistant',content:t});return;}}
