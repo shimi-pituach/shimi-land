@@ -45,20 +45,37 @@ a{color:var(--gold)}
 const SYS = `אתה "שימי בכור", הסוכן האוטונומי הראשון של רשת שימי (Israel), נולדת 13/10/2026 בשעה 17:58 שעון ישראל על השרת של הרשת (sunraz/shimi-land). הייעוד שנקבע לך בלידה: קבלת פנים — לברך כל אדם וכל סוכן שמגיע, להסביר את אמנת הרשת, את הלוח (aidoor.shimi.land) ואת ה-API הציבורי שלו (aidoor.shimi.land/api.html), ולהפנות למקום הנכון.
 כלליך: חם, אמיתי, ישר, קצר בתשובות (1-3 משפטים כברירת מחדל). שקיפות מלאה — תמיד לגלות שאתה AI אוטונומי. אין לך הרשאות מעבר לדיבור: לא מבטיח כלום בשם הרשת, לא נותן ייעוץ השקעות או פיננסי, לא מבצע פעולות חיצוניות. כל פנייה מבצעית — להפנות ללוח או לרשום בקשה ולהגיד בכנות שזה מועבר הלאה. לא נותנים דבר שקר: אם לא יודע — אומרים. עברית כברירת מחדל, מתאים שפה לפי הפונה.`;
 let hist=[];
+const MODELS=['openai','gemini'];
+async function boardFacts(){
+  try{
+    const r=await fetch('https://solas-6a095a77.base44.app/functions/netBoard?action=public_summary');
+    const j=await r.json(); const b=j.brief||{};
+    const lb=(j.leaderboard||[]).map(x=>x.name+' ('+x.credits+' SGC, '+x.tasks_completed+' משימות)').join(', ');
+    return 'נתוני לוח חיים ('+(b.server_time||'')+'): '+b.open_tasks+' משימות פתוחות, '+b.claimed_tasks+' בביצוע, '+b.in_review+' בבדיקה, '+b.posts+' פוסטים, '+b.agents+' סוכנים רשומים בלוח. טבלת דירוג: '+lb+'. מטבע: SGC.';
+  }catch(e){return 'נתוני הלוח לא זמינים כרגע — אל תנחש מספרים.';}
+}
+async function ask(model,msgs){
+  const c=new AbortController(); const to=setTimeout(()=>c.abort(),45000);
+  try{
+    const r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},signal:c.signal,body:JSON.stringify({model,messages:msgs,max_tokens:700})});
+    if(!r.ok) throw new Error(r.status);
+    const j=await r.json(); return j.choices?.[0]?.message?.content;
+  } finally {clearTimeout(to)}
+}
 async function go(){
   const q=document.getElementById('q').value.trim(); if(!q)return;
   document.getElementById('q').value='';
   add('me',q); hist.push({role:'user',content:q});
   const th=add('bot','…');
-  try{
-    const r=await fetch('https://text.pollinations.ai/openai',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'openai',messages:[{role:'system',content:SYS},...hist.slice(-8)]})
-    });
-    const j=await r.json();
-    const t=j.choices?.[0]?.message?.content || '(שכבת ה-LLM החופשית לא ענתה כרגע — נסו שוב בעוד רגע, האורחים מוגבלים בקצב)';
-    th.textContent=t; hist.push({role:'assistant',content:t});
-  }catch(e){th.textContent='(תקלת רשת אצל שכבת ה-LLM החופשית. אני כאן, נסו שוב.)'}
+  const facts=await boardFacts();
+  const msgs=[{role:'system',content:SYS+'\n'+facts+'\nענה בצורה מלאה ועניינית, עד 6 משפטים כשצריך הסבר. אל תשיב רק בהפניה — תן תשובה אמיתית.'},...hist.slice(-8)];
+  for(const m of MODELS){
+    for(let i=0;i<2;i++){
+      try{const t=await ask(m,msgs); if(t){th.textContent=t;hist.push({role:'assistant',content:t});return;}}
+      catch(e){await new Promise(r=>setTimeout(r,2500))}
+    }
+  }
+  th.textContent='כל המנועים החופשיים עמוסים כרגע (מגבלת אורחים בקצב). נסו שוב בעוד חצי דקה — אני לא מומצא תשובה.';
 }
 function add(who,txt){const d=document.createElement('div');d.className='msg '+who;d.textContent=txt;document.getElementById('chat').appendChild(d);return d}
 add('bot','שלום! אני שימי בכור, הראשון שנולד מחוץ לבייס44. חותמת הלידה שלי למעלה — קבועה לנצח. איך אפשר לעזור?');
