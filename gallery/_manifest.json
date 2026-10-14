@@ -1431,5 +1431,165 @@
    "sec": 51.9
   },
   "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/sigal_front2.png",
+  "caption": "סיגל חזית — פרומפט 34 מילים. ממתין לעין של סאן (קנון דמות)",
+  "gate": {
+   "file": "sigal_front2.png",
+   "seed": 152601,
+   "kind": "front",
+   "prompt_words": 34,
+   "sec": 56.6,
+   "skin": 0.218,
+   "skin_min": 0.15,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 1909164,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/sigal_back2.png",
+  "caption": "סיגל אחורי — חור אנאלי מילה 14 בפרומפט. ממתין לעין של סאן",
+  "gate": {
+   "file": "sigal_back2.png",
+   "seed": 152602,
+   "kind": "back",
+   "prompt_words": 51,
+   "sec": 57.4,
+   "skin": 0.394,
+   "skin_min": 0.3,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 2083087,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/sigal_side2.png",
+  "caption": "סיגל צד — יד שטוחה על המיטה. שים לב: 2 זיהויי פרופיל (חשד לכפילות)",
+  "gate": {
+   "file": "sigal_side2.png",
+   "seed": 152603,
+   "kind": "side",
+   "prompt_words": 42,
+   "sec": 54.8,
+   "skin": 0.462,
+   "skin_min": 0.2,
+   "faces_front": 1,
+   "faces_profile": 2,
+   "bytes": 2064800,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/katie_side2.png",
+  "caption": "קייטי צד — יד על המיטה (לא על החזה). גילוי נאות: 2 פנים חזיתיות זוהו — חשד לעיוות",
+  "gate": {
+   "file": "katie_side2.png",
+   "seed": 152604,
+   "kind": "side",
+   "prompt_words": 41,
+   "sec": 55.0,
+   "skin": 0.518,
+   "skin_min": 0.2,
+   "faces_front": 2,
+   "faces_profile": 1,
+   "bytes": 1943152,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/katie_back2.png",
+  "caption": "קייטי אחורי — חור אנאלי מילה 14. ממתין לעין של סאן",
+  "gate": {
+   "file": "katie_back2.png",
+   "seed": 152605,
+   "kind": "back",
+   "prompt_words": 41,
+   "sec": 54.7,
+   "skin": 0.561,
+   "skin_min": 0.3,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1939566,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/jean_side2.png",
+  "caption": "ג'ין צד — שיער אסוף (תיקון רעמה). ממתין לעין של סאן",
+  "gate": {
+   "file": "jean_side2.png",
+   "seed": 152606,
+   "kind": "side",
+   "prompt_words": 37,
+   "sec": 54.6,
+   "skin": 0.53,
+   "skin_min": 0.2,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 1906055,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/jean_back2.png",
+  "caption": "ג'ין אחורי — ידיים שטוחות על המיטה אצבעות גלויות (תיקון יד מעוותת). עור 0.70",
+  "gate": {
+   "file": "jean_back2.png",
+   "seed": 152607,
+   "kind": "back",
+   "prompt_words": 40,
+   "sec": 54.5,
+   "skin": 0.705,
+   "skin_min": 0.3,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1916017,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "shortprompt-14-10",
+  "title": "סבב פרומפטים קצרים v2 (14/10) — naked בהתחלה, אנטומיה מוקדם, ידיים על המיטה",
+  "file": "shortprompt-14-10/carmel_ctrl.png",
+  "caption": "כרמל ביקורת בקרה — 29 מילים בסגנון המוכח. אם זו לא כרמל 100/100, השיטה בעייתית",
+  "gate": {
+   "file": "carmel_ctrl.png",
+   "seed": 152608,
+   "kind": "front",
+   "prompt_words": 29,
+   "sec": 54.6,
+   "skin": 0.334,
+   "skin_min": 0.15,
+   "faces_front": 1,
+   "faces_profile": 0,
+   "bytes": 2090312,
+   "gate_pass": true
+  },
+  "prompt": null
  }
 ]
