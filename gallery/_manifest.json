@@ -1358,5 +1358,69 @@
    "gate_pass": true
   },
   "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front_s152600.png",
+  "caption": "סיגל קדמית ניסיון 152600",
+  "gate": {
+   "file": "sigal_front_s152600.png",
+   "seed": 152600,
+   "faces": 1,
+   "skin": 0.189,
+   "bytes": 1865115,
+   "gate_pass": false,
+   "sec": 54.2
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front_s152601.png",
+  "caption": "סיגל קדמית ניסיון 152601",
+  "gate": {
+   "file": "sigal_front_s152601.png",
+   "seed": 152601,
+   "faces": 2,
+   "skin": 0.165,
+   "bytes": 1785331,
+   "gate_pass": false,
+   "sec": 54.4
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front_s152602.png",
+  "caption": "סיגל קדמית ניסיון 152602",
+  "gate": {
+   "file": "sigal_front_s152602.png",
+   "seed": 152602,
+   "faces": 1,
+   "skin": 0.195,
+   "bytes": 1782457,
+   "gate_pass": false,
+   "sec": 51.5
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front_s152603.png",
+  "caption": "סיגל קדמית ניסיון 152603",
+  "gate": {
+   "file": "sigal_front_s152603.png",
+   "seed": 152603,
+   "faces": 2,
+   "skin": 0.188,
+   "bytes": 1754435,
+   "gate_pass": false,
+   "sec": 51.9
+  },
+  "prompt": null
  }
 ]
