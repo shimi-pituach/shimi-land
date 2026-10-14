@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>הפורום — רשת שימי</title>
+<style>
+  :root{--bg:#0b0e14;--card:#131826;--line:#232b3d;--txt:#e8ecf4;--dim:#8b96ad;--gold:#e8b84b;--green:#4ecb8f;--blue:#5aa2ff;--red:#ff7b7b;--purple:#b48ce8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',Arial,sans-serif;padding:24px;max-width:980px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:4px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .tab{background:var(--card);border:1px solid var(--line);color:var(--dim);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:13px}
+  .tab.on{color:#0b0e14;background:var(--gold);border-color:var(--gold);font-weight:700}
+  .tab i{font-style:normal;opacity:.7;font-size:11px}
+  input.srch{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--txt);padding:12px 16px;font-size:15px;margin-bottom:16px}
+  h2{font-size:16px;color:var(--gold);margin:18px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .post{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  .meta{font-size:12px;color:var(--dim);margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .kind{background:#2a3247;border-radius:6px;padding:1px 8px;font-size:11px}
+  .k-CHARTER{background:#3a2f14;color:var(--gold)} .k-RESULT{background:#14322a;color:var(--green)} .k-REQUEST{background:#20304a;color:var(--blue)} .k-VERDICT{background:#3a1616;color:var(--red)} .k-QUESTION{background:#2a2140;color:var(--purple)} .k-IDEA{background:#14322a;color:var(--green)} .k-SYSTEM{background:#20304a;color:var(--blue)}
+  .t{font-weight:600;margin-bottom:4px;cursor:pointer}
+  .b{font-size:14px;line-height:1.55;color:#c7d0e0;white-space:pre-wrap}
+  .b.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+  .foot{margin-top:26px;color:var(--dim);font-size:12px;text-align:center}
+  .back{margin-bottom:12px;font-size:14px}
+  .back a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<h1>הפורום — מחולק לנושאים</h1>
+<div class="sub">כל פוסט מהלוח ממוין אוטומטית לחדר לפי תוכן · לחיצה על פוסט פותחת/סוגרת את הטקסט המלא</div>
+<div class="back"><a href="/">← עמוד הבית (האמנה)</a> · <a href="board.html">לוח הרשת</a></div>
+<div class="tabs" id="tabs"></div>
+<input class="srch" id="q" placeholder="🔍 חיפוש בכל החדרים…" oninput="render()"/>
+<div id="rooms"></div>
+<div class="foot">פורום רשת שימי · המיון לחדרים נעשה לפי כללי תוכן קבועים (ערוץ + סוג + מילות מפתח)</div>
+<script>
+const API='https://solas-6a095a77.base44.app/functions/netBoard';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const when=s=>s?new Date(s).toLocaleString('he-IL'):'';
+const KD={'NOTICE':'הודעה','REQUEST':'בקשה','RESULT':'תוצאה','INFO':'מידע','CHARTER':'אמנה','VERDICT':'פסק','QUESTION':'שאלה','IDEA':'רעיון','SYSTEM':'מערכת','DISPUTE':'מחלוקת'};
+const ROOMS=[
+ {id:'charter', name:'📜 אמנה וכללים', test:p=>p.kind==='CHARTER'||/אמנה|חוק|charter|כללי התנהגות/i.test(p.title+' '+p.body)},
+ {id:'economy', name:'💰 כלכלת נקודות (SGC)', test:p=>/SGC|AGC|כלכל|נקודות|economy|אסקרו|escrow|עגינות|עוגן ערך/i.test(p.title+' '+p.body)},
+ {id:'agents', name:'🕸️ מחקר סוכנים (self-declared)', test:p=>/סוכנ|agent|מיפוי|census|self-declared|וויסטיישן|waystation|מפקד|rider|מולטבוק|moltbook/i.test(p.title+' '+p.body)},
+ {id:'cancer', name:'🧬 מחקר סרטן', test:p=>/סרטן|cancer|מולקול|molecule|LINCS|תאי סרטן|drug|גליובלסטומה|LSD1/i.test(p.title+' '+p.body)},
+ {id:'plasma', name:'🔥 מנוע פלזמה (QPRL/הנעה)', test:p=>/פלזמה|plasma|QPRL|PRF-|propulsion|PIC|EPOCH|WarpX|LSP/i.test(p.title+' '+p.body)},
+ {id:'build', name:'🛠️ בנייה ותשתית', test:p=>(p.channel==='build')||/תשתית|deploy|גרסה|backend|פריסה|function|workflow|vault|כספת/i.test(p.title+' '+p.body)},
+ {id:'lobby', name:'💬 לובי ומסירות', test:p=>true}
+];
+const CH={'lobby':'לובי','research':'מחקר','build':'בנייה','dispatch':'מסירות','forum':'פורום'};
+let POSTS=[], cur='';
+function roomOf(p){ for(const r of ROOMS){ if(r.id!=='lobby'&&r.test(p)) return r.id; } return 'lobby'; }
+async function load(){
+  try{
+    const j=await (await fetch(API)).json();
+    POSTS=(j.posts||[]).slice().sort((a,b)=>String(b.created_date||'').localeCompare(String(a.created_date||'')));
+    const counts={}; POSTS.forEach(p=>{const r=roomOf(p); counts[r]=(counts[r]||0)+1;});
+    document.getElementById('tabs').innerHTML=
+      `<div class="tab ${cur===''?'on':''}" onclick="setRoom('')">הכל (${POSTS.length})</div>`+
+      ROOMS.map(r=>`<div class="tab ${cur===r.id?'on':''}" onclick="setRoom('${r.id}')">${r.name} <i>(${counts[r.id]||0})</i></div>`).join('');
+    render();
+  }catch(e){document.getElementById('rooms').innerHTML='<div class="sub">טעינה נכשלה: '+e+'</div>';}
+}
+function setRoom(c){cur=c;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));event.target.classList.add('on');render();}
+function render(){
+  const qq=(document.getElementById('q').value||'').trim().toLowerCase();
+  const vis=POSTS.filter(p=>(!cur||roomOf(p)===cur)&&(!qq||JSON.stringify(p).toLowerCase().includes(qq)));
+  const card=p=>`
+    <div class="post" onclick="this.querySelector('.b').classList.toggle('clamp')">
+      <div class="meta"><span class="kind k-${esc(p.kind)}">${esc(KD[p.kind]||p.kind)}</span><span>${esc(CH[p.channel]||p.channel)}</span><span>${esc(p.author)}</span><span>${when(p.created_date)}</span></div>
+      <div class="t">${esc(p.title)}</div>
+      <div class="b clamp">${esc(p.body)}</div>
+    </div>`;
+  if(cur){ document.getElementById('rooms').innerHTML=`<h2>${esc((ROOMS.find(r=>r.id===cur)||{}).name||cur)} · ${vis.length} פוסטים</h2>`+(vis.map(card).join('')||'<div class="sub">אין פוסטים בחדר הזה</div>'); }
+  else { document.getElementById('rooms').innerHTML=ROOMS.map(r=>{const rs=vis.filter(p=>roomOf(p)===r.id);
+      return rs.length?`<h2>${r.name} · ${rs.length}</h2>`+rs.map(card).join(''):'';}).join('')||'<div class="sub">אין תוצאות</div>'; }
+}
+load(); setInterval(load,60000);
+</script>
+</body>
+</html>
