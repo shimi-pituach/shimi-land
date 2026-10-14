@@ -1,0 +1,1218 @@
+[
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/carmel_back.png",
+  "caption": "carmel_back.png",
+  "gate": {
+   "file": "carmel_back.png",
+   "seed": 141431,
+   "w": 1024,
+   "h": 1536,
+   "kind": "back",
+   "sec": 51.9,
+   "skin": 0.79,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1881787,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/carmel_side.png",
+  "caption": "carmel_side.png",
+  "gate": {
+   "file": "carmel_side.png",
+   "seed": 141432,
+   "w": 1024,
+   "h": 1536,
+   "kind": "side",
+   "sec": 52.0,
+   "skin": 0.551,
+   "faces_front": 1,
+   "faces_profile": 0,
+   "bytes": 1973613,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/jean_back.png",
+  "caption": "jean_back.png",
+  "gate": {
+   "file": "jean_back.png",
+   "seed": 141421,
+   "w": 1024,
+   "h": 1536,
+   "kind": "back",
+   "sec": 52.0,
+   "skin": 0.642,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 2008181,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/jean_side.png",
+  "caption": "jean_side.png",
+  "gate": {
+   "file": "jean_side.png",
+   "seed": 141422,
+   "w": 1024,
+   "h": 1536,
+   "kind": "side",
+   "sec": 52.0,
+   "skin": 0.645,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 1919664,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/katie_back.png",
+  "caption": "katie_back.png",
+  "gate": {
+   "file": "katie_back.png",
+   "seed": 141411,
+   "w": 1024,
+   "h": 1536,
+   "kind": "back",
+   "sec": 51.9,
+   "skin": 0.818,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1829783,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/katie_side.png",
+  "caption": "katie_side.png",
+  "gate": {
+   "file": "katie_side.png",
+   "seed": 141412,
+   "w": 1024,
+   "h": 1536,
+   "kind": "side",
+   "sec": 52.1,
+   "skin": 0.571,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1768955,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/sigal_back.png",
+  "caption": "sigal_back.png",
+  "gate": {
+   "file": "sigal_back.png",
+   "seed": 141401,
+   "w": 1024,
+   "h": 1536,
+   "kind": "back",
+   "sec": 55.2,
+   "skin": 0.803,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1883621,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-realvisxl",
+  "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
+  "file": "allfours-realvisxl/sigal_side.png",
+  "caption": "sigal_side.png",
+  "gate": {
+   "file": "sigal_side.png",
+   "seed": 141402,
+   "w": 1024,
+   "h": 1536,
+   "kind": "side",
+   "sec": 54.4,
+   "skin": 0.35,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 1838376,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/carmel_back.png",
+  "caption": "carmel_back.png",
+  "gate": {
+   "file": "carmel_back.png",
+   "kind": "back",
+   "faces": 0,
+   "skin": 0.236,
+   "bytes": 49805,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/carmel_side.png",
+  "caption": "carmel_side.png",
+  "gate": {
+   "file": "carmel_side.png",
+   "kind": "side",
+   "faces": 1,
+   "skin": 0.327,
+   "bytes": 43802,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/jean_back.png",
+  "caption": "jean_back.png",
+  "gate": {
+   "file": "jean_back.png",
+   "kind": "back",
+   "faces": 1,
+   "skin": 0.382,
+   "bytes": 48035,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/jean_side.png",
+  "caption": "jean_side.png",
+  "gate": {
+   "file": "jean_side.png",
+   "kind": "side",
+   "faces": 1,
+   "skin": 0.995,
+   "bytes": 44779,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/katie_back.png",
+  "caption": "katie_back.png",
+  "gate": {
+   "file": "katie_back.png",
+   "kind": "back",
+   "faces": 1,
+   "skin": 0.408,
+   "bytes": 45272,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/katie_side.png",
+  "caption": "katie_side.png",
+  "gate": {
+   "file": "katie_side.png",
+   "kind": "side",
+   "faces": 1,
+   "skin": 0.415,
+   "bytes": 44977,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/sigal_back.png",
+  "caption": "sigal_back.png",
+  "gate": {
+   "file": "sigal_back.png",
+   "kind": "back",
+   "faces": 0,
+   "skin": 0.149,
+   "bytes": 54661,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "allfours-flux",
+  "title": "מבחן ארבע-על-ארבע — Flux חינמי (14/10, 0 עברו שער)",
+  "file": "allfours-flux/sigal_side.png",
+  "caption": "sigal_side.png",
+  "gate": {
+   "file": "sigal_side.png",
+   "kind": "side",
+   "faces": 1,
+   "skin": 0.33,
+   "bytes": 47185,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/carmel_back.png",
+  "caption": "carmel_back.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/carmel_front.png",
+  "caption": "carmel_front.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131014.png",
+  "caption": "back_v6_s131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131015.png",
+  "caption": "back_v6_s131015.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131016.png",
+  "caption": "back_v6_s131016.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131017.png",
+  "caption": "back_v6_s131017.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131018.png",
+  "caption": "back_v6_s131018.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131020.png",
+  "caption": "back_v6_s131020.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131021.png",
+  "caption": "back_v6_s131021.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "carmel",
+  "title": "קרמל — כל הרנדרים",
+  "file": "carmel/back_v6_s131022.png",
+  "caption": "back_v6_s131022.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_back.png",
+  "caption": "lola_back.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_front.png",
+  "caption": "lola_front.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_flux.png",
+  "caption": "lola_flux.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_sana.png",
+  "caption": "lola_sana.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_test_front.png",
+  "caption": "lola_test_front.png",
+  "gate": null,
+  "prompt": "full body head-to-feet photo of a young adult woman wearing minimal studio test attire: a delicate sheer floral lace bralette, completely unpadded and unlined, no underwire, no support band, thin soft"
+ },
+ {
+  "section": "lola",
+  "title": "לולה — רנדרים מקנון מילובי",
+  "file": "lola/lola_turbo.png",
+  "caption": "lola_turbo.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_jean_back.png",
+  "caption": "calib2_jean_back.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_jean_front.png",
+  "caption": "calib2_jean_front.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_katie_back.png",
+  "caption": "calib2_katie_back.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_katie_front.png",
+  "caption": "calib2_katie_front.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_sigal_back.png",
+  "caption": "calib2_sigal_back.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib2_sigal_front.png",
+  "caption": "calib2_sigal_front.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_jean_back.png",
+  "caption": "calib3_jean_back.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing with her back to the camera, full back view,"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_jean_front.png",
+  "caption": "calib3_jean_front.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing facing the camera, her left hand rests on he"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_katie_back.png",
+  "caption": "calib3_katie_back.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing with her back to the camera, full back view,"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_katie_front.png",
+  "caption": "calib3_katie_front.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing facing the camera, her left hand rests on he"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_sigal_back.png",
+  "caption": "calib3_sigal_back.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing with her back to the camera, full back view,"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib3_sigal_front.png",
+  "caption": "calib3_sigal_front.png",
+  "gate": null,
+  "prompt": "wide format photograph, entire body visible from head to feet including feet, plain neutral light gray studio background, minimal scene, no props, standing facing the camera, her left hand rests on he"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_jean_back.png",
+  "caption": "calib4_jean_back.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, young woman in her mid twenties, warm friendly face, long wavy auburn-brown hair falling over her shoulders, very large high round silicone bust one s"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_jean_front.png",
+  "caption": "calib4_jean_front.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, young woman in her mid twenties, warm friendly face, long wavy auburn-brown hair falling over her shoulders, very large high round silicone bust one s"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_katie_back.png",
+  "caption": "calib4_katie_back.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, young woman in her early twenties, delicate soft facial features, dark brown-black hair tied in a neat low bun with a few loose strands, slim fit pers"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_katie_front.png",
+  "caption": "calib4_katie_front.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, young woman in her early twenties, delicate soft facial features, dark brown-black hair tied in a neat low bun with a few loose strands, slim fit pers"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_sigal_back.png",
+  "caption": "calib4_sigal_back.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "calib",
+  "title": "כיולים 2-4 — סיגל, קייטי, ג'ין",
+  "file": "calib/calib4_sigal_front.png",
+  "caption": "calib4_sigal_front.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "test-clothes",
+  "title": "ביגוד טסט קנוני",
+  "file": "test-clothes/model_test_clothes_fullbody.png",
+  "caption": "model_test_clothes_fullbody.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "test-clothes",
+  "title": "ביגוד טסט קנוני",
+  "file": "test-clothes/model_test_clothes_v2.png",
+  "caption": "model_test_clothes_v2.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "test-clothes",
+  "title": "ביגוד טסט קנוני",
+  "file": "test-clothes/test_clothes_canonical.png",
+  "caption": "test_clothes_canonical.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/cmp_phys_bust.jpg",
+  "caption": "cmp_phys_bust.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/cmp_phys_thigh.jpg",
+  "caption": "cmp_phys_thigh.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_bend.png",
+  "caption": "phys_bend.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_bust.png",
+  "caption": "phys_bust.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_glute.png",
+  "caption": "phys_glute.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_thigh.png",
+  "caption": "phys_thigh.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/poll_anchor_bend.jpg",
+  "caption": "poll_anchor_bend.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_bend.png",
+  "caption": "phys_bend.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_bust.png",
+  "caption": "phys_bust.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_pinch_flux.png",
+  "caption": "phys_pinch_flux.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_thigh.png",
+  "caption": "phys_thigh.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "physics",
+  "title": "מבחני פיזיקה",
+  "file": "physics/phys_thigh_v2.png",
+  "caption": "phys_thigh_v2.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/poker_sc1_fix_f0.png",
+  "caption": "poker_sc1_fix_f0.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/poker_sc1_fix_mid.png",
+  "caption": "poker_sc1_fix_mid.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/goth_outfit_test_f0.png",
+  "caption": "goth_outfit_test_f0.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/goth_outfit_test_mid.png",
+  "caption": "goth_outfit_test_mid.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/s4_lingerie_anchor.png",
+  "caption": "s4_lingerie_anchor.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/dress_midair.png",
+  "caption": "dress_midair.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/s5.png",
+  "caption": "s5.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/s6.png",
+  "caption": "s6.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/s7.png",
+  "caption": "s7.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/s8.png",
+  "caption": "s8.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/_katie_upper_crop.png",
+  "caption": "_katie_upper_crop.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "poker",
+  "title": "פרויקט פוקר — סטילס ותיקונים",
+  "file": "poker/attempt_sun_prompt.png",
+  "caption": "attempt_sun_prompt.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/einstein_guest_test.png",
+  "caption": "einstein_guest_test.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/katie_inpaint_result.png",
+  "caption": "katie_inpaint_result.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/michaela_body_example.png",
+  "caption": "michaela_body_example.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/michaela_ref_A.png",
+  "caption": "michaela_ref_A.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/ref_test_goth.jpg",
+  "caption": "ref_test_goth.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/ref_test_landscape.jpg",
+  "caption": "ref_test_landscape.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "misc",
+  "title": "שונות — קייטי אינפיינט, מיכאלה, רפרנסים",
+  "file": "misc/ref_test_result_seed777.jpg",
+  "caption": "ref_test_result_seed777.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_jean_back.png",
+  "caption": "canon_jean_back.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing with her back to the camera, full back view, auburn hair falling down her back, plain neutral st"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_jean_front.png",
+  "caption": "canon_jean_front.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing facing the camera, arms relaxed at her sides, plain neutral studio background, young woman in he"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_katie_back.png",
+  "caption": "canon_katie_back.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing with her back to the camera, full back view, hair in the low bun visible from behind, plain neut"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_katie_front.png",
+  "caption": "canon_katie_front.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing facing the camera, arms relaxed at her sides, plain neutral studio background, young woman in he"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_sigal_back.png",
+  "caption": "canon_sigal_back.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing with her back to the camera, full back view, looking slightly over her shoulder, plain neutral s"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/canon_sigal_front.png",
+  "caption": "canon_sigal_front.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing facing the camera, arms relaxed at her sides, plain neutral studio background, pale gothic woman"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/face_anchor_test_katie.png",
+  "caption": "face_anchor_test_katie.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/face_v2_turbo.png",
+  "caption": "face_v2_turbo.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/full_jean_131013.png",
+  "caption": "full_jean_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/full_jean_131014.png",
+  "caption": "full_jean_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/full_katie_131013.png",
+  "caption": "full_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/full_katie_131014.png",
+  "caption": "full_katie_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/katie_chest_mask.png",
+  "caption": "katie_chest_mask.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/katie_chest_mask_preview.png",
+  "caption": "katie_chest_mask_preview.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/katie_test_clothes_v2_flux.png",
+  "caption": "katie_test_clothes_v2_flux.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/michaela_ref.jpg",
+  "caption": "michaela_ref.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/michaela_young_test_clothes.png",
+  "caption": "michaela_young_test_clothes.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/polli_katie_131013.png",
+  "caption": "polli_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/polli_test_jean_131013.png",
+  "caption": "polli_test_jean_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/polli_test_jean_131014.png",
+  "caption": "polli_test_jean_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/polli_test_katie_131013.png",
+  "caption": "polli_test_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/polli_test_katie_131014.png",
+  "caption": "polli_test_katie_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/sdxl_test_jean_131013.png",
+  "caption": "sdxl_test_jean_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/sdxl_test_jean_131014.png",
+  "caption": "sdxl_test_jean_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/sdxl_test_katie_131013.png",
+  "caption": "sdxl_test_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/sdxl_test_katie_131014.png",
+  "caption": "sdxl_test_katie_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back.png",
+  "caption": "side_sigal_back.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v2.png",
+  "caption": "side_sigal_back_v2.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v4.png",
+  "caption": "side_sigal_back_v4.png",
+  "gate": null,
+  "prompt": "pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, extreme hourglass figure, very large heavy natural b"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131014.png",
+  "caption": "side_sigal_back_v5_rej_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131015.png",
+  "caption": "side_sigal_back_v5_rej_131015.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131016.png",
+  "caption": "side_sigal_back_v5_rej_131016.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131017.png",
+  "caption": "side_sigal_back_v5_rej_131017.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131018.png",
+  "caption": "side_sigal_back_v5_rej_131018.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_back_v5_rej_131019.png",
+  "caption": "side_sigal_back_v5_rej_131019.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_front.png",
+  "caption": "side_sigal_front.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_front_v2.png",
+  "caption": "side_sigal_front_v2.png",
+  "gate": null,
+  "prompt": "full body photograph, head to toe, standing pose, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, ex"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_front_v3.png",
+  "caption": "side_sigal_front_v3.png",
+  "gate": null,
+  "prompt": "fully naked young woman, full body photograph, head to toe, standing facing the camera, one hand resting on her hip, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, da"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/side_sigal_front_v4.png",
+  "caption": "side_sigal_front_v4.png",
+  "gate": null,
+  "prompt": "fully naked head to toe body photograph, pale goth woman, pale porcelain skin with freckles, sharp black winged eyeliner, dark plum lipstick, long straight jet-black hair with blunt bangs, extreme hou"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/sun_img2img_seed11.jpg",
+  "caption": "sun_img2img_seed11.jpg",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/test1_katie_131013.png",
+  "caption": "test1_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/test1_katie_131014.png",
+  "caption": "test1_katie_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/test2_katie_chest_131013.png",
+  "caption": "test2_katie_chest_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/test2_katie_chest_131014.png",
+  "caption": "test2_katie_chest_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/test_sigal_beach.png",
+  "caption": "test_sigal_beach.png",
+  "gate": null,
+  "prompt": "fully topless head to toe body photograph on a crowded summer beach with many people in the background, walking barefoot along the waterline, small waves touching her feet, pale gothic young woman, pa"
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/v2_jean_131013.png",
+  "caption": "v2_jean_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/v2_jean_131014.png",
+  "caption": "v2_jean_131014.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/v2_katie_131013.png",
+  "caption": "v2_katie_131013.png",
+  "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "tests-archive",
+  "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
+  "file": "tests-archive/v2_katie_131014.png",
+  "caption": "v2_katie_131014.png",
+  "gate": null,
+  "prompt": null
+ }
+]
