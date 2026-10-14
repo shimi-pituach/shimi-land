@@ -83,7 +83,7 @@
   "section": "allfours-realvisxl",
   "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
   "file": "allfours-realvisxl/katie_back.png",
-  "caption": "קייטי ארבע-על-ארבע אחורי — התמונה שסאן כינה 'לולה', מאושרת כטובה",
+  "caption": "קייטי אחורי — פסילת סאן: רק הפתח האנאלי נכון אנטומית, כל השאר מעוות. לא מאושרת (תיוג קודם 'טובה' שגוי)",
   "gate": {
    "file": "katie_back.png",
    "seed": 141411,
@@ -95,7 +95,8 @@
    "faces_front": 0,
    "faces_profile": 0,
    "bytes": 1829783,
-   "gate_pass": true
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1219,7 +1220,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/sigal_front.png",
-  "caption": "sigal_front.png (seed 151501)",
+  "caption": "סיגל קדמית — פסילת סאן: הגוף לא של סיגל (עיוות דמות)",
   "gate": {
    "file": "sigal_front.png",
    "seed": 151501,
@@ -1229,7 +1230,8 @@
    "faces_front": 1,
    "faces_profile": 1,
    "bytes": 1959087,
-   "gate_pass": false
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1237,7 +1239,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/sigal_front.png",
-  "caption": "sigal_front.png (seed 152478)",
+  "caption": "סיגל קדמית — פסילת סאן: הגוף לא של סיגל (עיוות דמות)",
   "gate": {
    "file": "sigal_front.png",
    "seed": 152478,
@@ -1247,7 +1249,8 @@
    "faces_front": 2,
    "faces_profile": 1,
    "bytes": 1945014,
-   "gate_pass": false
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1255,7 +1258,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/sigal_back.png",
-  "caption": "sigal_back.png (seed 151502)",
+  "caption": "סיגל אחורי — פסילת סאן: הגוף לא של סיגל (טוסיק רזה, חזה קטן). פנים ושיער תקינים. פתח אנאלי לא נוצר (חיתוך 77 טוקנים)",
   "gate": {
    "file": "sigal_back.png",
    "seed": 151502,
@@ -1265,7 +1268,8 @@
    "faces_front": 0,
    "faces_profile": 0,
    "bytes": 1857117,
-   "gate_pass": true
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1273,7 +1277,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/sigal_side.png",
-  "caption": "sigal_side.png (seed 151503)",
+  "caption": "סיגל צד — פסילת סאן: הגוף לא של סיגל (טוסיק רזה, חזה קטן). פנים ושיער תקינים",
   "gate": {
    "file": "sigal_side.png",
    "seed": 151503,
@@ -1283,7 +1287,8 @@
    "faces_front": 0,
    "faces_profile": 0,
    "bytes": 1852165,
-   "gate_pass": false
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1291,7 +1296,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/sigal_side.png",
-  "caption": "sigal_side.png (seed 152480)",
+  "caption": "סיגל צד — פסילת סאן: הגוף לא של סיגל (טוסיק רזה, חזה קטן). פנים ושיער תקינים",
   "gate": {
    "file": "sigal_side.png",
    "seed": 152480,
@@ -1301,7 +1306,8 @@
    "faces_front": 1,
    "faces_profile": 0,
    "bytes": 1916193,
-   "gate_pass": true
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1309,7 +1315,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/katie_side.png",
-  "caption": "katie_side.png (seed 151504)",
+  "caption": "קייטי צד — פסילת סאן: חזה מעוות",
   "gate": {
    "file": "katie_side.png",
    "seed": 151504,
@@ -1319,7 +1325,8 @@
    "faces_front": 0,
    "faces_profile": 0,
    "bytes": 1809071,
-   "gate_pass": false
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1327,7 +1334,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/katie_side.png",
-  "caption": "katie_side.png (seed 152481)",
+  "caption": "קייטי צד — פסילת סאן: חזה מעוות",
   "gate": {
    "file": "katie_side.png",
    "seed": 152481,
@@ -1337,7 +1344,8 @@
    "faces_front": 0,
    "faces_profile": 1,
    "bytes": 1866947,
-   "gate_pass": true
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
@@ -1345,7 +1353,7 @@
   "section": "remediation-14-10",
   "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
   "file": "remediation-14-10/jean_back.png",
-  "caption": "jean_back.png (seed 151505)",
+  "caption": "ג'ין אחורי — פסילת סאן: יד מעוותת; הגוף יחסית תקין",
   "gate": {
    "file": "jean_back.png",
    "seed": 151505,
@@ -1355,7 +1363,8 @@
    "faces_front": 0,
    "faces_profile": 0,
    "bytes": 2032593,
-   "gate_pass": true
+   "gate_pass": false,
+   "verdict_source": "סאן 14/10 — דריסת שער אוטומטי (השערים שלי לא מודדים קנון דמות)"
   },
   "prompt": null
  },
