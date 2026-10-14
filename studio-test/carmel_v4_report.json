@@ -1,0 +1,26 @@
+{
+ "gpu": "Tesla T4",
+ "model": "SG161222/RealVisXL_V5.0",
+ "images": [
+  {
+   "file": "carmel_front.png",
+   "seed": 141114,
+   "w": 1024,
+   "h": 1536,
+   "sec": 53.8,
+   "mean": 141.9,
+   "bytes": 2158423
+  },
+  {
+   "file": "carmel_back.png",
+   "seed": 141015,
+   "w": 1024,
+   "h": 1536,
+   "sec": 49.6,
+   "mean": 102.5,
+   "bytes": 2022787
+  }
+ ],
+ "failed": [],
+ "branches": []
+}
