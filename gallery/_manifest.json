@@ -83,7 +83,7 @@
   "section": "allfours-realvisxl",
   "title": "מבחן ארבע-על-ארבע — RealVisXL V5.0 (14/10)",
   "file": "allfours-realvisxl/katie_back.png",
-  "caption": "katie_back.png",
+  "caption": "קייטי ארבע-על-ארבע אחורי — התמונה שסאן כינה 'לולה', מאושרת כטובה",
   "gate": {
    "file": "katie_back.png",
    "seed": 141411,
@@ -827,7 +827,7 @@
   "section": "tests-archive",
   "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
   "file": "tests-archive/canon_jean_back.png",
-  "caption": "canon_jean_back.png",
+  "caption": "קנון ג'ין אחורי (לא קייטי)",
   "gate": null,
   "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing with her back to the camera, full back view, auburn hair falling down her back, plain neutral st"
  },
@@ -835,7 +835,7 @@
   "section": "tests-archive",
   "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
   "file": "tests-archive/canon_jean_front.png",
-  "caption": "canon_jean_front.png",
+  "caption": "קייטי — רפרנס קנוני מאושר (השם מטעה, זו קייטי)",
   "gate": null,
   "prompt": "fully naked head to toe body photograph from head to feet, entire body visible including feet, standing facing the camera, arms relaxed at her sides, plain neutral studio background, young woman in he"
  },
@@ -875,7 +875,7 @@
   "section": "tests-archive",
   "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
   "file": "tests-archive/face_anchor_test_katie.png",
-  "caption": "face_anchor_test_katie.png",
+  "caption": "קייטי — רפרנס פנים מאושר (סאן 14/10)",
   "gate": null,
   "prompt": null
  },
@@ -899,7 +899,7 @@
   "section": "tests-archive",
   "title": "ארכיון מבחנים ותיקונים — סיגל צד, קייטי חזה, img2img של סאן, קנונים",
   "file": "tests-archive/full_jean_131014.png",
-  "caption": "full_jean_131014.png",
+  "caption": "קייטי — רפרנס מאושר (השם מטעה, זו קייטי)",
   "gate": null,
   "prompt": null
  },
@@ -1213,6 +1213,150 @@
   "file": "tests-archive/v2_katie_131014.png",
   "caption": "v2_katie_131014.png",
   "gate": null,
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front.png",
+  "caption": "sigal_front.png (seed 151501)",
+  "gate": {
+   "file": "sigal_front.png",
+   "seed": 151501,
+   "kind": "front",
+   "sec": 56.1,
+   "skin": 0.229,
+   "faces_front": 1,
+   "faces_profile": 1,
+   "bytes": 1959087,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_front.png",
+  "caption": "sigal_front.png (seed 152478)",
+  "gate": {
+   "file": "sigal_front.png",
+   "seed": 152478,
+   "kind": "front",
+   "sec": 56.8,
+   "skin": 0.399,
+   "faces_front": 2,
+   "faces_profile": 1,
+   "bytes": 1945014,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_back.png",
+  "caption": "sigal_back.png (seed 151502)",
+  "gate": {
+   "file": "sigal_back.png",
+   "seed": 151502,
+   "kind": "back",
+   "sec": 61.8,
+   "skin": 0.88,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1857117,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_side.png",
+  "caption": "sigal_side.png (seed 151503)",
+  "gate": {
+   "file": "sigal_side.png",
+   "seed": 151503,
+   "kind": "side",
+   "sec": 60.3,
+   "skin": 0.813,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1852165,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/sigal_side.png",
+  "caption": "sigal_side.png (seed 152480)",
+  "gate": {
+   "file": "sigal_side.png",
+   "seed": 152480,
+   "kind": "side",
+   "sec": 60.4,
+   "skin": 0.694,
+   "faces_front": 1,
+   "faces_profile": 0,
+   "bytes": 1916193,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/katie_side.png",
+  "caption": "katie_side.png (seed 151504)",
+  "gate": {
+   "file": "katie_side.png",
+   "seed": 151504,
+   "kind": "side",
+   "sec": 60.4,
+   "skin": 0.856,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 1809071,
+   "gate_pass": false
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/katie_side.png",
+  "caption": "katie_side.png (seed 152481)",
+  "gate": {
+   "file": "katie_side.png",
+   "seed": 152481,
+   "kind": "side",
+   "sec": 60.5,
+   "skin": 0.795,
+   "faces_front": 0,
+   "faces_profile": 1,
+   "bytes": 1866947,
+   "gate_pass": true
+  },
+  "prompt": null
+ },
+ {
+  "section": "remediation-14-10",
+  "title": "סבב תיקון החוב (14/10) — רגליים/שיער/אנטומיה + סיגל לפי קנון סאן",
+  "file": "remediation-14-10/jean_back.png",
+  "caption": "jean_back.png (seed 151505)",
+  "gate": {
+   "file": "jean_back.png",
+   "seed": 151505,
+   "kind": "back",
+   "sec": 60.4,
+   "skin": 0.634,
+   "faces_front": 0,
+   "faces_profile": 0,
+   "bytes": 2032593,
+   "gate_pass": true
+  },
   "prompt": null
  }
 ]
