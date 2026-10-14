@@ -1,0 +1,26 @@
+{
+ "gpu": "Tesla T4",
+ "model": "SG161222/RealVisXL_V5.0",
+ "images": [
+  {
+   "file": "lola_front.png",
+   "seed": 151014,
+   "w": 1024,
+   "h": 1536,
+   "sec": 57.1,
+   "mean": 118.9,
+   "bytes": 2159401
+  },
+  {
+   "file": "lola_back.png",
+   "seed": 151015,
+   "w": 1024,
+   "h": 1536,
+   "sec": 59.3,
+   "mean": 127.3,
+   "bytes": 2117802
+  }
+ ],
+ "failed": [],
+ "branches": []
+}
