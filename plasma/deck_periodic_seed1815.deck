@@ -1,0 +1,143 @@
+begin:control
+  nx = 750
+  ny = 750
+
+  # Final time of simulation
+  t_end = 100 * femto
+
+  # Size of domain
+  x_min = -15 * micron
+  x_max = -x_min #*1.5
+  y_min = x_min
+  y_max = -y_min
+
+  stdout_frequency = 10
+  dt_multiplier = 0.84794 
+  #0.04 fs timestep, 7500 steps to agree with other codes 
+  
+#Used for timing runs  
+  #nprocy=1 #2 4 8 16 32 48
+  #nprocx=1
+  #print_eta_string=F
+  #balance_first = F
+  #use_pre_balance = F
+
+#Used for random seed runs
+  use_random_seed = T
+  random_seed = 1815
+
+end:control
+
+
+begin:boundaries
+  bc_x_min = simple_laser
+  bc_x_max = periodic
+  bc_y_min = open
+  bc_y_max = open
+end:boundaries
+
+
+begin:constant
+  lambda0 = 0.8 * micron
+  
+  #This laser parameter setup follows example_decks/laser_focus.deck 
+  # These two set the beam focus
+  w_0 = 2.5479 * micron # 3 micron FWHM	
+  x_spot = 15 * micron # Distance from x_min to spot
+
+  # These are the parameters calculated for driving the laser
+  # These should not need to be modified
+  x_R = pi * w_0^2 / lambda0 # Rayleigh range
+  RC = x_spot * (1.0 + (x_R/x_spot)^2) # Radius of curvature on x_min
+  w_bnd = w_0 * sqrt( 1.0 + (x_spot/x_R)^2) # Spot size at x_min
+  gouy = atan(x_spot/x_R) # Gouy phase shift at x_min
+
+  omega = 2 * pi * c / lambda0
+  ###
+  
+  den_targ = 8.5e27
+   
+  
+  target_thickness = 1*micron 
+
+  target_x_inner = -target_thickness/2
+  target_x_outer =  target_thickness/2
+ 
+  amp_Focus = 2.744923728e13 #10^20 W/cm^2 amplitude at focus
+  amp_Bound = amp_Focus*sqrt(w_0/w_bnd) #For a 2D laser  
+end:constant
+
+
+begin:species
+  name = proton
+  charge = 1.0
+  mass = 1836.2
+  density = if(( (x gt target_x_inner) and (x lt target_x_outer)) and (abs(y) lt 10*micron), den_targ, 0)
+  temp_ev = 10000  
+  npart_per_cell = 25
+end:species
+
+
+begin:species
+  name = electron
+  charge = -1.0
+  mass = 1.0
+  temp_ev = 10000
+  density = density(proton)
+  npart_per_cell = 25
+end:species
+
+
+begin:laser
+  boundary = x_min
+  amp = amp_Bound
+
+  lambda = lambda0
+  t_start = 0
+  t_end = 60 * femto
+  t_profile = sin(pi * time / (60*femto) )
+  phase = 2.0 * pi/ lambda0 * y^2 / (2.0 * RC) - gouy
+  polarisation_angle = pi/2
+  profile = gauss(y,0,w_bnd)
+end:laser
+
+#Remove output block for timing runs
+begin:output
+  #name = normal
+
+  # Simulated time between output dumps
+  dt_snapshot = 100 * femto
+  #nstep_snapshot=1 #use this instead for plotting every timestep and turn off all but energy diags if desired
+  full_dump_every = 1
+  
+  # Properties on grid
+  grid = always
+  ex = always
+  ey = always
+  ez = always
+  bx = always
+  by = always
+  bz = always
+  total_energy_sum = always + species
+  absorption = always
+
+  number_density=always+species
+  ekbar = always
+  charge_density = always
+  
+  particles = full
+  particle_energy = full
+  particle_weight = full
+  vx = full
+  vy = full
+  vz = full
+  px = full
+  py = full
+  pz = full
+  mass = full
+  charge = full
+  relativistic_mass = full
+  gamma = full
+
+end:output
+
