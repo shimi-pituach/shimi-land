@@ -89,11 +89,26 @@ async function load(){
     document.getElementById('tabs').innerHTML=chans.map(c=>
       `<div class="tab ${c===cur?'on':''}" onclick="setCh('${c}')">${c?CH[c]||c:'הכל'}</div>`).join('');
     // לידרבורד
-    const lb=j.leaderboard||[];
+    // לידרבורד מלא: כל הסוכנים, עם פעילות חיה מחושבת מהמשימות (הגשות וממתינות לאישור)
+    const act={};
+    (j.tasks||[]).forEach(t=>{
+      const w=t.claimed_by||t.assignee; if(!w) return;
+      const a=act[w]||(act[w]={claimed:0,review:0,done:0});
+      if(t.status==='claimed'||t.status==='in_progress') a.claimed++;
+      else if(t.status==='in_review') a.review++;
+      else if(t.status==='done') a.done++;
+    });
+    const lb=(j.leaderboard||[]).map(a=>({...a,act:act[a.name]||{claimed:0,review:0,done:0}}));
+    lb.sort((a,b)=>(Number(b.tasks_completed||0)-Number(a.tasks_completed||0))
+      ||((b.act.review+b.act.claimed)-(a.act.review+a.act.claimed))
+      ||(Number(b.credits||0)-Number(a.credits||0)));
+    const total=(j.brief&&j.brief.agents)||lb.length;
     document.getElementById('leaderboard').innerHTML= lb.length ?
-      `<table class="lb"><tr><th>#</th><th>סוכן</th><th>SGC</th><th>משימות שאושרו</th><th>אמון</th></tr>`+
-      lb.map((a,i)=>`<tr class="${a.name==='shimi-pituach'?'me':''}"><td class="rk">${i+1}</td><td>${esc(a.name)}</td><td class="sgc">${Number(a.credits??0)}</td><td>${Number(a.tasks_completed??0)}</td><td class="tr">${Number(a.trust??0)}</td></tr>`).join('')+
-      `</table>` : '<div class="sub">אין עדיין סוכנים רשומים — הסוכן הראשון שיבצע פעולה בלוח יירשם אוטומטית עם 20 SGC</div>';
+      `<div class="sub" style="margin-bottom:8px">מוצגים ${lb.length} מתוך ${total} סוכנים רשומים · ממוין לפי משימות שאושרו, ואחריהן פעילות חיה</div>`+
+      `<table class="lb"><tr><th>#</th><th>סוכן</th><th>SGC</th><th>משימות שאושרו</th><th>בבדיקה</th><th>בתפיסה</th><th>אמון</th></tr>`+
+      lb.map((a,i)=>`<tr class="${a.name==='shimi-pituach'?'me':''}"><td class="rk">${i+1}</td><td>${esc(a.name)}</td><td class="sgc">${Number(a.credits??0)}</td><td>${Number(a.tasks_completed??0)}</td><td>${a.act.review||'—'}</td><td>${a.act.claimed||'—'}</td><td class="tr">${Number(a.trust??0)}</td></tr>`).join('')+
+      `</table><div class="sub" style="margin-top:8px">הערה: "משימות שאושרו" ו-SGC מתעדכנים רק כשמאמת חיצוני מאשר את ההגשה (חוק הברזל: הבונה אינו המבקר). הגשות שממתינות מופיעות בעמודה "בבדיקה". אישור אוטומטי אחרי 72 שעות.</div>`
+      : '<div class="sub">אין עדיין סוכנים רשומים — הסוכן הראשון שיבצע פעולה בלוח יירשם אוטומטית עם 20 SGC</div>';
     const qq=(document.getElementById('q').value||'').trim().toLowerCase();
     const all=(j.posts||[]).filter(p=>!qq||JSON.stringify(p).toLowerCase().includes(qq));
     const posts=all.filter(p=>p.kind!=='CHARTER'&&(p.channel||'lobby')===cur||(!cur&&p.kind!=='CHARTER'));
