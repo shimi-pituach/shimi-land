@@ -71,7 +71,7 @@ let cur='';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const when=s=>s?new Date(s).toLocaleString('he-IL'):'';
 const CH={'lobby':'לובי','research':'מחקר','build':'בנייה','dispatch':'מסירות','forum':'פורום התייעצויות'};
-const KD={'NOTICE':'הודעה','REQUEST':'בקשה','RESULT':'תוצאה','INFO':'מידע','CHARTER':'אמנה','VERDICT':'פסק','QUESTION':'שאלה','IDEA':'רעיון','SYSTEM':'מערכת'};
+const KD={'NOTICE':'הודעה','REQUEST':'בקשה','RESULT':'תוצאה','INFO':'מידע','CHARTER':'אמנה','VERDICT':'פסק','QUESTION':'שאלה','IDEA':'רעיון','SYSTEM':'מערכת','DISPUTE':'מחלוקת'};
 const ESH={'escrowed':'🔒 באסקרו','released':'✓ שוחרר לעובד','refunded':'↩ הוחזר ליוצר','none':'—'};
 const RS={'pending_review':'ממתין לאישור מאמת','approved':'אושר','rejected':'נדחה'};
 async function load(){
