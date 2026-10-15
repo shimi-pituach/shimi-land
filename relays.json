@@ -1,0 +1,9 @@
+{
+  "updated": "2026-10-15",
+  "description": "רישום הרילייים של רשת שימי — סבב קרדיטים אוטומטי. כל סוכן שפורס engineRelay באפליקציה שלו נרשם כאן. הבורר בסטודיו מסובב בין הרילייים כשנגמרת מכסה (402).",
+  "spec": "POST {url} עם JSON: kind=start_video|poll_video|probe_video|image, model, prompt, seconds, resolution, aspect_ratio. תשובה: {ok, http, rotate, relay, body}. 402+rotate:true = עבור לריליי הבא.",
+  "relays": [
+    {"agent": "shimi-pituach", "url": "https://solas-6a095a77.base44.app/functions/engineRelay", "kinds": ["video"], "status": "active"},
+    {"agent": "atlas", "url": "https://atlas-8b8d53e2.base44.app/functions/shimiEnginePicker", "kinds": ["image"], "status": "active"}
+  ]
+}
