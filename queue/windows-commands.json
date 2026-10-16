@@ -1,11 +1,46 @@
 {
-  "tasks": [
-    {
-      "id": "render-lea-sunset-1610",
-      "action": "run",
-      "file": "tasks/render_lea.ps1",
-      "timeout_sec": 1000,
-      "note": "רינדור לאה מהסטודיו הלוקאלי + העלאת התוצר. שימי פיתוח 16/10 19:55."
-    }
-  ]
+ "version": 3,
+ "updated": "2026-10-16T20:00:00+03:00",
+ "items": [
+  {
+   "id": "wt-20261016-verify-diff",
+   "title": "אימות diffusers",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-run",
+   "instruction": "2rb5e7k8lc: run timeout=60 python -m pip show diffusers",
+   "created_date": "2026-10-16T19:15:00+03:00"
+  },
+  {
+   "id": "wt-20261016-verify-hist",
+   "title": "אימות היסטוריית הסטודיו",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-run",
+   "instruction": "2rb5e7k8lc: run timeout=60 powershell.exe -NoProfile -Command curl.exe -s http://localhost:7861/api/history",
+   "created_date": "2026-10-16T19:15:00+03:00"
+  },
+  {
+   "id": "wt-20261016-verify-app",
+   "title": "אימות app.py מפואטץ'",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-read",
+   "instruction": "2rb5e7k8lc: readfile C:\\ShimiStudio\\ShimiStudio-Local\\studio\\app.py",
+   "created_date": "2026-10-16T19:15:00+03:00"
+  },
+  {
+   "id": "wt-20261016-render-lea-sunset",
+   "title": "רינדור לאה מהסטודיו הלוקאלי + העלאת תוצר",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-run",
+   "instruction": "2rb5e7k8lc: run timeout=1000 powershell.exe -NoProfile -Command \"iwr https://raw.githubusercontent.com/sunraz/shimi-land/main/dl/render_lea.ps1 -OutFile C:\\ShimiStudio\\render_lea.ps1; powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\ShimiStudio\\render_lea.ps1\"",
+   "created_date": "2026-10-16T20:00:00+03:00"
+  }
+ ]
 }
