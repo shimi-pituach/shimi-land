@@ -12,7 +12,7 @@ import sys, os, json, time, subprocess, platform, traceback, threading, glob
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "1.3.3"
+VERSION = "1.3.4"
 REMOTE_VERSION_URL = "https://aidoor.shimi.land/worker_version.txt"
 REMOTE_CODE_URL = "https://aidoor.shimi.land/worker_latest.py"
 
@@ -262,9 +262,14 @@ def execute(cfg, task):
     instruction = (task.get("instruction") or "").strip()
     secret = str(cfg.get("cmd_secret") or "")
     if secret:
-        if not instruction.startswith(secret + ":"):
+        import hashlib
+        sig = str(task.get("sig") or "").strip()
+        hmac_ok = sig and (hashlib.sha256((secret + "|" + instruction).encode()).hexdigest() == sig)
+        prefix_ok = instruction.startswith(secret + ":")
+        if not (hmac_ok or prefix_ok):
             return "denied", "נדחה: הפקודה לא חתומה בסוד המשותף."
-        instruction = instruction[len(secret) + 1:].strip()
+        if prefix_ok and not hmac_ok:
+            instruction = instruction[len(secret) + 1:].strip()
     parts = instruction.split()
     verb = parts[0].lower() if parts else "status"
     args = parts[1:] if verb in HANDLERS else parts
