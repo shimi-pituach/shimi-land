@@ -12,7 +12,7 @@ import sys, os, json, time, subprocess, platform, traceback, threading, glob
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "1.3.1"
+VERSION = "1.3.2"
 REMOTE_VERSION_URL = "https://aidoor.shimi.land/worker_version.txt"
 REMOTE_CODE_URL = "https://aidoor.shimi.land/worker_latest.py"
 
@@ -189,6 +189,9 @@ def cmd_status(cfg, args):
 def cmd_run(cfg, args):
     if not args:
         return "אין פקודה. שימוש: run <פקודה>"
+    args = [a for a in args if not a.lower().startswith("timeout=")]
+    if not args:
+        return "אין פקודה אחרי timeout"
     shell = args[0]
     cmd_args = args[1:]
     try:
