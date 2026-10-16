@@ -1,26 +1,16 @@
 {
  "version": 3,
- "updated": "2026-10-16T19:12:00+03:00",
+ "updated": "2026-10-16T19:00:00+03:00",
  "items": [
   {
-   "id": "wt-20261016-logdump",
-   "title": "וין: יומן וורקר (אבחון)",
-   "source": "windows-commands",
-   "status": "pending",
-   "priority": "high",
-   "task_code": "win-read",
-   "instruction": "2rb5e7k8lc: readfile C:\\ShimiWorker\\worker_log.txt",
-   "created_date": "2026-10-16T19:12:00+03:00"
-  },
-  {
-   "id": "wt-20261016-deps-patch15-c",
-   "title": "וין: תלויות + פאטץ' 1.5 (ניסיון 3)",
+   "id": "wt-20261016-deps-patch15-d",
+   "title": "וין: תלויות + פאטץ' 1.5 (ניסיון 4)",
    "source": "windows-commands",
    "status": "pending",
    "priority": "high",
    "task_code": "win-run",
-   "instruction": "2rb5e7k8lc: run timeout=900 powershell.exe -NoProfile -Command \"echo PYVER; python --version 2>&1; echo STEP_NUMPY; python -m pip install -q --no-input numpy 2>&1 | Select-Object -Last 1; python -c 'import numpy; print(`\"NUMPY_OK`\", numpy.__version__)' 2>&1 | Select-Object -First 1; echo STEP_DIFF; python -m pip install -q --no-input diffusers transformers accelerate safetensors 2>&1 | Select-Object -Last 1; python -c 'import diffusers; print(`\"DIFFUSERS_OK`\", diffusers.__version__)' 2>&1 | Select-Object -First 1; echo STEP_TORCH; python -c 'import torch; print(`\"TORCH_OK`\", torch.__version__, torch.cuda.is_available())' 2>&1 | Select-Object -First 1; echo STEP_PATCH; $d='C:\\ShimiStudio\\ShimiStudio-Local\\studio'; curl.exe -s -o $d\\patch15.py https://raw.githubusercontent.com/sunraz/shimi-land/main/downloads/studio15/patch15.py; python $d\\patch15.py; echo DONE\"",
-   "created_date": "2026-10-16T19:12:00+03:00"
+   "instruction": "2rb5e7k8lc: run timeout=900 powershell.exe -NoProfile -Command \"echo PYVER; python --version 2>&1; echo STEP_NUMPY; python -m pip install -q --no-input numpy 2>&1 | Select-Object -Last 1; python -c 'import numpy; print(``\"NUMPY_OK``\", numpy.__version__)' 2>&1 | Select-Object -First 1; echo STEP_DIFF; python -m pip install -q --no-input diffusers transformers accelerate safetensors 2>&1 | Select-Object -Last 1; python -c 'import diffusers; print(``\"DIFFUSERS_OK``\", diffusers.__version__)' 2>&1 | Select-Object -First 1; echo STEP_TORCH; python -c 'import torch; print(``\"TORCH_OK``\", torch.__version__, torch.cuda.is_available())' 2>&1 | Select-Object -First 1; echo STEP_PATCH; $d='C:\\ShimiStudio\\ShimiStudio-Local\\studio'; curl.exe -s -o $d\\patch15.py https://raw.githubusercontent.com/sunraz/shimi-land/main/downloads/studio15/patch15.py; python $d\\patch15.py; echo DONE\"",
+   "created_date": "2026-10-16T19:00:00+03:00"
   }
  ]
 }
