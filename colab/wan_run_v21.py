@@ -1,11 +1,16 @@
 # wan_run_v21.py — הרצת שחזור lana82 (0:57-1:01) דרך סשן קיים של lea_lora_colab
 # נכתב ע"י שימי פיתוח. מריץ את תאי wan22_lea_colab.ipynb (2,4,6,7,8) בזה אחר זה.
+# v21.1: שדרוג כפוי של bitsandbytes (diffusers דורש >=0.43.3 בכימות 4-bit).
 import json, subprocess, sys, urllib.request
 
-print('── שלב 0: התקנת תלויות (שקט) ──', flush=True)
-subprocess.run([sys.executable, '-m', 'pip', '-q', 'install',
+print('── שלב 0: שדרוג bitsandbytes + התקנת תלויות ──', flush=True)
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '-U', 'bitsandbytes'], check=False)
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q',
                 'diffusers', 'transformers', 'accelerate', 'safetensors',
-                'sentencepiece', 'einops', 'bitsandbytes'], check=False)
+                'sentencepiece', 'einops'], check=False)
+
+import bitsandbytes
+print('✔ bitsandbytes', bitsandbytes.__version__, flush=True)
 
 import torch
 assert torch.cuda.is_available(), 'אין GPU! הסשן הזה חייב להיות GPU.'
