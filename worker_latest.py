@@ -12,7 +12,7 @@ import sys, os, json, time, subprocess, platform, traceback, threading, glob
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 REMOTE_VERSION_URL = "https://aidoor.shimi.land/worker_version.txt"
 REMOTE_CODE_URL = "https://aidoor.shimi.land/worker_latest.py"
 
@@ -192,7 +192,14 @@ def cmd_run(cfg, args):
     shell = args[0]
     cmd_args = args[1:]
     try:
-        r = subprocess.run([shell] + cmd_args, capture_output=True, text=True, timeout=840, shell=False)
+        if os.name == "nt" and shell.lower() in ("powershell", "pwsh", "cmd", "cmd.exe", "powershell.exe"):
+            exe = "powershell.exe" if shell.lower().startswith(("powershell", "pwsh")) else "cmd.exe"
+            try:
+                r = subprocess.run([exe] + cmd_args, capture_output=True, text=True, timeout=840, shell=False)
+            except FileNotFoundError:
+                r = subprocess.run(" ".join([shell] + cmd_args), capture_output=True, text=True, timeout=840, shell=True)
+        else:
+            r = subprocess.run([shell] + cmd_args, capture_output=True, text=True, timeout=840, shell=False)
         out = (r.stdout or "")[-3000:]
         err = (r.stderr or "")[-800:]
         return "rc=%s\n%s%s" % (r.returncode, out, ("\n[stderr] " + err) if err.strip() else "")
@@ -312,7 +319,28 @@ def self_update(cfg):
     return False
 
 
+def single_instance():
+    lock = os.path.join(HERE, "worker.lock")
+    try:
+        with open(lock, "r") as f:
+            pid = int(f.read().strip() or 0)
+        if pid and pid != os.getpid():
+            try:
+                os.kill(pid, 0)
+                return False  # עותק חי — אני מתנתק בשקט
+            except Exception:
+                pass
+    except Exception:
+        pass
+    with open(lock, "w") as f:
+        f.write(str(os.getpid()))
+    return True
+
+
 def main():
+    if not single_instance():
+        log("עותק נוסף חי — מתנתק כדי לא לכפול עבודה")
+        sys.exit(0)
     cfg = load_config()
     trim_log()
     log("שימי וורקר v" + VERSION + " (GitHub-native) עלה. worker_id=" + str(cfg.get("worker_id")))

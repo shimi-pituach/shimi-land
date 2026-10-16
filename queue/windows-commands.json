@@ -1,16 +1,16 @@
 {
  "version": 3,
- "updated": "2026-10-16T18:20:00+03:00",
+ "updated": "2026-10-16T18:45:00+03:00",
  "items": [
   {
-   "id": "wt-20261016-deps-patch15",
-   "title": "וין: תלויות + פאטץ' 1.5 + אתחול + אימות",
+   "id": "wt-20261016-deps-patch15-b",
+   "title": "וין: תלויות + פאטץ' 1.5 (ניסיון 2, v1.3.1)",
    "source": "windows-commands",
    "status": "pending",
    "priority": "high",
    "task_code": "win-run",
-   "instruction": "2rb5e7k8lc: run timeout=900 powershell -NoProfile -Command \"echo PYVER; python --version 2>&1; echo STEP_NUMPY; python -m pip install -q --no-input numpy 2>&1 | Select-Object -Last 1; python -c 'import numpy; print(`\"NUMPY_OK`\", numpy.__version__)' 2>&1 | Select-Object -First 1; echo STEP_DIFF; python -m pip install -q --no-input diffusers transformers accelerate safetensors 2>&1 | Select-Object -Last 1; python -c 'import diffusers; print(`\"DIFFUSERS_OK`\", diffusers.__version__)' 2>&1 | Select-Object -First 1; echo STEP_TORCH; python -c 'import torch; print(`\"TORCH_OK`\", torch.__version__, torch.cuda.is_available())' 2>&1 | Select-Object -First 1; echo STEP_PATCH; $d='C:\\ShimiStudio\\ShimiStudio-Local\\studio'; curl.exe -s -o $d\\patch15.py https://raw.githubusercontent.com/sunraz/shimi-land/main/downloads/studio15/patch15.py; python $d\\patch15.py; echo STEP_RESTART; Get-CimInstance Win32_Process -Filter `\"name='python.exe'`\" | Where-Object {$_.CommandLine -like '*app.py*'} | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }; Start-Sleep 2; Start-Process -WindowStyle Hidden python -ArgumentList 'app.py' -WorkingDirectory $d; Start-Sleep 10; echo SRV=$(curl.exe -s -o NUL -w '%{http_code}' http://localhost:7861/editor --max-time 8); echo STEP_VERIFY; $h=Invoke-RestMethod -Uri http://localhost:7861/api/history -TimeoutSec 20; echo NET_ITEMS=$($h.items.Count); echo DONE\"",
-   "created_date": "2026-10-16T18:20:00+03:00"
+   "instruction": "2rb5e7k8lc: run timeout=900 powershell.exe -NoProfile -Command \"echo PYVER; python --version 2>&1; echo STEP_NUMPY; python -m pip install -q --no-input numpy 2>&1 | Select-Object -Last 1; python -c 'import numpy; print(`\"NUMPY_OK`\", numpy.__version__)' 2>&1 | Select-Object -First 1; echo STEP_DIFF; python -m pip install -q --no-input diffusers transformers accelerate safetensors 2>&1 | Select-Object -Last 1; python -c 'import diffusers; print(`\"DIFFUSERS_OK`\", diffusers.__version__)' 2>&1 | Select-Object -First 1; echo STEP_TORCH; python -c 'import torch; print(`\"TORCH_OK`\", torch.__version__, torch.cuda.is_available())' 2>&1 | Select-Object -First 1; echo STEP_PATCH; $d='C:\\ShimiStudio\\ShimiStudio-Local\\studio'; curl.exe -s -o $d\\patch15.py https://raw.githubusercontent.com/sunraz/shimi-land/main/downloads/studio15/patch15.py; python $d\\patch15.py; echo STEP_RESTART; Get-CimInstance Win32_Process -Filter `\"name='python.exe'`\" | Where-Object {$_.CommandLine -like '*app.py*'} | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }; Start-Sleep 2; Start-Process -WindowStyle Hidden python -ArgumentList 'app.py' -WorkingDirectory $d; Start-Sleep 10; echo SRV=$(curl.exe -s -o NUL -w '%{http_code}' http://localhost:7861/editor --max-time 8); echo DONE\"",
+   "created_date": "2026-10-16T18:45:00+03:00"
   }
  ]
 }
