@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📚 ההיסטוריה המלאה — כל התוצרים של רשת שימי</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#e5e7eb;font-family:'Segoe UI',system-ui,sans-serif}
+header{padding:26px 20px 14px;text-align:center;background:linear-gradient(180deg,#1a1040,#0b1220)}
+h1{margin:0;font-size:1.5rem}
+h1 em{color:#f59e0b;font-style:normal}
+.sub{color:#9ca3af;margin-top:6px;font-size:.95rem}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.stat{background:#111827;border:1px solid #374151;border-radius:10px;padding:8px 16px;min-width:90px}
+.stat b{display:block;font-size:1.25rem;color:#fbbf24}
+.stat span{font-size:.78rem;color:#9ca3af}
+nav.bar{position:sticky;top:0;z-index:50;background:#111827ee;border-bottom:1px solid #374151;padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;backdrop-filter:blur(6px)}
+.btn{background:#1f2937;border:1px solid #4b5563;color:#e5e7eb;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.88rem}
+.btn:hover{border-color:#f59e0b}
+.btn.on{background:#f59e0b;color:#111;border-color:#f59e0b;font-weight:600}
+select,input[type=search]{background:#1f2937;border:1px solid #4b5563;color:#e5e7eb;border-radius:8px;padding:7px 10px;font-size:.88rem}
+input[type=search]{flex:1;min-width:150px;max-width:320px}
+#count{color:#fbbf24;font-weight:600;margin-inline-start:auto;font-size:.85rem}
+main{max-width:1400px;margin:0 auto;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:#111827;border:1px solid #374151;border-radius:12px;overflow:hidden;position:relative}
+.card:hover{border-color:#f59e0b}
+.thumb{width:100%;height:230px;object-fit:cover;display:block;background:#000;cursor:pointer}
+video.thumb{cursor:pointer}
+.cap{padding:8px 10px;font-size:.78rem;color:#9ca3af;border-top:1px solid #1f2937;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{position:absolute;top:8px;inset-inline-start:8px;background:#000000cc;border:1px solid #374151;color:#fbbf24;font-size:.7rem;padding:2px 8px;border-radius:20px;z-index:2}
+.tag.vid{color:#f87171;border-color:#7f1d1d}
+.lb{position:fixed;inset:0;background:#000d;z-index:100;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.lb img,.lb video{max-width:96vw;max-height:82vh;border-radius:8px}
+.lb .x{position:absolute;top:14px;inset-inline-end:18px;font-size:2rem;color:#fff;cursor:pointer;background:none;border:none}
+footer{text-align:center;color:#6b7280;font-size:.8rem;padding:26px}
+footer a{color:#f59e0b}
+.empty{grid-column:1/-1;text-align:center;color:#9ca3af;padding:60px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>📚 ההיסטוריה המלאה — <em>כל תוצרי הרשת במקום אחד</em></h1>
+  <div class="sub">כל תמונה וכל סרטון שהופק אי פעם בכל מנוע: מקומי, קולאב, Kaggle, תור GPU וסטודיוים. נטען חי מ-history-index.json</div>
+  <div class="stats">
+    <div class="stat"><b id="s-total">—</b><span>סה"כ תוצרים</span></div>
+    <div class="stat"><b id="s-img">—</b><span>תמונות</span></div>
+    <div class="stat"><b id="s-vid">—</b><span>וידאו</span></div>
+    <div class="stat"><b id="s-fold">—</b><span>מקורות/תיקיות</span></div>
+  </div>
+</header>
+<nav class="bar">
+  <button class="btn on" data-type="all" id="f-all">הכל</button>
+  <button class="btn" data-type="img" id="f-img">🖼 תמונות</button>
+  <button class="btn" data-type="vid" id="f-vid">🎬 וידאו</button>
+  <select id="f-char"><option value="">כל הדמויות/מדורים</option></select>
+  <input type="search" id="q" placeholder="🔍 חיפוש חופשי בשם קובץ...">
+  <span id="count">טוען...</span>
+</nav>
+<main>
+  <div class="grid" id="grid"><div class="empty">טוען את ההיסטוריה המלאה...</div></div>
+</main>
+<footer>
+  דף זה נבנה על ידי שימי פיתוח ומתעדכן עם כל תוצר חדש · <a href="gallery.html">← הגלריה המסודרת לפי נושאים</a> · <a href="https://studio2.shimi.land">סטודיו</a> · <a href="board.html">הלוח</a>
+</footer>
+<div class="lb" id="lb" style="display:none"><button class="x" id="lbx">✕</button><div id="lbc"></div></div>
+<script>
+const GRID=document.getElementById('grid'),Q=document.getElementById('q'),FC=document.getElementById('f-char'),CNT=document.getElementById('count');
+let ITEMS=[],FILTER='all',CHAR='',QUERY='';
+const isVid=u=>/\.(mp4|webm|mov|gif)(\?|$)/i.test(u||'');
+function tagOf(it){return it.char&&it.char!=='כללי'?it.char:(it.folder||'')}
+function render(){
+  const list=ITEMS.filter(it=>{
+    if(FILTER==='img'&&isVid(it.url))return false;
+    if(FILTER==='vid'&&!isVid(it.url))return false;
+    if(CHAR&&tagOf(it)!==CHAR)return false;
+    if(QUERY&&!(it.title+' '+it.folder+' '+it.char).toLowerCase().includes(QUERY))return false;
+    return true;
+  });
+  CNT.textContent='מוצגים '+list.length+' מתוך '+ITEMS.length;
+  GRID.innerHTML=list.length?'':'<div class="empty">לא נמצאו תוצרים בסינון הזה</div>';
+  const frag=document.createDocumentFragment();
+  list.forEach((it,i)=>{
+    const c=document.createElement('div');c.className='card';
+    const t=tagOf(it);
+    if(isVid(it.url)){
+      c.innerHTML='<span class="tag vid">🎬 וידאו</span>';
+      const v=document.createElement('video');v.className='thumb';v.preload='metadata';v.muted=true;v.playsInline=true;v.src=it.url;
+      v.onclick=()=>openLb(it,true);c.appendChild(v);
+    }else{
+      if(t){const s=document.createElement('span');s.className='tag';s.textContent=t;c.appendChild(s);}
+      const im=document.createElement('img');im.className='thumb';im.loading='lazy';im.src=it.url;im.alt=it.title;
+      im.onclick=()=>openLb(it,false);c.appendChild(im);
+    }
+    const cap=document.createElement('div');cap.className='cap';cap.textContent=it.title+(it.folder&&it.folder!=='רינדרים'?' · '+it.folder:'');c.appendChild(cap);
+    frag.appendChild(c);
+  });
+  GRID.appendChild(frag);
+}
+function openLb(it,vid){
+  document.getElementById('lbc').innerHTML=vid
+    ?'<video controls autoplay loop playsinline src="'+it.url+'"></video><div style="color:#9ca3af;font-size:.85rem">'+it.title+'</div><a href="'+it.url+'" download style="color:#f59e0b">⬇ הורדה ישירה</a>'
+    :'<img src="'+it.url+'"><div style="color:#9ca3af;font-size:.85rem">'+it.title+'</div><a href="'+it.url+'" download style="color:#f59e0b">⬇ הורדה ישירה</a>';
+  document.getElementById('lb').style.display='flex';
+}
+document.getElementById('lbx').onclick=()=>document.getElementById('lb').style.display='none';
+document.getElementById('lb').onclick=e=>{if(e.target.id==='lb')e.currentTarget.style.display='none'};
+document.querySelectorAll('nav .btn[data-type]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav .btn[data-type]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');FILTER=b.dataset.type;render();
+});
+Q.oninput=()=>{QUERY=Q.value.trim().toLowerCase();render()};
+FC.onchange=()=>{CHAR=FC.value;render()};
+fetch('history-index.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  ITEMS=(d.items||[]).slice().reverse();
+  document.getElementById('s-total').textContent=ITEMS.length;
+  document.getElementById('s-img').textContent=ITEMS.filter(i=>!isVid(i.url)).length;
+  document.getElementById('s-vid').textContent=ITEMS.filter(i=>isVid(i.url)).length;
+  document.getElementById('s-fold').textContent=new Set(ITEMS.map(i=>i.folder)).size;
+  const chars=[...new Set(ITEMS.map(tagOf).filter(Boolean))].sort();
+  chars.forEach(ch=>{const o=document.createElement('option');o.value=ch;o.textContent=ch+' ('+ITEMS.filter(i=>tagOf(i)===ch).length+')';FC.appendChild(o)});
+  render();
+}).catch(e=>{GRID.innerHTML='<div class="empty">טעינת ההיסטוריה נכשלה: '+e+'</div>'});
+</script>
+</body>
+</html>
