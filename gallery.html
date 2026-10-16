@@ -10,6 +10,11 @@ h1{font-size:1.3rem}h2{font-size:1.05rem;margin:28px 0 12px;border-bottom:1px so
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;place-items:center;z-index:9;cursor:zoom-out}
 #lightbox img{max-width:96vw;max-height:92vh}</style></head><body>
 <h1>🎬 גלריית שימי — כל התמונות שנוצרו עד היום</h1>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px;padding:12px 14px;background:#171a21;border:1px solid #f59e0b;border-radius:12px">
+<a href="history.html" style="background:#f59e0b;color:#111;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem">📚 ההיסטוריה המלאה — 450 תוצרים (407 תמונות + 43 וידאו, עם סינון וחיפוש)</a>
+<a href="#videos" style="background:#1f2937;color:#f87171;font-weight:600;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem;border:1px solid #7f1d1d">🎬 מחלקת הווידאו — 40 סרטונים (קפיצה ישירה)</a>
+<a href="https://studio2.shimi.land" style="background:#1f2937;color:#e8eaf0;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem;border:1px solid #2a2f3a">🎛 הסטודיו</a>
+</div>
 <p style="color:#9aa3b2;font-size:.85rem">לחיצה על תמונה פותחת בגודל מלא. שערים אוטומטיים = טכני בלבד; קנון דמות נשפט רק בעיניים של סאן.</p>
 <div id="lightbox" onclick="this.style.display='none'"><img id="lbimg"></div>
 <script>function lb(src){document.getElementById('lbimg').src=src;document.getElementById('lightbox').style.display='grid'}</script>
@@ -247,6 +252,7 @@ h1{font-size:1.3rem}h2{font-size:1.05rem;margin:28px 0 12px;border-bottom:1px so
 </div>
 <p style="color:#9aa3b2;margin-top:30px">סהכ: 153 תמונות. 14/10.</p><!-- FAILED-SUN-15-10: לאה 160001-160004 + lea-synth: נכשלו, חזה מעוות. לא נמחקו (חוק ברזל). -->
 
+<span id="videos"></span>
 <h1 style="margin-top:40px">🎬 מחלקת וידאו — כל הסרטונים שנוצרו (נוסף 16/10)</h1>
 <p style="color:#9aa3b2;font-size:.85rem">עדכון היסטוריה מלא: 40 סרטונים שנוצרו בסטודיוים השונים, מכל המקורות (מקומי, Kaggle, תור GPU). לחיצה על נגן מפעילה ישירות.</p>
 
