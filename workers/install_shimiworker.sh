@@ -16,7 +16,7 @@ cd "$D"
 nohup python3 worker_cmd.py >> worker_out.log 2>&1 &
 # שומר עדכוני-על (launchd): כל 5 דקות מרים את הוורקר אם אינו חי
 cat > "$HOME/Library/LaunchAgents/land.shimi.worker.plist" << EOF
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>Label</key><string>land.shimi.worker</string><key>ProgramArguments</key><array><string>python3</string><string>$D/worker_cmd.py</string></array><key>StartInterval</key><integer>300</integer><key>RunAtLoad</key><true/></array></dict></plist>
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>Label</key><string>land.shimi.worker</string><key>ProgramArguments</key><array><string>python3</string><string>$D/worker_cmd.py</string></array><key>StartInterval</key><integer>300</integer><key>RunAtLoad</key><true/><key>KeepAlive</key><true/></dict></plist>
 EOF
 launchctl unload "$HOME/Library/LaunchAgents/land.shimi.worker.plist" 2>/dev/null || true
 launchctl load "$HOME/Library/LaunchAgents/land.shimi.worker.plist" 2>/dev/null || true
