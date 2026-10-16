@@ -1,0 +1,16 @@
+{
+ "version": 3,
+ "updated": "2026-10-16T18:20:00+03:00",
+ "items": [
+  {
+   "id": "mt-20261016-first",
+   "title": "מאק: בדיקת עלייה ראשונה (GitHub-native)",
+   "source": "mac-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "mac-status",
+   "instruction": "2rb5e7k8lc: status",
+   "created_date": "2026-10-16T18:20:00+03:00"
+  }
+ ]
+}

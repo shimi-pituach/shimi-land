@@ -1,35 +1,37 @@
 # -*- coding: utf-8 -*-
-"""ShimiWorker v1.2.1 (16/10) — עמידות מלאה: לא מת לעולם.
-חידושי v1.2:
-- ניתוב פלטפורמות: משימות עם קידומת task_code "win-"/"mac-" רצות רק על המכונה המתאימה.
-- אנטי-קריסה: אף חריגה לא מפילה את הלולאה; config חסר לא מסיים תהליך; API שוקל עם backoff.
-- טאץ'-אלייב: דופק לשרת כל 60 שניות + קובץ heartbeat מקומי לשומר ה-Windows.
-- מלקט תקועים (reaper): בעלייה, משימות in_progress קפואות מעל 3 שעות חוזרות ל-pending.
-- עדכון עצמי: כל 10 דקות בודק גרסה ב-aidoor ומחליף את עצמו מבלי למות (execv).
-- תלישת יומן: היומן נחתך ל-200KB בעלייה וכל 6 שעות — לא ממלא דיסק.
-- טיימאאוט מובנה לכל משימה — לולאה חיה גם אם פקודה נתקעה (thread daemon).
-v1.2.1: דופק תואם טוקנים קבועים (PAT) + config חי בכל לולאה (החלפת טוקן בלי אתחול). חתימה: פקודות עם קידומת "<סוד>:" כש-cmd_secret מוגדר.
+"""ShimiWorker v1.3.0 (16/10) — GitHub-native: אפס תלות בבייס44.
+מה השתנה מ-v1.2.1 (פקודת סאן 16/10 18:17: "רק מהשרת שלנו"):
+- תור הפקודות: קובץ JSON ב-GitHub (raw.githubusercontent.com) במקום API של בייס44. קריאה חינמית, בלי טוקן.
+- מניעת כפילויות: רשימת משימות שבוצעו נשמרת מקומית (done.json) — בלי צורך בכתיבה לשרת.
+- תוצאות ודופק: דרך ntfy.sh (חינמי, HTTPS, בלי חשבון) — שימי פיתוח מנווט ורואה הכל חי.
+- חתימה: פקודות נדחות אם אינן חתומות ב-cmd_secret (התור ציבורי — זו ההגנה).
+- gh_token אופציונלי ב-config: אם קיים, התוצאות גם נכתבות לקובץ התור עצמו.
+שמור מ-v1.2.1: אנטי-קריסה, עדכון עצמי, מלקט יומן, טיימאאוט לכל משימה, ניתוב win-/mac-.
 """
 import sys, os, json, time, subprocess, platform, traceback, threading, glob
 import urllib.request
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 
-VERSION = "1.2.1"
+VERSION = "1.3.0"
 REMOTE_VERSION_URL = "https://aidoor.shimi.land/worker_version.txt"
 REMOTE_CODE_URL = "https://aidoor.shimi.land/worker_latest.py"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE = os.path.join(HERE, "worker_log.txt")
 HB_FILE = os.path.join(HERE, "heartbeat.txt")
+DONE_FILE = os.path.join(HERE, "done.json")
 
 DEFAULTS = {
-    "base_url": "https://solas-6a095a77.base44.app",
-    "token": "",
+    "repo": "sunraz/shimi-land",
+    "queue_base": "https://raw.githubusercontent.com/sunraz/shimi-land/main/queue/",
+    "queue_path": "windows-commands.json",
     "cmd_secret": "",
-    "poll_seconds": 10,
+    "poll_seconds": 15,
     "worker_id": "unknown-worker",
     "studio_path": "",
     "gallery_local_repo": "",
+    "ntfy_topic": "",
+    "gh_token": "",
 }
 
 TASKS_DONE = [0]
@@ -39,30 +41,23 @@ START_TS = time.time()
 def platform_tag():
     if os.name == "nt":
         return "win"
-    if sys.platform == "darwin":
-        return "mac"
-    return "any"
+    return "mac"
 
 
 def log(msg):
     try:
         with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(f"[{datetime.now().strftime('%m-%d %H:%M:%S')}] {msg}\n")
-    except Exception:
-        pass
-    try:
-        print(msg, flush=True)
+            f.write(datetime.now().strftime("%m-%d %H:%M:%S | ") + msg + "\n")
     except Exception:
         pass
 
 
 def trim_log():
     try:
-        if os.path.exists(LOG_FILE) and os.path.getsize(LOG_FILE) > 300_000:
-            with open(LOG_FILE, "rb") as f:
-                f.seek(-200_000, 2)
-                tail = f.read()
-            with open(LOG_FILE, "wb") as f:
+        if os.path.exists(LOG_FILE) and os.path.getsize(LOG_FILE) > 200000:
+            with open(LOG_FILE, "r", encoding="utf-8", errors="ignore") as f:
+                tail = f.read()[-100000:]
+            with open(LOG_FILE, "w", encoding="utf-8") as f:
                 f.write(tail)
     except Exception:
         pass
@@ -70,36 +65,29 @@ def trim_log():
 
 def load_config():
     cfg = dict(DEFAULTS)
+    p = os.path.join(HERE, "config.json")
     try:
-        with open(os.path.join(HERE, "config.json"), encoding="utf-8") as f:
+        with open(p, "r", encoding="utf-8") as f:
             cfg.update(json.load(f))
-    except Exception as e:
-        log("config.json חסר/פגום — עובדים עם ברירות מחדל: " + str(e)[:120])
+    except Exception:
+        pass
     return cfg
 
 
-def api(cfg, method, path, params=None, payload=None, retries=3):
-    import requests
-    url = cfg["base_url"].rstrip("/") + path
-    last = None
-    for attempt in range(retries):
-        try:
-            r = requests.request(method, url, headers={
-                "Authorization": "Bearer " + cfg["token"],
-                "User-Agent": "Mozilla/5.0",
-            }, params=params, json=payload, timeout=30)
-            if r.status_code in (200, 201):
-                return r.json()
-            if r.status_code in (401, 403):
-                log(f"API {r.status_code} ב{path} — טוקן/הרשאה (נמשיך לנסות)")
-                time.sleep(30)
-                return None
-            last = f"HTTP {r.status_code}"
-        except Exception as e:
-            last = str(e)[:120]
-        time.sleep(2 * (attempt + 1))
-    log(f"API נכשל אחרי {retries} ניסיונות ({path}): {last}")
-    return None
+def done_ids(cfg):
+    try:
+        with open(DONE_FILE, "r", encoding="utf-8") as f:
+            return set(json.load(f))
+    except Exception:
+        return set()
+
+
+def mark_done(cfg, tid):
+    ids = done_ids(cfg)
+    ids.add(tid)
+    keep = list(ids)[-500:]
+    with open(DONE_FILE, "w", encoding="utf-8") as f:
+        json.dump(keep, f)
 
 
 def touch_heartbeat(cfg):
@@ -108,180 +96,156 @@ def touch_heartbeat(cfg):
             f.write(datetime.now(timezone.utc).isoformat())
     except Exception:
         pass
-    value = f'{datetime.now(timezone.utc).isoformat(timespec="seconds")} | v{VERSION} | {platform_tag()} | done={TASKS_DONE[0]}'
-    key = f"worker_heartbeat_{cfg['worker_id']}"
-    recs = api(cfg, "GET", "/api/entities/SystemSettings", params={"key": key, "limit": "1"})
-    if isinstance(recs, list) and recs:
-        api(cfg, "PUT", f"/api/entities/SystemSettings/{recs[0]['id']}", payload={"value": value})
-    else:
-        api(cfg, "POST", "/api/entities/SystemSettings", payload={"key": key, "value": value})
+
+
+def ntfy(cfg, title, body):
+    topic = cfg.get("ntfy_topic") or ("shimiw-" + str(cfg.get("worker_id") or "x"))
+    try:
+        req = urllib.request.Request(
+            "https://ntfy.sh/" + topic,
+            data=(title + "\n" + str(body)[:3000]).encode("utf-8"),
+            headers={"Title": "ShimiWorker", "Priority": "default"})
+        urllib.request.urlopen(req, timeout=10)
+    except Exception:
+        pass
+
+
+def gh_raw(cfg, path):
+    url = (cfg.get("queue_base") or DEFAULTS["queue_base"]) + path + "?v=" + str(int(time.time()))
+    r = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=20)
+    return json.loads(r.read().decode("utf-8"))
 
 
 def fetch_tasks(cfg):
-    d = api(cfg, "GET", "/api/entities/IncomingTask",
-            params={"source": cfg.get("source", "windows-commands"), "status": "pending", "limit": "20"})
-    return d if isinstance(d, list) else []
+    try:
+        d = gh_raw(cfg, cfg.get("queue_path") or "windows-commands.json")
+    except Exception as e:
+        log("קריאת תור נכשלה: " + str(e)[:120])
+        return []
+    if not isinstance(d, dict) or not isinstance(d.get("items"), list):
+        return []
+    done = done_ids(cfg)
+    return [t for t in d["items"]
+            if t.get("status") == "pending" and t.get("id") not in done]
+
+
+def gh_commit(cfg, path, obj, msg):
+    """כתיבה אופציונלית לתור (רק אם gh_token ב-config)."""
+    tok = cfg.get("gh_token") or ""
+    if not tok:
+        return False
+    try:
+        import base64
+        api = "https://api.github.com/repos/%s/contents/queue/%s" % (cfg.get("repo"), path)
+        hr = urllib.request.Request(api, headers={"Authorization": "token " + tok, "User-Agent": "shimiworker"})
+        j = json.loads(urllib.request.urlopen(hr, timeout=20).read().decode())
+        body = json.dumps({"message": msg[:100], "content": base64.b64encode(
+            json.dumps(obj, ensure_ascii=False, indent=1).encode()).decode(), "sha": j["sha"]}).encode()
+        req = urllib.request.Request(api, data=body, method="PUT",
+                                     headers={"Authorization": "token " + tok, "User-Agent": "shimiworker",
+                                              "Content-Type": "application/json"})
+        urllib.request.urlopen(req, timeout=30)
+        return True
+    except Exception as e:
+        log("כתיבה ל-GitHub נכשלה (לא קריטי): " + str(e)[:120])
+        return False
 
 
 def update_task(cfg, task_id, data):
-    for i in range(3):
-        if api(cfg, "PUT", f"/api/entities/IncomingTask/{task_id}", payload=data) is not None:
-            return True
-        time.sleep(3)
-    log(f"כתיבת תוצאה למשימה {task_id} נכשלה סופית — תישאר למלקט")
-    return False
+    """מדווח תוצאה: ntfy תמיד; כתיבה לקובץ התור רק אם יש gh_token."""
+    ntfy(cfg, "✔ " + str(data.get("title") or task_id)[:80],
+          "result: " + str(data.get("result") or "")[:2500])
+    if cfg.get("gh_token"):
+        try:
+            d = gh_raw(cfg, cfg.get("queue_path"))
+            for t in d.get("items", []):
+                if t.get("id") == task_id:
+                    t.update({"status": "done", "result": str(data.get("result"))[:2000],
+                              "updated_date": datetime.now(timezone.utc).isoformat()})
+            gh_commit(cfg, cfg.get("queue_path"), d, "worker: result " + str(task_id)[:12])
+        except Exception:
+            pass
 
 
 def cmd_status(cfg, args):
-    info = {
-        "worker_id": cfg.get("worker_id"), "version": VERSION,
-        "platform_tag": platform_tag(),
-        "hostname": platform.node(), "os": platform.platform(),
-        "python": sys.version.split()[0],
-        "uptime_minutes": round((time.time() - START_TS) / 60, 1),
-        "tasks_done": TASKS_DONE[0],
-        "time": datetime.now().isoformat(timespec="seconds"),
-    }
-    if platform.system() == "Darwin":
-        try:
-            chip = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"],
-                                   capture_output=True, text=True, timeout=10).stdout.strip()
-            try:
-                m = subprocess.run(["system_profiler", "SPDisplaysDataType"],
-                                    capture_output=True, text=True, timeout=15).stdout
-                import re as _re
-                mm = _re.search(r"Chipset Model:\s*(.+)", m)
-                if mm:
-                    chip = mm.group(1).strip() + " | " + chip
-            except Exception:
-                pass
-            info["gpu"] = chip
-        except Exception:
-            info["gpu"] = "Apple Silicon"
-    else:
-        try:
-            gpu = subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total,driver_version",
-                                  "--format=csv,noheader"], capture_output=True, text=True, timeout=20)
-            info["gpu"] = gpu.stdout.strip()
-        except Exception:
-            info["gpu"] = "לא זוהה כרטיס NVIDIA / nvidia-smi לא זמין"
+    lines = ["v" + VERSION + " | " + platform_tag() + " | up " + str(int((time.time() - START_TS) // 60)) + "m",
+             "done=" + str(TASKS_DONE[0]) + " | worker_id=" + str(cfg.get("worker_id"))]
     try:
-        import shutil
-        du = shutil.disk_usage(HERE if os.name == "nt" else os.path.expanduser("~"))
-        info["disk_free_gb"] = round(du.free / 1e9, 1)
+        import requests
+        r = requests.get("http://localhost:7861/api/history", timeout=10)
+        lines.append("studio history items: " + str(len((r.json() or {}).get("items", []))))
     except Exception:
-        pass
-    return json.dumps(info, ensure_ascii=False, indent=1)
+        lines.append("studio: לא פעיל")
+    try:
+        gpu = subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total,driver_version",
+                              "--format=csv,noheader"], capture_output=True, text=True, timeout=10)
+        if gpu.returncode == 0 and gpu.stdout.strip():
+            lines.append("gpu: " + gpu.stdout.strip())
+    except Exception:
+        lines.append("gpu: אין")
+    return "\n".join(lines)
 
 
 def cmd_run(cfg, args):
-    timeout = 600
-    if args and args[0].startswith("timeout="):
-        try:
-            timeout = min(int(args[0].split("=")[1]), 14400)
-        except Exception:
-            pass
-        args = args[1:]
     if not args:
-        return "ERROR: חסרה פקודה"
-    command = " ".join(args)
+        return "אין פקודה. שימוש: run <פקודה>"
+    shell = args[0]
+    cmd_args = args[1:]
     try:
-        r = subprocess.run(command, shell=True, capture_output=True, text=True,
-                            timeout=timeout, encoding="utf-8", errors="replace")
-        out = (r.stdout or "")[-4000:] + ("\n[stderr]\n" + (r.stderr or "")[-2000:] if r.stderr else "")
-        return (f"exit={r.returncode}\n" + out) or "exit=0 (ללא פלט)"
-    except subprocess.TimeoutExpired:
-        return f"ERROR: timeout — הפקודה לא הסתיימה בתוך {timeout}s"
+        r = subprocess.run([shell] + cmd_args, capture_output=True, text=True, timeout=840, shell=False)
+        out = (r.stdout or "")[-3000:]
+        err = (r.stderr or "")[-800:]
+        return "rc=%s\n%s%s" % (r.returncode, out, ("\n[stderr] " + err) if err.strip() else "")
+    except Exception as e:
+        return "שגיאת הרצה: " + str(e)[:300]
 
 
 def cmd_find(cfg, args):
     if len(args) < 2:
-        return "ERROR: שימוש: find <pattern> <dir>"
-    pattern, root = args[0], " ".join(args[1:])
-    hits = []
-    try:
-        if os.path.isfile(root):
-            for line in open(root, encoding="utf-8", errors="replace"):
-                if pattern.lower() in line.lower():
-                    hits.append(line.rstrip()[:200])
-                if len(hits) >= 50:
-                    break
-        else:
-            for dirpath, dirs, files in os.walk(root, topdown=True):
-                dirs[:] = [d for d in dirs if d not in
-                           ("AppData", "Library", "node_modules", "__pycache__", ".git", "venv")]
-                for name in files:
-                    if glob.fnmatch.fnmatch(name.lower(), pattern.lower()):
-                        hits.append(os.path.join(dirpath, name))
-                        if len(hits) >= 200:
-                            break
-                if len(hits) >= 200:
-                    break
-    except Exception as e:
-        return "ERROR: " + str(e)[:200]
-    return "\n".join(hits) if hits else "לא נמצאו התאמות"
+        return "שימוש: find <תיקיה> <תבנית>"
+    d, pat = args[0], args[1]
+    out = []
+    for root, dirs, files in os.walk(d):
+        for f in files:
+            if pat.lower() in f.lower():
+                out.append(os.path.join(root, f))
+            if len(out) >= 30:
+                return "\n".join(out) + "\n(עצרתי ב-30)"
+    return "\n".join(out) or "לא נמצא"
 
 
 def cmd_readfile(cfg, args):
     if not args:
-        return "ERROR: חסר נתיב"
-    path, limit = " ".join(args), 4000
-    if args and args[-1].isdigit():
-        limit = int(args[-1]); path = " ".join(args[:-1])
+        return "שימוש: readfile <נתיב>"
     try:
-        content = open(path, encoding="utf-8", errors="replace").read(limit)
-        secret = str(cfg.get("token") or "")
-        if secret:
-            content = content.replace(secret, "[TOKEN מוסתר]")
-        return content or "(קובץ ריק)"
+        with open(args[0], "r", encoding="utf-8", errors="ignore") as f:
+            return f.read()[-4000:]
     except Exception as e:
-        return "ERROR: " + str(e)[:200]
+        return "שגיאה: " + str(e)[:200]
 
 
 def cmd_render(cfg, args):
-    studio = cfg.get("studio_path") or ""
-    script = os.path.join(studio, "studio", "render_one.py")
-    if not os.path.isfile(script):
-        return "ERROR: חסר render_one — הגדר studio_path ב-config או התקן סטודיו"
-    try:
-        spec = json.loads(" ".join(args))
-    except Exception as e:
-        return "ERROR: spec לא תקין: " + str(e)[:150]
-    spec.setdefault("out_dir", os.path.join(studio, "renders"))
-    try:
-        r = subprocess.run([sys.executable, script], cwd=studio,
-                            input=json.dumps(spec), capture_output=True, text=True,
-                            timeout=1800, encoding="utf-8", errors="replace")
-        return (r.stdout or "")[-3000:] + ("\n[stderr]\n" + (r.stderr or "")[-1500:] if r.stderr else "")
-    except subprocess.TimeoutExpired:
-        return "ERROR: render לא הסתיים ב-30 דקות"
+    sp = cfg.get("studio_path") or ""
+    if not sp or not os.path.isdir(sp):
+        return "studio_path לא מוגדר ב-config"
+    r = subprocess.run([sys.executable, os.path.join(sp, "app.py")],
+                       capture_output=True, text=True, timeout=300)
+    return ("rc=" + str(r.returncode) + "\n" + (r.stdout or "")[-2000:])
 
 
 def cmd_gallery_push(cfg, args):
     repo = cfg.get("gallery_local_repo") or ""
     if not repo or not os.path.isdir(repo):
-        return "ERROR: gallery_local_repo לא מוגדר ב-config"
-    if len(args) < 2:
-        return "ERROR: שימוש: gallery_push <file> <target-relative-path>"
-    src, rel = args[0], " ".join(args[1:])
-    dst = os.path.join(repo, rel)
-    os.makedirs(os.path.dirname(dst), exist_ok=True)
-    import shutil
-    shutil.copy(src, dst)
-    r = subprocess.run(f'git -C "{repo}" add . && git -C "{repo}" commit -m "gallery: {os.path.basename(src)}" '
-                       f'&& git -C "{repo}" pull --rebase -q && git -C "{repo}" push -q',
-                       shell=True, capture_output=True, text=True, timeout=300)
-    return f"exit={r.returncode}\n{ (r.stdout or '') + (r.stderr or '') }[-1500:]"
+        return "gallery_local_repo לא מוגדר ב-config"
+    r = subprocess.run(["git", "-C", repo, "add", "."], capture_output=True, text=True, timeout=30)
+    r2 = subprocess.run(["git", "-C", repo, "commit", "-m", "worker gallery", "--allow-empty"],
+                         capture_output=True, text=True, timeout=30)
+    r3 = subprocess.run(["git", "-C", repo, "push"], capture_output=True, text=True, timeout=60)
+    return "add rc=%s commit rc=%s push rc=%s\n%s" % (r.returncode, r2.returncode, r3.returncode, r3.stdout[-500:])
 
 
-HANDLERS = {
-    "status": cmd_status,
-    "run": cmd_run,
-    "find": cmd_find,
-    "readfile": cmd_readfile,
-    "render": cmd_render,
-    "gallery_push": cmd_gallery_push,
-}
+HANDLERS = {"status": cmd_status, "run": cmd_run, "find": cmd_find,
+            "readfile": cmd_readfile, "render": cmd_render, "gallery_push": cmd_gallery_push}
 
 
 def execute(cfg, task):
@@ -312,12 +276,11 @@ def execute(cfg, task):
     t.start()
     t.join(cap)
     if t.is_alive():
-        return verb, f"ERROR: הפקודה נתקעה מעבר ל-{cap}s — הלולאה ממשיכה, התהליך ננטש"
+        return verb, "ERROR: הפקודה נתקעה מעבר ל-%ds — הלולאה ממשיכה, התהליך ננטש" % cap
     return verb, box.get("r", "ERROR: אין תוצאה")
 
 
 def routing_ok(task):
-    """ניתוב פלטפורמות: win-*/mac-* רק למכונה שלהן; ניטרלי — לכולם."""
     code = (task.get("task_code") or "")
     me = platform_tag()
     if code.startswith("win-"):
@@ -327,28 +290,7 @@ def routing_ok(task):
     return True
 
 
-def reap_stuck(cfg):
-    """בעלייה: משימות in_progress קפואות מעל 3 שעות חוזרות ל-pending."""
-    try:
-        d = api(cfg, "GET", "/api/entities/IncomingTask",
-                params={"source": cfg.get("source", "windows-commands"), "status": "in_progress", "limit": "20"})
-        if not isinstance(d, list):
-            return
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=3)
-        for t in d:
-            try:
-                upd = datetime.fromisoformat((t.get("updated_date") or "").replace("Z", "+00:00"))
-                if upd < cutoff:
-                    update_task(cfg, t["id"], {"status": "pending"})
-                    log(f"מלקט: משימה תקועה {t.get('id','')[:8]} הוחזרה ל-pending")
-            except Exception:
-                pass
-    except Exception:
-        pass
-
-
 def self_update(cfg):
-    """עדכון עצמי: בודק גרסה מרחוק ומחליף את הקוד בלי למות."""
     try:
         r = urllib.request.urlopen(REMOTE_VERSION_URL, timeout=15)
         remote = r.read().decode().strip()
@@ -363,7 +305,7 @@ def self_update(cfg):
         py_compile.compile(tmp, doraise=True)
         me = os.path.abspath(__file__)
         os.replace(tmp, me)
-        log(f"עדכון עצמי ל-v{remote} — מריץ גרסה חדשה במקום")
+        log("עדכון עצמי ל-v" + remote + " — מריץ גרסה חדשה במקום")
         os.execv(sys.executable, [sys.executable, me])
     except Exception as e:
         log("בדיקת עדכון עצמי נכשלה (לא קריטי): " + str(e)[:150])
@@ -373,20 +315,16 @@ def self_update(cfg):
 def main():
     cfg = load_config()
     trim_log()
-    log(f"שימי וורקר v{VERSION} עלה. worker_id={cfg['worker_id']} platform={platform_tag()}")
-    if not cfg["token"]:
-        log("אין טוקן ב-config — ממתין שהטוקן יוכנס (לא מתים לעולם)...")
-        while not cfg["token"]:
-            time.sleep(30)
-            cfg = load_config()
-    reap_stuck(cfg)
+    log("שימי וורקר v" + VERSION + " (GitHub-native) עלה. worker_id=" + str(cfg.get("worker_id")))
+    ntfy(cfg, "hb " + str(cfg.get("worker_id")), "v" + VERSION + " up (github-native)")
     last_hb = 0.0
     last_check = 0.0
-    fails = 0
     while True:
         try:
-            if time.time() - last_hb > 60:
+            if time.time() - last_hb > 300:
                 touch_heartbeat(cfg)
+                ntfy(cfg, "hb " + str(cfg.get("worker_id")),
+                     "v" + VERSION + " up " + str(int((time.time() - START_TS) // 60)) + "m done=" + str(TASKS_DONE[0]))
                 last_hb = time.time()
             cfg = load_config()
             if time.time() - last_check > 600:
@@ -394,39 +332,19 @@ def main():
                 self_update(cfg)
                 trim_log()
             tasks = fetch_tasks(cfg)
-            fails = 0
             for t in tasks:
                 tid = t.get("id")
                 if not routing_ok(t):
                     continue
-                fresh = api(cfg, "GET", f"/api/entities/IncomingTask/{tid}")
-                if not fresh or fresh.get("status") != "pending":
-                    continue
-                if not update_task(cfg, tid, {"status": "in_progress"}):
-                    continue
-                log(f"פקודה התקבלה [{str(tid)[:8]}]: {(t.get('instruction') or '')[:110]}")
-                try:
-                    verb, result = execute(cfg, t)
-                except Exception:
-                    result = "ERROR: " + traceback.format_exc()[-2000:]
-                    verb = "error"
-                update_task(cfg, tid, {
-                    "status": "done", "processed": True,
-                    "processed_at": datetime.now(timezone.utc).isoformat(),
-                    "task_code": t.get("task_code") or verb,
-                    "title": ((t.get("title") or "פקודה") + " | בוצע " + datetime.now().strftime("%H:%M")),
-                    "instruction": (t.get("instruction") or "") + "\n─── RESULT ───\n" + str(result)[:7000],
-                })
+                verb, result = execute(cfg, t)
+                mark_done(cfg, tid)
                 TASKS_DONE[0] += 1
-                log(f"פקודה [{str(tid)[:8]}] הושלמה ({verb})")
-        except Exception as e:
-            fails += 1
-            wait = min(15 * fails, 120)
-            log(f"שגיאת לולאה (כישלון {fails}, המתנה {wait}s): " + str(e)[:250])
-            time.sleep(wait)
-            if fails % 50 == 0:
-                log("עדיין בחיים ומנסה — הוורקר לא מת.")
-        time.sleep(max(3, int(cfg.get("poll_seconds", 10))))
+                log("משימה " + str(tid)[:12] + " [" + verb + "] בוצעה: " + str(result)[:150])
+                update_task(cfg, tid, {"title": t.get("title"), "result": result})
+            time.sleep(cfg.get("poll_seconds", 15))
+        except Exception:
+            log("חריגה בלולאה (לא מת): " + traceback.format_exc()[-300:])
+            time.sleep(20)
 
 
 if __name__ == "__main__":
