@@ -1,16 +1,36 @@
 {
  "version": 3,
- "updated": "2026-10-16T19:05:00+03:00",
+ "updated": "2026-10-16T19:15:00+03:00",
  "items": [
   {
-   "id": "wt-20261016-deps-patch15-e",
-   "title": "וין: תלויות + פאטץ' 1.5 (דפוס סקריפט, ניסיון 5)",
+   "id": "wt-20261016-verify-diff",
+   "title": "אימות diffusers",
    "source": "windows-commands",
    "status": "pending",
    "priority": "high",
    "task_code": "win-run",
-   "instruction": "2rb5e7k8lc: run timeout=900 powershell.exe -NoProfile -Command curl.exe -s -o C:\\ShimiWorker\\deps15.ps1 https://raw.githubusercontent.com/sunraz/shimi-land/main/workers/deps15.ps1 ; powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\ShimiWorker\\deps15.ps1",
-   "created_date": "2026-10-16T19:05:00+03:00"
+   "instruction": "2rb5e7k8lc: run timeout=60 python -m pip show diffusers",
+   "created_date": "2026-10-16T19:15:00+03:00"
+  },
+  {
+   "id": "wt-20261016-verify-hist",
+   "title": "אימות היסטוריית הסטודיו",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-run",
+   "instruction": "2rb5e7k8lc: run timeout=60 powershell.exe -NoProfile -Command curl.exe -s http://localhost:7861/api/history",
+   "created_date": "2026-10-16T19:15:00+03:00"
+  },
+  {
+   "id": "wt-20261016-verify-app",
+   "title": "אימות app.py מפואטץ'",
+   "source": "windows-commands",
+   "status": "pending",
+   "priority": "high",
+   "task_code": "win-read",
+   "instruction": "2rb5e7k8lc: readfile C:\\ShimiStudio\\ShimiStudio-Local\\studio\\app.py",
+   "created_date": "2026-10-16T19:15:00+03:00"
   }
  ]
 }
