@@ -71,7 +71,7 @@ if "SHIMI_15" not in ui:
     <div class="panel ${v.locked?"locked":""}"><h2>${v.label}</h2><p style="font-size:.82rem;color:var(--mut)">${v.desc}</p>
     ${v.locked?'<p style="font-size:.75rem;color:var(--bad);margin-top:8px">חסומה עד אישור מפרט מסאן</p>':""}</div>`).join("");'''
     new_c = '''  $("c_list").innerHTML=Object.entries(STATE.characters||{}).map(([k,v])=>`
-    <div class="panel ${v.locked?"locked":""}" style="cursor:pointer" data-char="${v.label}" onclick="openCharGallery('${v.label}')"><h2>${v.label} <span style="font-size:.72rem;color:var(--mut)">תמונות: ${charCounts[v.label]||0} ← לחץ לצפייה</span></h2><p style="font-size:.82rem;color:var(--mut)">${v.desc}</p>
+    <div class="panel ${v.locked?"locked":""}" style="cursor:pointer" data-char="${v.label}" onclick="openCharGallery('${v.label}')"><h2>${v.label} <span style="font-size:.72rem;color:var(--mut)">לחץ לצפייה בכל התמונות שלה</span></h2><p style="font-size:.82rem;color:var(--mut)">${v.desc}</p>
     ${v.locked?'<p style="font-size:.75rem;color:var(--bad);margin-top:8px">חסומה עד אישור מפרס מסאן</p>':""}</div>`).join("");'''
     if old_c not in ui:
         print("E: chars block not found"); sys.exit(1)
@@ -106,7 +106,7 @@ function openCharGallery(label){
 }
 function renderCharsWithCounts(){
   $("c_list").innerHTML=Object.entries(STATE.characters||{}).map(([k,v])=>`
-    <div class="panel ${v.locked?"locked":""}" style="cursor:pointer" onclick="openCharGallery('${v.label}')"><h2>${v.label} <span style="font-size:.72rem;color:var(--mut)">תמונות: ${charCounts[v.label]||0} ← לחץ לצפייה</span></h2><p style="font-size:.82rem;color:var(--mut)">${v.desc}</p>
+    <div class="panel ${v.locked?"locked":""}" style="cursor:pointer" onclick="openCharGallery('${v.label}')"><h2>${v.label} <span style="font-size:.72rem;color:var(--mut)">לחץ לצפייה בכל התמונות שלה</span></h2><p style="font-size:.82rem;color:var(--mut)">${v.desc}</p>
     ${v.locked?'<p style="font-size:.75rem;color:var(--bad);margin-top:8px">חסומה עד אישור מפרס מסאן</p>':""}</div>`).join("");
 }'''
     if old_lh not in ui:
