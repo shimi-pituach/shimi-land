@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>עורך וידאו — ShimiStudio Local</title>
+<style>
+body{font-family:system-ui;background:#101418;color:#e8ecf1;margin:0;padding:24px}
+h1{font-size:22px} h2{font-size:16px;color:#8ab4ff}
+.back{color:#8ab4ff;text-decoration:none;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:#181f27;border-radius:12px;padding:16px;border:1px solid #232d3a}
+.card h3{margin:0 0 10px;font-size:15px;color:#8ab4ff}
+select,input,button{font-family:inherit;padding:8px;border-radius:8px;border:1px solid #2c3a4d;background:#0d1218;color:#e8ecf1;width:100%;box-sizing:border-box;margin:3px 0}
+button{background:#2456c4;border:none;cursor:pointer;font-weight:bold}
+button:hover{background:#2f68e0}
+pre{background:#0d1218;padding:8px;border-radius:8px;font-size:11px;overflow:auto;max-height:200px}
+video,img{max-width:100%;border-radius:8px;margin-top:8px}
+.filelist{max-height:140px;overflow:auto;font-size:13px}
+.filelist div{padding:6px;border-bottom:1px solid #232d3a;cursor:pointer}
+.filelist div:hover{background:#1d2632}
+.up{border:2px dashed #2c3a4d;border-radius:12px;padding:16px;text-align:center;color:#7b8ba1}
+</style>
+</head>
+<body>
+<a class="back" href="/">← חזרה לסטודיו</a>
+<h1>🎬 עורך וידאו מקומי</h1>
+<h2>כל העריכות רצות על המחשב שלך — אפס קרדיטים, אפס ענן</h2>
+
+
+<div class="card" style="grid-column:1/-1"><h3>🪄 עריכה מפרומפט (כתבו בעברית מה לעשות)</h3>
+<input id="pm_src" placeholder="שם קובץ וידאו" onfocus="refreshFiles()">
+<input id="pm_cmd" placeholder="למשל: חתוך מ2 עד 8, תעשה פייד, הוסף טקסט שלום, המר לרילס, מהירות 2, גיפיט GIF">
+<button onclick="smartEdit()">בצע</button>
+<pre id="pm_log">פרומפט: חיתוך→trim | מהירות→speed | רילס/טיקטוק→reels | טקסט→text | פייד→fade | גיפ→gif | השתק→mute | הפוך→reverse</pre>
+</div>
+<script>
+async function smartEdit(){
+  const src=val('pm_src'), t=val('pm_cmd'), log=document.getElementById('pm_log');
+  if(!src||!t){log.textContent='צריך גם קובץ וגם פקודה';return}
+  log.textContent='מנתח...';
+  const steps=[];
+  let m;
+  if(m=t.match(/חתוך.*?(\d+(?:\.\d+)?)\s*(?:עד|-|ל)?\s*(\d+(?:\.\d+)?)/))steps.push({op:'trim',start:m[1],end:m[2]});
+  if(m=t.match(/מהירות\s*(\d+(?:\.\d+)?)/))steps.push({op:'speed',factor:m[1]});
+  if(/רילס|טיקטוק|reels/i.test(t))steps.push({op:'reels'});
+  if(m=t.match(/טקסט\s*(.{1,60})$/))steps.push({op:'text',text:m[1].trim(),position:'bottom'});
+  if(/פייד|fade/i.test(t))steps.push({op:'fade',duration:1});
+  if(/גיפ|gif/i.test(t))steps.push({op:'gif'});
+  if(/השתק|mute/i.test(t))steps.push({op:'mute'});
+  if(/הפוך|reverse/i.test(t))steps.push({op:'reverse'});
+  if(!steps.length){log.textContent='לא זיהיתי פעולה. מילות מפתח: חתוך, מהירות, רילס, טקסט, פייד, גיפ, השתק, הפוך';return}
+  let cur=src,done=[];
+  for(const st of steps){
+    const r=await fetch('/api/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op:st.op,src:cur,...st})});
+    const j=await r.json();
+    if(j.file){cur=j.file.split('/')[1];done.push(st.op+'→'+j.file)}else{done.push(st.op+' נכשל: '+(j.error||''));break}
+  }
+  log.textContent=done.join('\n');
+  refreshFiles();
+}
+</script>
+
+<div class="grid">
+<div class="card"><h3>קבצים זמינים</h3>
+<div id="files" class="filelist">טוען...</div>
+<h3 style="margin-top:14px">העלאת וידאו/אודיו/תמונה</h3>
+<input type="file" id="up">
+<div class="up" id="upstat">בחרו קובץ להעלאה (עד ~200MB)</div>
+</div>
+
+<div class="card"><h3>חיתוך (Trim)</h3>
+<select id="tr_src"></select>
+<input id="tr_start" type="number" step="0.1" placeholder="שנייה התחלה (למשל 0)">
+<input id="tr_end" type="number" step="0.1" placeholder="שניית סיום (למשל 5)">
+<button onclick="op('trim',{src:val('tr_src'),start:val('tr_start'),end:val('tr_end')})">חתוך</button>
+</div>
+
+<div class="card"><h3>מהירות</h3>
+<select id="sp_src"></select>
+<input id="sp_f" type="number" step="0.25" placeholder="מכפיל (2 = כפול, 0.5 = חצי)">
+<button onclick="op('speed',{src:val('sp_src'),factor:val('sp_f')})">שנה מהירות</button>
+</div>
+
+<div class="card"><h3>פורמט Reels/TikTok (9:16)</h3>
+<select id="rl_src"></select>
+<button onclick="op('reels',{src:val('rl_src')})">המר ל-1080x1920</button>
+</div>
+
+<div class="card"><h3>טקסט על הוידאו</h3>
+<select id="tx_src"></select>
+<input id="tx_text" placeholder="הטקסט שיופיע">
+<select id="tx_pos"><option value="top">למעלה</option><option value="center">מרכז</option><option value="bottom" selected>למטה</option></select>
+<input id="tx_size" type="number" value="64" placeholder="גודל פונט">
+<button onclick="op('text',{src:val('tx_src'),text:val('tx_text'),position:val('tx_pos'),size:val('tx_size')})">הוסף טקסט</button>
+</div>
+
+<div class="card"><h3>ווטרמרק</h3>
+<select id="wm_src"></select>
+<input id="wm_text" placeholder="טקסט ווטרמרק (למשל הלוגו שלכם)">
+<button onclick="op('watermark',{src:val('wm_src'),text:val('wm_text')})">הוסף ווטרמרק</button>
+</div>
+
+<div class="card"><h3>חיבור קטעים (Concat)</h3>
+<input id="cn_files" placeholder="שמות קבצים מופרדים בפסיק">
+<button onclick="op('concat',{files:val('cn_files').split(',').map(x=>x.trim()).filter(Boolean)})">חבר</button>
+</div>
+
+<div class="card"><h3>מוזיקה/אודיו</h3>
+<select id="au_src"></select>
+<input id="au_file" placeholder="שם קובץ האודיו (למשל song.mp3)">
+<input id="au_fade" type="number" value="2" placeholder="fade-in שניות">
+<button onclick="op('audio',{src:val('au_src'),audio:val('au_file'),fade:val('au_fade')})">חבר אודיו</button>
+</div>
+
+<div class="card"><h3>עוד פעולות</h3>
+<select id="ex_src"></select>
+<button onclick="op('fade',{src:val('ex_src'),duration:1})">פייד פתיחה+סיום</button>
+<button onclick="op('mute',{src:val('ex_src')})">השתק</button>
+<button onclick="op('reverse',{src:val('ex_src')})">היפוך</button>
+<button onclick="op('gif',{src:val('ex_src')})">GIF</button>
+<button onclick="op('info',{src:val('ex_src')})">מידע על הקובץ</button>
+<div style="display:flex;gap:8px;margin-top:8px">
+<input id="ex_deg" placeholder="מעלות 90/180/270" style="flex:1">
+<button onclick="op('rotate',{src:val('ex_src'),deg:val('ex_deg')})">סיבוב</button>
+</div>
+<div style="display:flex;gap:8px;margin-top:8px">
+<input id="ex_br" placeholder="בהירות -1..1" style="flex:1"><input id="ex_ct" placeholder="ניגוד 0.5..2" style="flex:1"><input id="ex_st" placeholder="רוויה 0..3" style="flex:1">
+</div>
+<button onclick="op('eq',{src:val('ex_src'),brightness:val('ex_br')||0,contrast:val('ex_ct')||1,saturation:val('ex_st')||1})">צבעים ובהירות</button>
+</div>
+
+<div class="card" style="grid-column:1/-1"><h3>פלט אחרון</h3>
+<div id="result"></div>
+<pre id="log">מוכן.</pre>
+</div>
+</div>
+
+<script>
+const val=id=>document.getElementById(id).value;
+async function refreshFiles(){
+  const r=await fetch('/api/files');const j=await r.json();
+  const list=document.getElementById('files');list.innerHTML='';
+  document.querySelectorAll('select').forEach(s=>{if(s.id!=='up')s.innerHTML=''});
+  j.files.forEach(f=>{
+    list.innerHTML+=`<div onclick="pick('${f}')">${f}</div>`;
+    document.querySelectorAll('select').forEach(s=>{if(s.id!=='up')s.innerHTML+=`<option value="${f}">${f}</option>`});
+  });
+}
+function pick(f){
+  const v=document.createElement('video');v.controls=true;v.src='/'+f;v.style.width='100%';
+  document.getElementById('result').innerHTML='';document.getElementById('result').appendChild(v);
+}
+async function op(name,params){
+  const log=document.getElementById('log');
+  log.textContent='מריץ '+name+'...';
+  try{
+    const r=await fetch('/api/edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op:name,...params})});
+    const j=await r.json();
+    log.textContent=JSON.stringify(j,null,1).slice(0,800);
+    if(j.file){
+      const media=document.createElement('video');media.controls=true;media.src='/'+j.file;media.style.width='100%';
+      const out=document.getElementById('result');out.innerHTML='<h3>התוצאה: '+j.file+'</h3>';out.appendChild(media);
+      refreshFiles();
+    }
+  }catch(e){log.textContent='שגיאה: '+e}
+}
+document.getElementById('up').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  const stat=document.getElementById('upstat');stat.textContent='מעלה '+f.name+'...';
+  const b=new FileReader();
+  b.onload=async()=>{
+    const data=b.result.split(',')[1];
+    const r=await fetch('/api/upload',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.name,data_b64:data})});
+    const j=await r.json();
+    stat.textContent=j.ok?('הועלה: '+j.name):('שגיאה: '+(j.error||''));
+    refreshFiles();
+  };
+  b.readAsDataURL(f);
+});
+refreshFiles();
+</script>
+</body>
+</html>
