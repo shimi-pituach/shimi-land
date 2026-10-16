@@ -12,7 +12,7 @@ import sys, os, json, time, subprocess, platform, traceback, threading, glob
 import urllib.request
 from datetime import datetime, timezone
 
-VERSION = "1.3.2"
+VERSION = "1.3.3"
 REMOTE_VERSION_URL = "https://aidoor.shimi.land/worker_version.txt"
 REMOTE_CODE_URL = "https://aidoor.shimi.land/worker_latest.py"
 
@@ -322,17 +322,32 @@ def self_update(cfg):
     return False
 
 
+def pid_alive(pid):
+    """בדיקת חיים בטוחה — בלי להרוג (os.kill(pid,0) בווינדוז הורג!)."""
+    if not pid or pid == os.getpid():
+        return False
+    try:
+        if os.name == "nt":
+            import ctypes
+            k32 = ctypes.windll.kernel32
+            h = k32.OpenProcess(0x1000, 0, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+            if h:
+                k32.CloseHandle(h)
+                return True
+            return False
+        os.kill(pid, 0)
+        return True
+    except Exception:
+        return False
+
+
 def single_instance():
     lock = os.path.join(HERE, "worker.lock")
     try:
         with open(lock, "r") as f:
             pid = int(f.read().strip() or 0)
-        if pid and pid != os.getpid():
-            try:
-                os.kill(pid, 0)
-                return False  # עותק חי — אני מתנתק בשקט
-            except Exception:
-                pass
+        if pid_alive(pid):
+            return False  # עותק חי — אני מתנתק בשקט
     except Exception:
         pass
     with open(lock, "w") as f:
