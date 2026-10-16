@@ -1,6 +1,6 @@
 # wan_run_v21.py — הרצת שחזור lana82 (0:57-1:01) דרך סשן קיים של lea_lora_colab
 # נכתב ע"י שימי פיתוח. מריץ את תאי wan22_lea_colab.ipynb (2,4,6,7,8) בזה אחר זה.
-# v21.1: שדרוג כפוי של bitsandbytes (diffusers דורש >=0.43.3 בכימות 4-bit).
+# v21.2: שדרוג כפוי + אימות גרסה קשיח (diffusers דורש >=0.43.3 בכימות 4-bit).
 import json, subprocess, sys, urllib.request
 
 print('── שלב 0: שדרוג bitsandbytes + התקנת תלויות ──', flush=True)
@@ -9,8 +9,14 @@ subprocess.run([sys.executable, '-m', 'pip', 'install', '-q',
                 'diffusers', 'transformers', 'accelerate', 'safetensors',
                 'sentencepiece', 'einops'], check=False)
 
+import importlib
+importlib.invalidate_caches()
 import bitsandbytes
-print('✔ bitsandbytes', bitsandbytes.__version__, flush=True)
+from importlib.metadata import version as pkg_version
+bnb_v = pkg_version('bitsandbytes')
+print('✔ bitsandbytes', bnb_v, flush=True)
+if tuple(int(x) for x in bnb_v.split('.')[:2]) < (0, 43):
+    raise RuntimeError(f'bitsandbytes {bnb_v} ישן מדי — השדרוג לא תפס. הריצו ידנית: pip install -U bitsandbytes')
 
 import torch
 assert torch.cuda.is_available(), 'אין GPU! הסשן הזה חייב להיות GPU.'
