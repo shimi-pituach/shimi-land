@@ -84,7 +84,8 @@ const render=ch=>{
     if (j && Array.isArray(j.posts)) for (const p of j.posts) {
       if (p.kind==='CHARTER' && !seen.has(p.id)) { ch.push(p); seen.add(p.id); }
     }
-    ch.sort((a,b)=>new Date(b.created_date||0)-new Date(a.created_date||0));
+    // הוראת סאן 17/10: מהראשון לאחרון — האמנה המקורית למעלה, התיקונים בסדר כרונולוגי מתחת
+    ch.sort((a,b)=>new Date(a.created_date||0)-new Date(b.created_date||0));
     render(ch);
   }catch(e){document.getElementById('charter').innerHTML='<div class="sub">טעינת האמנה נכשלה: '+e+'</div>';}
 })();
