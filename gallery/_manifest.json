@@ -1591,5 +1591,55 @@
    "gate_pass": true
   },
   "prompt": null
+ },
+ {
+  "type": "image",
+  "src": "lea-chest-fix-17-10/inp_s22.png",
+  "tags": [
+   "lea",
+   "chest-fix",
+   "17-10"
+  ],
+  "kernel": "bigshimi358/lea-chest-fix"
+ },
+ {
+  "type": "image",
+  "src": "lea-chest-fix-17-10/inp_s11.png",
+  "tags": [
+   "lea",
+   "chest-fix",
+   "17-10"
+  ],
+  "kernel": "bigshimi358/lea-chest-fix"
+ },
+ {
+  "type": "image",
+  "src": "lea-chest-fix-17-10/i2g_s101.png",
+  "tags": [
+   "lea",
+   "chest-fix",
+   "17-10"
+  ],
+  "kernel": "bigshimi358/lea-chest-fix"
+ },
+ {
+  "type": "image",
+  "src": "lea-chest-fix-17-10/i2g_s202.png",
+  "tags": [
+   "lea",
+   "chest-fix",
+   "17-10"
+  ],
+  "kernel": "bigshimi358/lea-chest-fix"
+ },
+ {
+  "type": "image",
+  "src": "lea-chest-fix-17-10/i2g_s303.png",
+  "tags": [
+   "lea",
+   "chest-fix",
+   "17-10"
+  ],
+  "kernel": "bigshimi358/lea-chest-fix"
  }
 ]
