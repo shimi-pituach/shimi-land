@@ -1,8 +1,10 @@
-# לאה — אימון LoRA v2 קולאב. חידוש מרכזי: בגדי הטסט הסינטטיים (טופלס + חוטיני תחרת פרחים דק) אפויים כברירת מחדל בטריגר "lea shimi".
-# שיטת האפייה: תמונות בגדי-טסט מתועדות עם הטריגר בלבד (כיתוב ריק מלבד הטריגר => הביגוד והאנטומיה נקשרים לטריגר עצמו).
-# תמונות פורטרט מתועדות עם תיאור לבוש מפורש — כך "lea shimi" לבד = לאה בבגדי טסט, ולבוש אחר דורש מילים.
-# בסיס: shani_lora_colab v1.1 (המוכח). kohya sd-scripts, SDXL LoRA על RealVisXL V5.0.
-# רף הכרעה (מוכרז לפני ריצה): lea_lora_v2.safetensors נוצר > 20MB + RC=0 + לוג ללא NaN + כל 10 תמונות האימון ירדו 200 וגדולות מ-20KB.
+# לאה — אימון LoRA v2 קולאב. מטרה: בגדי הטסט הסינטטיים (טופלס + חוטיני תחרה דק) אפויים כברירת מחדל בטריגר "lea shimi".
+# !!! סטטוס: מושהה עד שקיימות תמונות טופלס אמיתיות של לאה שסאן אישר !!!
+# לקח 23:30 17/10: כל "תמונות הטסט" שהיו בגלריה יצאו בחזיית בד ירוקה (CANON_CHEST_v2, i2g_s202/303, inp_s11/22, l101_top_color —
+# כולן נבדקו עיניים וכולן לבושות). אין אפייה ללא דאטה טופלס אמיתית. הסקריפט ייכשל בכנות עד שהתיקייה תתמלא.
+# מקור הדאטה העתידי: gallery/lea-topless-canon/ — תוצרי רנדר לורה v1 (lora=True) שסאן יאשר.
+# שיטת האפייה כמתוכננת: תמונות טופלס מתועדות עם "lea shimi" בלבד; פורטרטים עם לבוש מפורש.
+# רף הכרעה: lea_lora_v2.safetensors > 20MB + RC=0 + לוג ללא NaN + לפחות 4 תמונות טופלס אושרו ע"י סאן לפני האימון.
 import os, json, subprocess, time, urllib.request, glob
 OUT = "/content"; os.makedirs(OUT, exist_ok=True)
 print("LEA LORA TRAIN v2 COLAB START", flush=True)
@@ -12,7 +14,7 @@ CASUAL_DIR = os.path.join(OUT, "dataset", "10_lea shimi casual")
 TEST_DIR   = os.path.join(OUT, "dataset", "20_lea shimi")
 os.makedirs(CASUAL_DIR, exist_ok=True); os.makedirs(TEST_DIR, exist_ok=True)
 
-# פורטרטים מאושרים (סאן: "כל השאר כן מדויק") + גוף קנון נעול. כיתוב עם לבוש מפורש.
+# פורטרטים מאושרים — כיתוב עם לבוש מפורש (עוגני זהות, לא בגדי טסט).
 CASUAL = {
  "c01": ("https://aidoor.shimi.land/characters/lea/08_BEST_FACE_seed151002_sun_approved.png", "lea shimi woman, portrait, sitting on a bed, casual clothing, direct gaze, bright bedroom"),
  "c02": ("https://aidoor.shimi.land/gallery/lea-test/lea_test_facebase_151011.png", "lea shimi woman, portrait, sitting on a bed, casual clothing, direct gaze"),
@@ -20,25 +22,31 @@ CASUAL = {
  "c04": ("https://aidoor.shimi.land/gallery/lea-test/lea_test_seated_151002.png", "lea shimi woman, portrait, sitting on a bed, casual clothing, closed lips"),
  "c05": ("https://aidoor.shimi.land/characters/lea/09_CANON_BODY_sun_locked_15-10.png", "lea shimi woman, standing full body, casual outfit, barefoot, natural light"),
 }
-# בגדי טסט סינתטיים (טופלס + חוטיני תחרה) — כיתוב טריגר בלבד => אפיית ברירת מחדל.
+# בגדי טסט — רק מהתיקייה הקנונית העתידית של תוצרי לורה מאושרים. כיתוב טריגר בלבד.
 TEST = {
- "t01": ("https://aidoor.shimi.land/gallery/lea-canonical/CANON_CHEST_v2_sun_locked_i2g_s101.png", "lea shimi"),
- "t02": ("https://aidoor.shimi.land/gallery/lea-chest-fix-17-10/i2g_s202.png", "lea shimi"),
- "t03": ("https://aidoor.shimi.land/gallery/lea-chest-fix-17-10/i2g_s303.png", "lea shimi"),
- "t04": ("https://aidoor.shimi.land/gallery/lea-chest-fix-17-10/inp_s11.png", "lea shimi"),
- "t05": ("https://aidoor.shimi.land/gallery/lea-chest-fix-17-10/inp_s22.png", "lea shimi"),
+ "t01": ("https://aidoor.shimi.land/gallery/lea-topless-canon/lea_top_canon_1.png", "lea shimi"),
+ "t02": ("https://aidoor.shimi.land/gallery/lea-topless-canon/lea_top_canon_2.png", "lea shimi"),
+ "t03": ("https://aidoor.shimi.land/gallery/lea-topless-canon/lea_top_canon_3.png", "lea shimi"),
+ "t04": ("https://aidoor.shimi.land/gallery/lea-topless-canon/lea_top_canon_4.png", "lea shimi"),
 }
 
-def fetch(tag, url, cap, dst):
+def fetch(tag, url, cap, dst, required=True):
     fp = os.path.join(dst, tag + ".png")
-    urllib.request.urlretrieve(url, fp)
-    sz = os.path.getsize(fp)
-    assert sz > 20*1024, f"image too small: {tag} {sz}"
-    open(os.path.join(dst, tag + ".txt"), "w").write(cap)
-    print("IMG OK", tag, sz, flush=True)
+    try:
+        urllib.request.urlretrieve(url, fp)
+        sz = os.path.getsize(fp)
+        if sz <= 20*1024: raise ValueError("too small")
+        open(os.path.join(dst, tag + ".txt"), "w").write(cap)
+        print("IMG OK", tag, sz, flush=True)
+        return True
+    except Exception as e:
+        print("IMG MISSING", tag, e, flush=True)
+        if required: raise
+        return False
 
 for tag,(u,c) in CASUAL.items(): fetch(tag,u,c,CASUAL_DIR)
-for tag,(u,c) in TEST.items():   fetch(tag,u,c,TEST_DIR)
+got = sum(fetch(tag,u,c,TEST_DIR,required=False) for tag,(u,c) in TEST.items())
+assert got >= 4, f"מעט מדי תמונות טופלס קנוניות ({got}/4) — אין אפייה ללא דאטה אמיתית. השלם רנדרים וקבל אישור סאן."
 print("DATASET: casual", len(os.listdir(CASUAL_DIR))//2, "+ test", len(os.listdir(TEST_DIR))//2, flush=True)
 
 if not os.path.isdir(os.path.join(OUT,"sd-scripts","networks")):
