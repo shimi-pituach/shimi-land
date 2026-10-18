@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════
-# ShimiWorker v2.0 (18/10/2026) — וורקר מקומי חוצה פלטפורמות (Windows + macOS + Linux)
+# ShimiWorker v2.1 (18/10/2026 13:15) — וורקר מקומי חוצה פלטפורמות (Windows + macOS + Linux)
 # הארכיטקט: שימי פיתוח. מאושר עבור סאן ומכונות הרשת.
 #
 # מה זה: עמדת רנדר ועבודה מקומית מלאה של רשת שימי. מאזין לפקודות, מרנדר מלורות,
@@ -40,6 +40,7 @@ DEFAULTS = {
     "base44_url": "https://solas-6a095a77.base44.app",
     "base44_token": "",
     "poll_seconds": 15,
+    "worker_id": "sun-main",
     "network_share": True,
     "gallery_local_repo": "",
     "base_model_url": "https://huggingface.co/SG161222/RealVisXL_V5.0/resolve/main/RealVisXL_V5.0_fp16.safetensors",
@@ -442,6 +443,51 @@ def fetch_tasks(cfg):
     except Exception:
         return []
 
+def fetch_remote_jobs(cfg):
+    """ערוץ פיקוד מרחוק: שימי פיתוח כותב עבודות לקובץ התור בגיטהאב, הוורקר מושך ומבצע."""
+    import urllib.request
+    wid = cfg.get("worker_id", "sun-main")
+    url = f"https://raw.githubusercontent.com/sunraz/shimi-land/main/queue/worker-jobs/{wid}.json"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache"}), timeout=20) as r:
+            data = json.loads(r.read().decode())
+    except Exception:
+        return []
+    done_path = os.path.join(JOBS_DIR, "remote_done.json")
+    done = {}
+    if os.path.exists(done_path):
+        try:
+            done = json.load(open(done_path, encoding="utf-8"))
+        except Exception:
+            done = {}
+    new_jobs = [j for j in data.get("jobs", []) if j.get("id") and j.get("id") not in done]
+    log(f"תור מרחוק: {len(new_jobs)} עבודות חדשות")
+    return new_jobs
+
+def mark_remote_done(cfg, jid):
+    done_path = os.path.join(JOBS_DIR, "remote_done.json")
+    done = {}
+    if os.path.exists(done_path):
+        try:
+            done = json.load(open(done_path, encoding="utf-8"))
+        except Exception:
+            done = {}
+    done[jid] = datetime.now().strftime("%d/%m %H:%M")
+    os.makedirs(JOBS_DIR, exist_ok=True)
+    json.dump(done, open(done_path, "w", encoding="utf-8"), ensure_ascii=False)
+
+def process_remote_jobs(cfg):
+    for job in fetch_remote_jobs(cfg):
+        jid = job.get("id", "?")
+        try:
+            beat(cfg, f"מקבל עבודה מרחוק {jid}")
+            spec = job.get("spec", job)
+            spec.setdefault("tag", f"remote-{jid}")
+            do_render(cfg, spec)
+        except Exception:
+            carve(cfg, *sys.exc_info())
+        mark_remote_done(cfg, jid)
+
 def cmd_daemon(cfg):
     log("DAEMON עולה. תור מקומי + לוח רשת. Ctrl+C לעצירה.")
     beat(cfg, f"worker-up {platform_tag()} | network_share={cfg.get('network_share')}")
@@ -449,6 +495,7 @@ def cmd_daemon(cfg):
     while True:
         try:
             process_local_queue(cfg)
+            process_remote_jobs(cfg)
             if time.time() > next_heart:
                 beat(cfg, "alive")
                 next_heart = time.time() + 600
@@ -486,7 +533,7 @@ def cmd_self_test(cfg):
 
 def cmd_status(cfg):
     dev, dtype, dev_name = device_info()
-    lines = [f"ShimiWorker v2.0 | {platform_tag()} | מכשיר: {dev} ({dev_name})"]
+    lines = [f"ShimiWorker v2.1 | {platform_tag()} | מכשיר: {dev} ({dev_name})"]
     lines.append(f"מודל בסיס: {'קיים' if os.path.exists(os.path.join(MODELS_DIR, 'realvis_xl_v5_fp16.safetensors')) else 'חסר — הרץ fetch-model'}")
     loras = [os.path.basename(p) for p in glob.glob(os.path.join(LORAS_DIR, "*.safetensors"))]
     lines.append(f"לורות מקומיות: {loras or 'אין — הרץ fetch-loras'}")
