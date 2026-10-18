@@ -447,7 +447,7 @@ def fetch_remote_jobs(cfg):
     """ערוץ פיקוד מרחוק: שימי פיתוח כותב עבודות לקובץ התור בגיטהאב, הוורקר מושך ומבצע."""
     import urllib.request
     wid = cfg.get("worker_id", "sun-main")
-    url = f"https://raw.githubusercontent.com/sunraz/shimi-land/main/queue/worker-jobs/{wid}.json"
+    url = f"https://raw.githubusercontent.com/sunraz/shimi-land/main/queue/worker-jobs/{wid}.json?t={int(time.time())}"
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers={"Cache-Control": "no-cache"}), timeout=20) as r:
             data = json.loads(r.read().decode())
