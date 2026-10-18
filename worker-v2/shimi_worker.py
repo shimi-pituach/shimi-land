@@ -256,10 +256,11 @@ def load_engine(cfg, lora_name=None, lora_scale=0.8):
         lsd = load_file(lora_path)
         probe_key = next(k for k in lsd if k.startswith("lora_unet_") and k.endswith("attn1_to_q.lora_up.weight"))
         del lsd; gc.collect()
-        pp = re.sub(r"_(\d+)", r".\1", probe_key[len("lora_unet_"):-len(".lora_up.weight")])
-        obj = unet
-        for tok in pp.split("."):
-            obj = obj[int(tok)] if tok.isdigit() else getattr(obj, tok)
+        # מיפוי הפוך המדויק: נקודות -> קווים תחתונים מול named_modules. בלי רג'קס, בלי ניתוב.
+        nm_kohya = {n.replace(".", "_"): m for n, m in unet.named_modules()}
+        probe_kohya = probe_key[len("lora_unet_"):-len(".lora_up.weight")]
+        assert probe_kohya in nm_kohya, f"probe {probe_kohya} not found ({len(nm_kohya)} modules)"
+        probe_mod = nm_kohya[probe_kohya]
         w_before = obj.weight.detach().float().clone()
         net, weights_sd = lora.create_network_from_weights(lora_scale, lora_path, vae, [tm1, tm2], unet, None, True)
         net.merge_to([tm1, tm2], unet, weights_sd, dtype, dev)
