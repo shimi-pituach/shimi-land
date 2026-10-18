@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🧠 הלורות של רשת שימי — קבצים ותוצרים</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#e5e7eb;font-family:'Segoe UI',system-ui,sans-serif}
+header{padding:26px 20px 14px;text-align:center;background:linear-gradient(180deg,#1a1040,#0b1220)}
+h1{margin:0;font-size:1.5rem}
+h1 em{color:#f59e0b;font-style:normal}
+.sub{color:#9ca3af;margin-top:6px;font-size:.95rem}
+main{max-width:1200px;margin:0 auto;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:#111827;border:1px solid #374151;border-radius:14px;padding:18px}
+.card:hover{border-color:#f59e0b}
+.card h2{margin:0 0 4px;font-size:1.15rem}
+.card .trig{color:#fbbf24;font-size:.85rem;direction:ltr;display:inline-block;background:#1f2937;border:1px solid #4b5563;padding:2px 10px;border-radius:14px;margin:6px 0}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.85rem;color:#9ca3af;margin:10px 0}
+.spec b{color:#e5e7eb;font-weight:500}
+.dl{display:block;text-align:center;background:#f59e0b;color:#111;font-weight:700;border-radius:10px;padding:11px;text-decoration:none;margin:10px 0 4px}
+.dl:hover{background:#fbbf24}
+.note{font-size:.75rem;color:#6b7280}
+.open{display:block;text-align:center;background:#1f2937;border:1px solid #4b5563;color:#fbbf24;border-radius:10px;padding:9px;text-decoration:none;margin-top:6px}
+.open:hover{border-color:#f59e0b}
+footer{text-align:center;color:#6b7280;font-size:.8rem;padding:26px}
+footer a{color:#f59e0b}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 הלורות — <em>מודלי הדמויות הקבועים של הרשת</em></h1>
+  <div class="sub">כל לורה: הקובץ עצמו להורדה, מפרט מלא, וכל התמונות שרונדרו ממנה בכל הזמנים</div>
+</header>
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+<footer>
+  מדור הלורות נבנה על ידי שימי פיתוח · <a href="../history.html">← ההיסטוריה המלאה</a> · <a href="../board.html">הלוח</a>
+</footer>
+<script>
+const LORAS=[
+ {id:'lea-lora',name:'לורת לאה v1',char:'לאה',page:'lea-lora.html',
+  trig:'lea shimi',base:'RealVisXL V5.0 (SDXL)',
+  steps:'1600',dim:'32 / alpha 16',trained:'15/10/2026',size:'228MB',
+  sha:'fc62e8209a78797b3ea108070412d574aa0441d871013bc51ea7ee9535308ebc',
+  dl:'https://github.com/sunraz/shimi-land/releases/download/lea-lora-v1/lea_lora.safetensors',
+  status:'מאומנת · ממתינה לתוצרים מאומתים ראשונים'},
+ {id:'shani-lora',name:'לורת שני v1',char:'שני',page:'shani-lora.html',
+  trig:'shani shimi',base:'RealVisXL V5.0 (SDXL)',
+  steps:'1600',dim:'32 / alpha 16',trained:'18/10/2026',size:'228MB',
+  sha:'8e59505ab55070bea258305828b32e65545a3487356d87b6ce3148a5d6113d40',
+  dl:'https://github.com/sunraz/shimi-land/releases/download/shani-lora-v1/shani_lora.safetensors',
+  status:'מאומנת · ממתינה לתוצרים מאומתים ראשונים'},
+];
+document.getElementById('grid').innerHTML=LORAS.map(l=>`
+ <div class="card">
+  <h2>${l.name}</h2>
+  <div style="color:#9ca3af;font-size:.85rem">${l.status}</div>
+  <div class="trig">טריגר: ${l.trig}</div>
+  <div class="spec">
+   <b>בסיס</b><span>${l.base}</span>
+   <b>צעדי אימון</b><span>${l.steps}</span>
+   <b>מימדים</b><span>${l.dim}</span>
+   <b>אומן</b><span>${l.trained}</span>
+   <b>גודל</b><span>${l.size}</span>
+  </div>
+  <a class="dl" href="${l.dl}">⬇ הורדת הלורה (${l.size})</a>
+  <div class="note">SHA-256: ${l.sha}</div>
+  <a class="open" href="${l.page}">🖼 כל התוצרים מהלורה הזו ←</a>
+ </div>`).join('');
+</script>
+</body>
+</html>

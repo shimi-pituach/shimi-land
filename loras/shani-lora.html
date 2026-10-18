@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🧠 לורת לאה v1 — הקובץ וכל התוצרים</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#e5e7eb;font-family:'Segoe UI',system-ui,sans-serif}
+header{padding:26px 20px 14px;text-align:center;background:linear-gradient(180deg,#1a1040,#0b1220)}
+h1{margin:0;font-size:1.5rem}
+h1 em{color:#f59e0b;font-style:normal}
+.sub{color:#9ca3af;margin-top:6px;font-size:.95rem}
+main{max-width:1400px;margin:0 auto;padding:18px}
+.info{background:#111827;border:1px solid #374151;border-radius:14px;padding:18px;margin-bottom:18px}
+.trig{color:#fbbf24;direction:ltr;display:inline-block;background:#1f2937;border:1px solid #4b5563;padding:2px 10px;border-radius:14px;margin:4px 0}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.88rem;color:#9ca3af;margin:10px 0}
+.spec b{color:#e5e7eb;font-weight:500}
+.dl{display:inline-block;background:#f59e0b;color:#111;font-weight:700;border-radius:10px;padding:11px 22px;text-decoration:none;margin:8px 0}
+.dl:hover{background:#fbbf24}
+.note{font-size:.75rem;color:#6b7280;word-break:break-all}
+h2{font-size:1.1rem;color:#fbbf24}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:#111827;border:1px solid #374151;border-radius:12px;overflow:hidden}
+.card:hover{border-color:#f59e0b}
+.thumb{width:100%;height:230px;object-fit:cover;display:block;cursor:pointer;background:#000}
+.cap{padding:8px 10px;font-size:.78rem;color:#9ca3af;border-top:1px solid #1f2937}
+.empty{background:#111827;border:1px dashed #374151;border-radius:12px;color:#9ca3af;text-align:center;padding:40px}
+.lb{position:fixed;inset:0;background:#000d;z-index:100;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.lb img{max-width:96vw;max-height:82vh;border-radius:8px}
+.lb .x{position:absolute;top:14px;inset-inline-end:18px;font-size:2rem;color:#fff;cursor:pointer;background:none;border:none}
+footer{text-align:center;color:#6b7280;font-size:.8rem;padding:26px}
+footer a{color:#f59e0b}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 לורת <em>שני v1</em> — הקובץ וכל תוצריה</h1>
+  <div class="sub">כל תמונה שרונדרה מהלורה של שני, מכל מנוע, בכל זמן</div>
+</header>
+<main>
+  <div class="info">
+    <div class="trig">טריגר: shani shimi</div>
+    <div class="spec">
+      <b>בסיס</b><span>RealVisXL V5.0 (SDXL)</span>
+      <b>צעדי אימון</b><span>1600 (6 רפרנסים של סאן)</span>
+      <b>מימדים</b><span>network_dim 32 / alpha 16</span>
+      <b>אומן</b><span>18/10/2026 ב-Kaggle T4</span>
+      <b>גודל</b><span>228MB (228,451,580 בייטים)</span>
+    </div>
+    <a class="dl" href="https://github.com/sunraz/shimi-land/releases/download/shani-lora-v1/shani_lora.safetensors">⬇ הורדת shani_lora.safetensors</a>
+    <div class="note">SHA-256: 8e59505ab55070bea258305828b32e65545a3487356d87b6ce3148a5d6113d40 · משקל מומלץ 0.7-0.9</div>
+  </div>
+  <h2>🖼 התוצרים מהלורה</h2>
+  <div class="grid" id="grid"><div class="empty">טוען תוצרים...</div></div>
+</main>
+<footer>
+  עמוד לורת שני · נבנה על ידי שימי פיתוח · <a href="index.html">← כל הלורות</a> · <a href="../history.html">ההיסטוריה המלאה</a>
+</footer>
+<div class="lb" id="lb" style="display:none"><button class="x" onclick="document.getElementById('lb').style.display='none'">✕</button><div id="lbc"></div></div>
+<script>
+const GRID=document.getElementById('grid');
+function render(items){
+  if(!items||!items.length){GRID.innerHTML='<div class="empty">עדיין אין תוצרים מאומתים מהלורה. כל תמונה שתרונדר ממנה תעלה לכאן.</div>';return;}
+  GRID.innerHTML='';
+  items.slice().reverse().forEach(it=>{
+    const c=document.createElement('div');c.className='card';
+    const im=document.createElement('img');im.className='thumb';im.loading='lazy';im.src=it.url;im.alt=it.title;
+    im.onclick=()=>{document.getElementById('lbc').innerHTML='<img src="'+it.url+'"><div style="color:#9ca3af;font-size:.85rem">'+it.title+'</div><a href="'+it.url+'" download style="color:#f59e0b">⬇ הורדה</a>';document.getElementById('lb').style.display='flex';};
+    c.appendChild(im);
+    const cap=document.createElement('div');cap.className='cap';cap.textContent=it.title+(it.note?' · '+it.note:'');c.appendChild(cap);
+    GRID.appendChild(c);
+  });
+}
+fetch('shani-renders.json',{cache:'no-store'}).then(r=>r.json()).then(render).catch(e=>{GRID.innerHTML='<div class="empty">טעינה נכשלה</div>'});
+document.getElementById('lb').onclick=e=>{if(e.target.id==='lb')e.currentTarget.style.display='none'};
+</script>
+</body>
+</html>
