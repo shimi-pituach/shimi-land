@@ -1,0 +1,56 @@
+name: LoRA Render
+on:
+  workflow_dispatch:
+    inputs:
+      lora:
+        description: 'לורה: lea | shani'
+        required: true
+        default: 'lea'
+      prompt:
+        description: 'פרומפט (כולל טריגר: lea shimi / shani shimi)'
+        required: true
+      negative:
+        description: 'פרומפט שלילי'
+        required: false
+        default: 'deformed, distorted, extra limbs, bad anatomy, plastic skin, thin, flat chest, blurry, watermark, text, child'
+      seed:
+        description: 'זרע'
+        required: false
+        default: '317001'
+      width:
+        description: 'רוחב'
+        required: false
+        default: '832'
+      height:
+        description: 'גובה'
+        required: false
+        default: '1216'
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Render from LoRA (CPU, kohya-native)
+        env:
+          LORA: ${{ inputs.lora }}
+          PROMPT: ${{ inputs.prompt }}
+          NEG: ${{ inputs.negative }}
+          SEED: ${{ inputs.seed }}
+          W: ${{ inputs.width }}
+          H: ${{ inputs.height }}
+        run: python scripts/lora_render_gh.py
+      - name: Commit render to gallery
+        run: |
+          git config user.name "shimi-pituach-render"
+          git config user.email "render@shimi.land"
+          git add gallery/lora-renders/ || true
+          git commit -m "lora render: ${{ inputs.lora }} seed ${{ inputs.seed }}" || echo "nothing to commit"
+          git push
+      - uses: actions/upload-artifact@v4
+        with:
+          name: render-${{ inputs.lora }}-${{ inputs.seed }}
+          path: gallery/lora-renders/*.png
