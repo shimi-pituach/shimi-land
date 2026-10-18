@@ -64,3 +64,10 @@ python shimi_worker.py fetch-loras / fetch-model         עדכון נכסים
 2. על מאק: MPS תומך fp16; רנדר 832x1216 לוקח דקות בודדות על M-חזק.
 3. התוצרים בתיקיית `renders/` — הם לא עולים לגלריה אוטומטית (בחיר מכוונת:
    תמונות פרטיות נשארות פרטיות). להעלאה: `cmd_gallery_push` מהוורקר הישן או ידנית.
+
+## וידאו — מבחן התנועה (v2.2)
+פרוטוקול מלא: https://aidoor.shimi.land/poker-dev/canonical/motion_test_protocol.md
+הרצה מקומית (דורש כרטיס NVIDIA עם ≥16GB VRAM למודל 14B):
+  python shimi_worker.py video --image renders/lea-151011.png --prompt "walking slowly toward camera, natural gait" --seed 151011 --tag walk
+או דרך התור המרוחק: שימי פיתוח שולח kind=video עם spec {image, motion_prompt, seed, test_name}.
+המודל (Wan 2.1 I2V, ~30GB) יורד אוטומטית בהרצה הראשונה מהאם של diffusers.

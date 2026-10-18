@@ -403,6 +403,44 @@ def canon_prompts():
         },
     }
 
+WAN_MODEL_ID = "Wan-AI/Wan2.1-I2V-14B-480P"
+
+def _latest_render():
+    if not os.path.isdir(RENDER_DIR):
+        return None
+    cands = sorted([x for x in os.listdir(RENDER_DIR) if x.lower().endswith((".png", ".jpg", ".jpeg"))])
+    return os.path.join(RENDER_DIR, cands[-1]) if cands else None
+
+def do_video(cfg, spec):
+    """image-to-video לפי פרוטוקול מבחן התנועה v1.0. spec: image, motion_prompt, seed, test_name."""
+    import torch
+    from diffusers import WanImageToVideoPipeline
+    from diffusers.utils import export_to_video, load_image
+    image_path = spec.get("image") or _latest_render()
+    if not image_path or not os.path.exists(image_path):
+        raise RuntimeError(f"נדרשת תמונת מקור קיימת (spec.image). לא נמצא: {image_path}")
+    motion = spec.get("motion_prompt") or spec.get("prompt") or "subtle natural breathing motion, standing still"
+    seed = int(spec.get("seed", 151011))
+    model_id = cfg.get("wan_model", WAN_MODEL_ID)
+    outp = os.path.join(RENDER_DIR, f"{spec.get('test_name', 'motion')}-{seed}.mp4")
+    log(f"וידאו: {model_id} | מקור: {image_path} | זרע: {seed}")
+    pipe = WanImageToVideoPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+    if not torch.cuda.is_available():
+        raise RuntimeError("וידאו דורש כרטיס NVIDIA (CUDA).")
+    pipe.enable_model_cpu_offload()
+    if hasattr(pipe.vae, "enable_tiling"):
+        pipe.vae.enable_tiling()
+    generator = torch.Generator(device="cuda").manual_seed(seed)
+    frames = pipe(image=load_image(image_path), prompt=motion,
+                  negative_prompt="distorted face, extra limbs, morphing, glitch, blurry, text, watermark",
+                  num_frames=int(spec.get("num_frames", 81)),
+                  guidance_scale=float(spec.get("guidance", 5.0)),
+                  generator=generator).frames[0]
+    export_to_video(frames, outp, fps=int(spec.get("fps", 16)))
+    log(f"קליפ נשמר: {outp}")
+    beat(cfg, f"קליפ מבחן תנועה מוכן: {os.path.basename(outp)} ({spec.get('test_name', '?')}, זרע {seed})")
+    return outp
+
 def do_canon(cfg, name, seeds, out_dir=None):
     c = canon_prompts().get(name)
     if not c:
@@ -483,7 +521,10 @@ def process_remote_jobs(cfg):
             beat(cfg, f"מקבל עבודה מרחוק {jid}")
             spec = job.get("spec", job)
             spec.setdefault("tag", f"remote-{jid}")
-            do_render(cfg, spec)
+            if job.get("kind") == "video":
+                do_video(cfg, spec)
+            else:
+                do_render(cfg, spec)
         except Exception:
             carve(cfg, *sys.exc_info())
         mark_remote_done(cfg, jid)
@@ -544,7 +585,7 @@ def cmd_status(cfg):
 def main():
     cfg = load_config()
     sys.excepthook = lambda tp, v, tb: carve(cfg, tp, v, tb)
-    ap = argparse.ArgumentParser(description="ShimiWorker v2.0")
+    ap = argparse.ArgumentParser(description="ShimiWorker v2.2 (video)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("status")
     sub.add_parser("self-test")
@@ -559,6 +600,10 @@ def main():
     r.add_argument("--tag", default="render")
     c = sub.add_parser("canon")
     c.add_argument("name"); c.add_argument("--seeds")
+    v = sub.add_parser("video")
+    v.add_argument("--image"); v.add_argument("--prompt")
+    v.add_argument("--seed", type=int, default=151011)
+    v.add_argument("--tag", default="motion")
     a = ap.parse_args()
     if a.cmd == "status":
         cmd_status(cfg)
@@ -571,6 +616,10 @@ def main():
         sys.exit(cmd_self_test(cfg))
     elif a.cmd == "daemon":
         cmd_daemon(cfg)
+    elif a.cmd == "video":
+        outp = do_video(cfg, {"image": a.image, "motion_prompt": a.prompt,
+                              "seed": a.seed, "test_name": a.tag})
+        print("נשמר:", outp)
     elif a.cmd == "render":
         seeds = [int(s) for s in a.seeds.split(",")] if a.seeds else [a.seed]
         do_render(cfg, {"lora": a.lora, "prompt": a.prompt, "negative": a.negative,
