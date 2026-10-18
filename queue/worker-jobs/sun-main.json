@@ -1,1 +1,1 @@
-{"jobs": []}
+{"jobs": [{"id": "dryrun-1810-1", "kind": "echo", "spec": {"prompt": "dry-run test only", "note": "בדיקת שרשרת בלבד"}}]}
