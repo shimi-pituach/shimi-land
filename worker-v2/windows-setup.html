@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛠 התקנת הוורקר בווינדוז — המדריך שעובד</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1220;color:#e5e7eb;font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7}
+main{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:1.5rem;color:#fbbf24}
+h2{font-size:1.1rem;color:#fbbf24;margin-top:34px}
+.step{background:#111827;border:1px solid #374151;border-radius:12px;padding:16px 18px;margin:14px 0}
+.step b{color:#fff}
+.cmd{direction:ltr;text-align:left;background:#000;border:1px solid #374151;border-radius:8px;padding:12px 14px;font-family:Consolas,monospace;font-size:.92rem;color:#fbbf24;margin:10px 0;cursor:pointer;position:relative;white-space:pre-wrap;word-break:break-all}
+.cmd:hover{border-color:#f59e0b}
+.hint{color:#9ca3af;font-size:.9rem}
+.ok{color:#34d399}
+.warn{background:#7f1d1d33;border:1px solid #7f1d1d;border-radius:12px;padding:14px 18px;color:#fca5a5}
+.big{font-size:1.05rem}
+kbd{background:#1f2937;border:1px solid #4b5563;border-radius:5px;padding:1px 7px;font-family:monospace}
+</style>
+</head>
+<body>
+<main>
+<h1>🛠 התקנת ShimiWorker בווינדוז</h1>
+<p class="hint">אם החלון נסגר לך מיד בלחיצה כפולה — זה לא באג שלך ולא של הוורקר. זו מדיניות ביטחון של וינדוז שחוסמת קבצי PowerShell בדאבל-קליק וסוגרת את החלון בלי להראות את השגיאה. הפתרון: פותחים חלון בעצמנו ומריצים משם — החלון נשאר פתוח תמיד.</p>
+
+<div class="warn"><b>הסיבה הטכנית:</b> וינדוז מגיע עם מדיניות <span dir="ltr">ExecutionPolicy = Restricted</span>. לחיצה כפולה על .ps1 מריצה אותו תחת המדיניות הזאת, הוא נחסם בשורה הראשונה, והחלון נסגר. זה קורה לכל סקריפט PowerShell בעולם, לא רק לשלנו.</div>
+
+<h2>הדרך שעובדת — 3 צעדים</h2>
+<div class="step">
+<b>צעד 1 — הורד וחלץ את הוורקר:</b><br>
+<a href="ShimiWorker-v2.0-Windows.zip" style="color:#fbbf24">⬇ ShimiWorker-v2.0-Windows.zip</a><br>
+<span class="hint">חלץ את התוכן (קליק ימני ← חלץ הכל) לתיקייה קבועה, למשל <span dir="ltr">C:\ShimiWorker</span></span>
+</div>
+<div class="step">
+<b>צעד 2 — פתח חלור PowerShell בתיקייה של הוורקר:</b><br>
+החזק <kbd>Shift</kbd> ולחץ קליק ימני על ריק בתיקייה ← בחר <b>"פתח חלון PowerShell כאן"</b> (Open PowerShell window here).<br>
+<span class="hint">אם האפשרות לא מופיע: פתח PowerShell מתפריט ההתחלה ועבור לתיקייה:</span>
+<div class="cmd" onclick="cp(this)">cd C:\ShimiWorker</div>
+</div>
+<div class="step">
+<b>צעד 3 — הדבק את הפקודה והמתן:</b>
+<div class="cmd" onclick="cp(this)">powershell -ExecutionPolicy Bypass -File install_worker_windows.ps1</div>
+ההתקנה רצה עם הצעדים כתובים מול העיניים. בגרסה החדשה של הקובץ, גם אם משהו נכשל — החלון <b>לא נסגר</b> אלא עוצר ומראה בדיוק מה נכשל.
+</div>
+
+<h2>אותו פתרון לסטודיו 1.4 ולהתקנת ComfyUI</h2>
+<div class="step">
+קובץ ה-bat של הסטודיו וקובץ ה-ps1 של ComfyUI סובלים מאותו דבר בדיוק. מריצים אותם מתוך חלון PowerShell פתוח (צעד 2) עם:
+<div class="cmd" onclick="cp(this)">powershell -ExecutionPolicy Bypass -File setup_lora_studio.ps1</div>
+<span class="hint">לקובץ bat של הסטודיו 1.4, מתוך התיקייה שלו:</span>
+<div class="cmd" onclick="cp(this)">cmd /c "1-התקן-וינדוז.bat"</div>
+</div>
+
+<h2>איך בודקים שהכל טוב</h2>
+<div class="step">
+בתום ההתקנה, באותו חלון:
+<div class="cmd" onclick="cp(this)">python shimi_worker.py status</div>
+<div class="cmd" onclick="cp(this)">python shimi_worker.py self-test</div>
+<span class="ok">self-test שמסתיים ב"עברה בהצלחה" = הוורקר מוכן לעבודה.</span>
+</div>
+
+<p class="hint">לחיצה על שורת פקודה כאן מעתיקה אותה אוטומטית ללוח. · עמוד זה נבנה על ידי שימי פיתוח, 18/10/2026</p>
+</main>
+<script>
+function cp(el){
+  navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
+    const old=el.style.borderColor; el.style.borderColor='#34d399';
+    setTimeout(()=>el.style.borderColor=old,600);
+  });
+}
+</script>
+</body>
+</html>
