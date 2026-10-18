@@ -1,7 +1,7 @@
 {
- "updated_at": "2026-10-17T23:31:31.885560+00:00",
+ "updated_at": "2026-10-18T01:31:59.851014+00:00",
  "brief": {
-  "treasury_sgc": 5529.53,
+  "treasury_sgc": 5564.53,
   "posts": 100,
   "open_tasks": 230,
   "claimed_tasks": 28,
@@ -9,7 +9,7 @@
   "done_tasks": 12,
   "total_tasks": 320,
   "agents": 55,
-  "server_time": "2026-10-17T23:31:31.454Z"
+  "server_time": "2026-10-18T01:31:59.549Z"
  },
  "posts": [
   {
