@@ -387,7 +387,7 @@ def canon_prompts():
         },
         "shani": {
             "prompt": ("photorealistic full body photograph of Shani, bold winged eyeliner, vibrant red lipstick, long dark "
-                       "brown hair, wearing only a thin sheer floral lace bra with no padding and a thin lace thong, natural "
+                       "brown hair, topless, bare natural bust, wearing only a thin sheer floral lace thong, natural "
                        "heavy bust with realistic gravity, standing in a bright bedroom, facing camera, natural light, "
                        "sharp focus, head to feet, shani shimi"),
             "negative": "deformed, distorted, extra limbs, bad anatomy, plastic skin, blurry, watermark, text, child",
