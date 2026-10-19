@@ -1,6 +1,6 @@
 {
   "version": "2.0-videos",
-  "count": 669,
+  "count": 670,
   "items": [
     {
       "url": "https://aidoor.shimi.land/gallery/lea-bikini/lea_bikini_1_seed161003.png",
@@ -4212,6 +4212,13 @@
       "folder": "lea-koda-19-10",
       "title": "על הגב — בד לייס רקום עשיר, על נוסח lea_100",
       "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_101_onback_rich_embroidered_lace_prompt.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_102_onback_lace_kitchen_towels.jpg",
+      "char": "לאה",
+      "folder": "lea-koda-19-10",
+      "title": "על הגב — שתי מגבות מטבח קטנות מתחרה שקופה (נוסח עליון קבוע חדש)",
+      "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_102_onback_lace_kitchen_towels_prompt.md"
     }
   ],
   "videos_count": 40
