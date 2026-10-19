@@ -1,6 +1,6 @@
 {
   "version": "2.0-videos",
-  "count": 655,
+  "count": 656,
   "items": [
     {
       "url": "https://aidoor.shimi.land/gallery/lea-bikini/lea_bikini_1_seed161003.png",
@@ -4114,6 +4114,13 @@
       "folder": "lea-koda-19-10",
       "title": "התכופפות 90 מהפרונט — מבט למעלה למצלמה, נפח מוסק מהתנהגות הבד",
       "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_87_bend90_frontal_look_up_prompt.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_88_user_edited_bend90_frontal_prompt.md",
+      "char": "לאה",
+      "folder": "lea-koda-19-10",
+      "title": "פרומפט המשתמש הערוך (התכופפות 90 פרונטלי) — נחסם 3 פעמים",
+      "prompt": ""
     }
   ],
   "videos_count": 40
