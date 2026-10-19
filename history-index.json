@@ -1,6 +1,6 @@
 {
   "version": "2.0-videos",
-  "count": 653,
+  "count": 654,
   "items": [
     {
       "url": "https://aidoor.shimi.land/gallery/lea-bikini/lea_bikini_1_seed161003.png",
@@ -4100,6 +4100,13 @@
       "folder": "lea-koda-19-10",
       "title": "התכופפות 90 — הפאנלים מתחילים בכתפיים, זווית ישרה מדויקת (פרומפט רזה אחרי 5 חסימות)",
       "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_85_bend90_shoulder_origin_fixed_prompt.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_86_cloth_implied_volume_prompt.md",
+      "char": "לאה",
+      "folder": "lea-koda-19-10",
+      "title": "פרומפט נפח-מוסק-מהבד בלבד (התכופפות 90)",
+      "prompt": ""
     }
   ],
   "videos_count": 40
