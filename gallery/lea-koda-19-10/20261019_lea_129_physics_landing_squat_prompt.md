@@ -1,0 +1,2 @@
+# lea_129 — LOCKED FORMULA v2, physics battery: landing (absorb squat, profile, hands behind back)
+Two landing attempts ('thrown strongly downward by the sudden deceleration, bouncing and rippling') were blocked. Passed after restaging the landing as a stable deep squat ('having just landed softly from a small jump... knees bent deeply... butt resting on her heels') with the bust static and only the cloth responding. Note: like the jump, deceleration-deformation wording on the bust is a filter trigger.
