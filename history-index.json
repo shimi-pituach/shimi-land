@@ -1,6 +1,6 @@
 {
   "version": "2.0-videos",
-  "count": 600,
+  "count": 608,
   "items": [
     {
       "url": "https://aidoor.shimi.land/gallery/lea-bikini/lea_bikini_1_seed161003.png",
@@ -3736,6 +3736,62 @@
       "folder": "lea-koda-19-10",
       "title": "מבחן פיזיקה: עמידה מקדימה (גייטוויי) — שכבת תחרה בודדת",
       "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_47_pose_standing_front_gateway_prompt.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_face_ref_anchor.jpg",
+      "char": "לאה",
+      "folder": "lea-koda-19-10",
+      "title": "עוגן זהות: קאפ פנים של לאה מתמונת הקאנון הנעולה (הפרופיל העומד). מקור: חיתוך שיצרתי מהתמונה שאושרה כקאנון ב-19/10. משמש לנעילת פנים בבדיקות פיזיקה.",
+      "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_face_ref_anchor.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_lower_ref_anchor.jpg",
+      "char": "לאה",
+      "folder": "lea-koda-19-10",
+      "title": "עוגן זהות: קאפ גוף תחתון (אגן/ירכיים/תחתון) של לאה מתמונת הקאנון הנעולה. מקור: חיתוך שיצרתי מהתמונה שאושרה כקאנון ב-19/10. משמש לנעילת פרופורציות בבדיקות פיזיקה.",
+      "prompt": "https://aidoor.shimi.land/gallery/lea-koda-19-10/20261019_lea_lower_ref_anchor.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_0.jpg",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "סריקת סביבה 0 ממחקר קודה 17/10 (עבודת סקירה ישנה מהשיחה).",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_0.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_1.jpg",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "סריקת סביבה 1 ממחקר קודה 17/10.",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_1.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_2.jpg",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "סריקת סביבה 2 ממחקר קודה 17/10.",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_2.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_3.jpg",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "סריקת סביבה 3 ממחקר קודה 17/10.",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_scan_sweep_3.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_sweep_sheet.png",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "גיליון הסריקות המאוחד של מחקר קודה 17/10.",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_sweep_sheet.md"
+    },
+    {
+      "url": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_brain_diagram.png",
+      "char": "קודה",
+      "folder": "koda-backfill-19-10",
+      "title": "דיאגרמת מוח קודה, נוצר ב-17/10 כחלק מסקירת הסביבה.",
+      "prompt": "https://aidoor.shimi.land/gallery/koda-backfill-19-10/20261017_koda_brain_diagram.md"
     }
   ],
   "videos_count": 40
