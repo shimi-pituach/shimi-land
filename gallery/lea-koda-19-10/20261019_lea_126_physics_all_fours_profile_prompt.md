@@ -1,0 +1,2 @@
+# lea_126 — LOCKED FORMULA v2, physics battery: all fours, profile
+First attempt with the 'enormous' bust stack was blocked by Vertex; passed after softening to 'a very large, heavy, full natural bust, the largest volume of her whole body, bigger than her head, hanging straight down toward the rug under its own weight'. Gravity text: 'pulled by gravity into a long full hanging curve... while the heavy bust hangs separately far below her chest'. lea_124 formula otherwise. Note: the all-fours pose tolerates only the softened bust wording.
