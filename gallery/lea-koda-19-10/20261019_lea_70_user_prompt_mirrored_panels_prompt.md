@@ -13,3 +13,6 @@ Bottom: a matching light-blue opaque floral lace bikini bottom with very thin si
 Style: shot on a 50mm lens, sharp focus, visible skin texture, gentle shadows, editorial photography.
 
 [Original user negative list (not supported by this engine): bra, bikini top, connected front panel, knot, bow, straps across chest, clasp, one-piece swimsuit, sports bra, padded bra, cartoon, plastic skin, deformed hands, extra fingers, wide shoulders, flat chest]
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
