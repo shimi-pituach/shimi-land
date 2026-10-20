@@ -1,2 +1,5 @@
 # lea_167 — on-back: WIDE channel (user: "זה הכי קרוב. תעשה את המרווח בין שני חלקי הבגד גדול ורחב")
 Base = lea_166 verbatim (explicit open-front + straight parallel channel + scarves anchors + reinforced scale). Widened: "the widest possible gap between the two panels"; panels moved outward: "Each panel lies far out on the outer side of her bust, close to her arm"; channel redefined: "one very wide, fully open vertical channel of her own skin... wide and straight, the same generous width at every height... so the open skin of the center of her front is clearly visible from her collarbone down to her navel." Passed first attempt.
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
