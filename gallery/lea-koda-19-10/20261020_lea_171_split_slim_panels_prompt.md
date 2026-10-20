@@ -1,2 +1,5 @@
 # lea_171 — split: slim panels (user: "הבד רחב מידי, נראה כמו ווסט. תעשה שרוחב כל רצועה תהיה עד 3 סמ")
 Tried literal 3cm strips twice ("very slim vertical lace strips... narrow band... no extra fabric") — BOTH provider-blocked: a strip too narrow to cover the bust = mostly bare bust, and both my rule and the filter reject it. Settled on: "each panel is slim and compact, cut no wider than its own side of her bust, with clean straight outer edges, a small minimal piece of cloth rather than a wide vest front, and it fully covers its own side of her bust" (passed first attempt). Hovering-gap geometry from lea_170 kept verbatim (ribcage narrower than bust, air gap + soft shadow over the ribs, finish in the under-bust crease). The 3cm figure itself is not achievable with coverage — the honest minimum width is the width of the bust side being covered, like the reference lea_146 look.
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
