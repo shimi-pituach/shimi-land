@@ -44,6 +44,9 @@
 
 שלילי: `dark hair, heavy makeup, plastic skin, smooth cartoon skin, deformed hands, extra fingers, blurry face`
 
+## רפרנס בגדי טסט מסאן (20/10 11:54)
+`test_clothes_reference_sun.jpg` — דמות בערכת תחרה כחולה-אפרפרה: תחתון בקשירת צד + קרדיגן תחרה קצר פתוח בחזית. שוכבת על שטיח בז' (ברכיים כפופות, ידיים מעל הראש), ספה אפורה וצמחים ברקע, אור טבעי מחלונות. זו הפוזה והערכה שסאן הגדיר כבגדי הטסט לשירלי.
+
 ## פרומפט בגדי טסט סינתטיים (קנון v2 — לכל רנדר טסט של שירלי)
 ```
 full body head-to-feet photo of a young adult woman, topless, bare natural bust, wearing only a thin sheer floral lace thong, no bra, no layered undergarments, full body photograph, head to toe, plain light gray seamless studio background, standing neutral relaxed pose, photorealistic, soft even studio lighting
