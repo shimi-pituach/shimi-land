@@ -10,3 +10,6 @@
 ## Hands: clasped behind her back in every pose that allows it (standing, bend, side-lying, kneeling). Exceptions: on-back arms above head, jump/landing arms free.
 ## Scene: bright minimalist living room, large windows, green plants in terracotta pots, grey sofa, cream rug. Face crop anchor attached. Soft natural window light, photorealistic, sharp focus.
 ## Battery passed 2026-10-20 with v3: standing (136), on-back (137), on-side (138), bend-90 (139), jump (140), landing squat (141). Jump needed the softened variant (one block).
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
