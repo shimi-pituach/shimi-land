@@ -18,3 +18,6 @@ BODY: lean athletic hourglass, thin arms, small narrow ribcage; very narrow wais
 HANDS: behind her back whenever the pose allows.
 NO straps, NO scalloped hem (removed per user), lace never described as dense/embroidered/opaque, never "rests/lies on" the bust (cling trigger), never "against her chest".
 Face anchor: https://base44.app/api/apps/6a7a26d976bbf507dee190b7/files/mp/public/6a7a26d976bbf507dee190b7/2a3b38bc4_lea_face_ref.jpg
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
