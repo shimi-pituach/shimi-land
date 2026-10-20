@@ -11,3 +11,6 @@ Top: a cropped sleeveless dusty light-blue floral lace top made of two separate 
 Bottom: a matching light-blue opaque floral lace bikini bottom with very thin side strings, sitting low on the hips.
 
 Style: shot on a 50mm lens, sharp focus, visible skin texture, gentle shadows, editorial photography.
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
