@@ -11,7 +11,7 @@ h1{font-size:1.3rem}h2{font-size:1.05rem;margin:28px 0 12px;border-bottom:1px so
 #lightbox img{max-width:96vw;max-height:92vh}</style></head><body>
 <h1>🎬 גלריית שימי — כל התמונות שנוצרו עד היום</h1>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px;padding:12px 14px;background:#171a21;border:1px solid #f59e0b;border-radius:12px">
-<a href="history.html" style="background:#f59e0b;color:#111;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem">📚 ההיסטוריה המלאה — 450 תוצרים (407 תמונות + 43 וידאו, עם סינון וחיפוש)</a>
+<a href="history.html" style="background:#f59e0b;color:#111;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem">📚 ההיסטוריה המלאה — <span id="hcount">…</span> תוצרים (<span id="himg">…</span> תמונות + <span id="hvid">…</span> וידאו, עם סינון וחיפוש)</a>
 <a href="#videos" style="background:#1f2937;color:#f87171;font-weight:600;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem;border:1px solid #7f1d1d">🎬 מחלקת הווידאו — 40 סרטונים (קפיצה ישירה)</a>
 <a href="https://studio2.shimi.land" style="background:#1f2937;color:#e8eaf0;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:.95rem;border:1px solid #2a2f3a">🎛 הסטודיו</a>
 </div>
@@ -322,4 +322,5 @@ h1{font-size:1.3rem}h2{font-size:1.05rem;margin:28px 0 12px;border-bottom:1px so
 <div class="grid">
 <div class="card"><img src="gallery/lea-canonical/CANON_CHEST_sun_locked_151011.png" loading="lazy" onclick="lb('gallery/lea-canonical/CANON_CHEST_sun_locked_151011.png')"><div class="meta">CANON_CHEST_sun_locked_151011.png — החזה הקנוני שנעל סאן (זרע 151011, בסיס פנים 05)</div></div>
 </div>
+<script>fetch("history-index.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{var n=(d.items||[]).length,v=d.videos_count||0;document.getElementById("hcount").textContent=n;document.getElementById("hvid").textContent=v;document.getElementById("himg").textContent=n-v}).catch(function(){});</script>
 </body></html>
