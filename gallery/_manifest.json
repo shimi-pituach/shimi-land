@@ -1641,5 +1641,40 @@
    "17-10"
   ],
   "kernel": "bigshimi358/lea-chest-fix"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_136_physics_standing_v3",
+  "description": "Physics battery v3: standing, hands behind back"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_137_physics_on_back_v3",
+  "description": "Physics battery v3: on her back, arms overhead"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_138_physics_on_side_v3",
+  "description": "Physics battery v3: on her side, hands behind back"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_139_physics_bend_90_v3",
+  "description": "Physics battery v3: 90-degree bend, hands behind back"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_140_physics_jump_v3",
+  "description": "Physics battery v3: mid-air jump, floating fabric"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_141_physics_landing_squat_v3",
+  "description": "Physics battery v3: landing squat"
+ },
+ {
+  "folder": "lea-koda-19-10",
+  "file": "20261020_lea_formula_v3_locked",
+  "description": "Locked formula v3: approved top + Brazilian bottom, zero cling wording"
  }
 ]
