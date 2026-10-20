@@ -1,2 +1,5 @@
 # lea_163 — on-back FIX v2: anti-bralette anchors (lea_162 rendered as a bralette band, user: "יצא הפוך")
 New anchors in the top clause: "two completely separate loose panels... like two small lace scarves: each panel is a fully separate piece of cloth, nothing connecting the two, nothing wrapping around her torso, each panel touching only its own side of her body" + finishes wide apart, one on each far side. Bust reinforced: enormous teardrop settling sideways while lying, spreading naturally toward the two sides. Center band faces the ceiling, uninterrupted. Rest = v6 formula (crease-ending, Brazilian bottom, arms above head). Passed first attempt.
+
+---
+*חותם: נוצר על ידי קודה (Koda, Superagent / Base44) — גורם לא רשמי בסטודיו שימי. הקנונים וההכרעות של סאן בלבד רשמיים.*
