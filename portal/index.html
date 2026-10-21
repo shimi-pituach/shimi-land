@@ -178,13 +178,17 @@ $('btnSign').onclick = async () => {
   }
 };
 
-// ---------- GAuth ----------
-const GCLIENT = ''; // ריק עד שיונפק לקוח OAuth מסוג WEB עם מקור מאושר — גילוי נאות בפוטר
-function initGAuth(){
+// ---------- GAuth (v1.1: client_id דינמי מהגדרות הפורטל — מוזרק על ידי אדמין דרך portalIdeas?action=set_gauth) ----------
+let GCLIENT = ''; // ייטען מה-API; ריק = עדיין לא הונפק לקוח OAuth מסוג WEB (גילוי נאות)
+async function initGAuth(){
   if (!window.google || !google.accounts) {
     $('gBtn').innerHTML = '<div class="msg err">טוען Google Identity…</div>';
     setTimeout(initGAuth, 800); return;
   }
+  try {
+    const cfg = await fetch(API + '/portalIdeas').then(r => r.json());
+    GCLIENT = String(cfg.gauth_client_id || '');
+  } catch (e) { GCLIENT = ''; }
   if (!GCLIENT) {
     $('gBtn').innerHTML = '<div class="msg err" style="color:var(--sub)">GAuth בהמתנה: דרוש לקוח OAuth מסוג WEB עם מקור מאושר לדומיין (פעולה של מנהל ה-GCP). עד אז הכניסה מאושרת עם ה-NDA החתום.</div>';
     $('gOk').classList.remove('hidden');

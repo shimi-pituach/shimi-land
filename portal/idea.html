@@ -96,7 +96,16 @@ const id = new URLSearchParams(location.search).get('id');
 
 function mountSim(i){
   const el = document.getElementById('simMount');
-  if (i.sim_html && i.sim_html.trim().startsWith('<')) { el.innerHTML = '<div class="sim">' + i.sim_html + '</div>'; return; }
+  if (i.sim_html && i.sim_html.trim().startsWith('<')) {
+    el.innerHTML = '<div class="sim">' + i.sim_html + '</div>';
+    // סקריפטים המוזרקים ב-innerHTML לא רצים — יוצרים אותם מחדש כדי שהסימולציה החיה תפעל
+    el.querySelectorAll('script').forEach(function (oldScript) {
+      const s2 = document.createElement('script');
+      s2.textContent = oldScript.textContent;
+      oldScript.replaceWith(s2);
+    });
+    return;
+  }
   el.innerHTML = `<div class="sim">
     <div class="simlog" id="simLog"></div>
     <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
