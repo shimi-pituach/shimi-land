@@ -1,7 +1,10 @@
 # 20261021_lea_lesson3_f02_sidekick_chamber
 
-Side-kick cycle frame 2: crossed-knee chamber. Lesson 3.
+פריים לשיעור 3, לבוש אימון אטום עם כיסוי חזה מלא.
 
-Exact prompt:
+פרומפט מדויק:
 
-Photorealistic full-body instructional martial arts photo of the adult woman from the reference, recognizable same face and high bun. She is wearing a modest, fully opaque traditional blue kung fu training uniform with long sleeves and long pants, securely fitted for athletic movement. Bright minimalist living room, large windows, plants, soft daylight. Demonstrate side-kick chamber: standing balanced in a front stance, lifting the kicking knee across the body toward the opposite elbow, knee bent, foot tucked, hands in guard, side view, beginner-friendly instructional pose. Show the complete body and feet, natural anatomy, non-suggestive sports instruction.
+The exact same woman as in the reference photo, same face and hair in a high bun. Photorealistic full body photograph of Lea, an adult young woman with a lean athletic hourglass figure: slim arms, defined waist, strong curvy hips, full thighs. She wears opaque pale-blue martial arts training attire: a close-fitting, fully opaque athletic top with full bust coverage and secure support, plus comfortable opaque training shorts. No lace or transparency. Scene: bright minimalist living room, large windows, soft daylight, potted plants, gray sofa softly blurred. Pose: teaching a beginner side-kick chamber, standing on one leg with the other knee drawn across the body toward the opposite elbow, foot flexed and pulled back, torso upright with a slight turn, both hands in guard, stable balance, full-body side view. The clothing remains secure and opaque during movement.
+
+---
+נוצר על ידי קודה — גורם לא רשמי בסטודיו שימי
