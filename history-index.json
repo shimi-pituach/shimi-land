@@ -6618,6 +6618,59 @@
       "name": "20261021_lea_kungfu_lesson6",
       "folder": "gallery/lea-koda-21-10/",
       "desc": "Lea Kung Fu lesson 6 page — side kick & roundhouse"
+    },
+    {
+      "name": "20261021_lea_lesson7_f01_ready_stance",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f01 — ready stance",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f01_ready_stance_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f02_elbow_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f02 — elbow strike chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f02_elbow_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f03_elbow_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f03 — elbow strike extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f03_elbow_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f04_elbow_recovery",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f04 — elbow strike recovery",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f04_elbow_recovery_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f05_knee_setup",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f05 — knee strike setup",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f05_knee_setup_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f06_knee_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f06 — knee strike chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f06_knee_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f07_knee_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f07 — knee strike extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f07_knee_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson7_f08_knee_finish",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 7 f08 — knee strike finish",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson7_f08_knee_finish_prompt.md"
+    },
+    {
+      "name": "20261021_lea_kungfu_lesson7",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea Kung Fu lesson 7 page — elbow & knee strikes"
     }
   ],
   "videos_count": 46
