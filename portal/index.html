@@ -93,7 +93,6 @@ a{color:var(--gold)}
   <div class="footer">רשת שימי · מערכת חתימות שימי · החתימה האלקטרונית נשמרת וניתנת לאימות · כל הפעולות בפורטל מתועדות</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="portal-core.js"></script>
 <script>
 const API = window.PORTAL.API;
@@ -128,28 +127,15 @@ function refreshSignBtn(){
 }
 function qualityDataOk(){ const d = sigData().data; let ink = 0; for (let i=3; i<d.length; i+=4*7) if (d[i] > 0 && (d[i-1]+d[i-2]+d[i-3]) < 640) ink++; return ink > 60 && strokes >= 2; }
 
-// ---------- הרכבת PDF חתום ----------
-function buildPdf(){
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({unit:'mm', format:'a4'});
-  doc.setFont('helvetica','bold'); doc.setFontSize(16);
-  doc.text('Non-Disclosure Agreement (NDA) — Shimi Network Submissions Portal', 12, 18, {maxWidth: 186});
-  doc.setFont('helvetica','normal'); doc.setFontSize(10);
-  const lines = doc.splitTextToSize('Hebrew original text is preserved in the portal page (NDA-VHP-1). By signing below, the signer accepts clauses 1-6: no disclosure, copying, distribution, competing use, or circumvention of protections. Electronic signature is binding, stored by Shimi Signatures with timestamp and IP. Governed by the laws of the State of Israel.', 186);
-  doc.text(lines, 12, 30);
-  doc.setFontSize(11);
-  doc.text('Signer: ' + $('fName').value, 12, 62);
-  doc.text('Email: ' + $('fEmail').value, 12, 69);
-  doc.text('Phone: ' + ($('fPhone').value || '-'), 12, 76);
-  doc.text('Date (Israel): ' + new Date().toLocaleString('he-IL'), 12, 83);
-  doc.text('Visitor ID: ' + window.PORTAL.vid + '   Session: ' + window.PORTAL.SID, 12, 90);
-  const sig = cv.toDataURL('image/png');
-  doc.addImage(sig, 'PNG', 12, 98, 80, 34);
-  doc.setDrawColor(120); doc.line(12, 134, 90, 134);
-  doc.text('Signature', 12, 139);
-  doc.setFontSize(8);
-  doc.text('Verified by Shimi Signatures — rubric captured, quality-checked, PDF assembled and sealed server-side. NDA-VHP-1', 12, 285);
-  return doc.output('datauristring');
+// ---------- תמונת חתימה דחוסה (ה-PDF מורכב בשרת בעת הפתיחה — עוקף מגבלת גודל שדה) ----------
+function sigImageCompact(){
+  const off = document.createElement('canvas');
+  const W = 300, H = 180;
+  off.width = W; off.height = H;
+  const octx = off.getContext('2d');
+  octx.fillStyle = '#fff'; octx.fillRect(0, 0, W, H);
+  octx.drawImage(cv, 0, 0, W, H);
+  return off.toDataURL('image/jpeg', 0.55);
 }
 
 // ---------- חתימה ושליחה ----------
@@ -158,17 +144,17 @@ $('btnSign').onclick = async () => {
   const msg = $('msg');
   if (!name || !/.+@.+\..+/.test(email)) { msg.className='msg err'; msg.textContent = 'שם מלא ואימייל תקין חובה.'; return; }
   if (!qualityDataOk()) { msg.className='msg err'; msg.textContent = 'החתימה לא עברה זיהוי רובריקה — צייר שני קווים לפחות.'; return; }
-  $('btnSign').disabled = true; msg.className='msg'; msg.textContent = 'מהרכב PDF חתום ושולח למערכת החתימות…';
+  $('btnSign').disabled = true; msg.className='msg'; msg.textContent = 'שולח חתימה למערכת החתימות של שימי…';
   window.PORTAL.track('sign_submit','');
   try {
-    const pdf = buildPdf();
+    const sigImg = sigImageCompact();
     const r = await fetch(API + '/portalSign', { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ signer_name: name, email, phone: $('fPhone').value.trim(), pdf_base64: pdf, nda_version: 'NDA-VHP-1', google_email: '' }) });
+      body: JSON.stringify({ signer_name: name, email, phone: $('fPhone').value.trim(), sig_image: sigImg, nda_version: 'NDA-VHP-1', google_email: '', visitor_id: window.PORTAL.vid }) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || 'שגיאה');
     sessionStorage.setItem('vh_nda', JSON.stringify({ name, email, doc_url: j.doc_url, doc_ref: j.doc_ref, ts: Date.now() }));
     window.PORTAL.track('sign_ok', j.doc_ref);
-    msg.className='msg ok'; msg.textContent = '✓ ה-NDA נחתם ונשמר.';
+    msg.className='msg ok'; msg.textContent = '✓ ה-NDA נחתם, נשמר ונחתם במערכת החתימות.';
     $('stepNda').classList.add('hidden');
     $('stepGoogle').classList.remove('hidden');
     initGAuth();
