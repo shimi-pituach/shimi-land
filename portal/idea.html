@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>הצעה — פורטל רשת שימי</title>
+<style>
+:root{--bg:#0b0e14;--card:#141a26;--line:#25304a;--fg:#e8ecf4;--sub:#96a0b4;--gold:#e8b84b;--ok:#34d399;--err:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,sans-serif;padding:24px 14px}
+.wrap{max-width:920px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+h1{font-size:1.4rem}h2{font-size:1.1rem;color:var(--gold);margin-bottom:10px}
+.sub{color:var(--sub)}
+.badge{display:inline-block;background:#1c2740;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.78rem;color:var(--sub);margin:2px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid var(--line);padding:9px 12px;text-align:right;font-size:.92rem}
+th{color:var(--sub);font-weight:600;background:#0e1320}
+a{color:var(--gold)}
+button{background:var(--gold);color:#111;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer}
+.sec{background:#1c2740;color:var(--fg)}
+.sim{background:#0e1320;border:1px solid var(--line);border-radius:12px;padding:16px}
+.simlog{height:220px;overflow-y:auto;font:12.5px/1.55 ui-monospace,monospace;background:#080b11;border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:10px;direction:rtl}
+.simlog div{padding:1px 0;white-space:pre-wrap}
+.e-in{color:#7dd3fc}.e-noise{color:#64748b}.e-act{color:#34d399}.e-alert{color:#fbbf24}.e-sys{color:#a78bfa}
+.simstats{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.9rem;color:var(--sub)}
+.simstats b{color:var(--fg)}
+.footer{text-align:center;color:var(--sub);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body data-page="idea">
+<div class="wrap" id="app">
+  <div class="card"><div class="sub">טוען הצעה…</div></div>
+</div>
+<div class="footer">רשת שימי · תוכן מוגן תחת NDA-VHP-1 · אין להעתיק, לצלם או לשתף</div>
+
+<script src="portal-core.js"></script>
+<script>
+const API = window.PORTAL.API;
+const id = new URLSearchParams(location.search).get('id');
+(async () => {
+  if (!sessionStorage.getItem('vh_nda')) { location.href = 'index.html'; return; }
+  if (!id) { document.getElementById('app').innerHTML = '<div class="card"><div class="sub">חסר מזהה הצעה.</div></div>'; return; }
+  const r = await fetch(API + '/portalIdeas?id=' + encodeURIComponent(id));
+  const j = await r.json();
+  if (!j.ok) { document.getElementById('app').innerHTML = '<div class="card"><div class="sub">הצעה לא נמצאה.</div></div>'; return; }
+  const i = j.idea;
+  window.PORTAL.track('idea_open', i.title);
+  document.title = i.title + ' — פורטל רשת שימי';
+  document.getElementById('app').innerHTML = `
+    <div class="card">
+      <h1>${i.title}</h1>
+      <div class="meta" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+        <span class="badge">✍️ חתום בשם: ${i.agent_name}</span>
+        <span class="badge">🏆 ${i.competition||'VentureHack 4'}</span>
+        <span class="badge">🕒 ${new Date(i.signed_at).toLocaleString('he-IL')}</span>
+        <span class="badge">🔒 אסמכתא: ${(i.signature_hash||'').slice(0,14)||i.id.slice(0,10)}</span>
+      </div>
+      <div style="margin-top:10px">${(i.summary||'').split('\\n').map(p=>'<p style="margin:8px 0">'+p+'</p>').join('')}</div>
+    </div>
+
+    <div class="card">
+      <h2>💰 הערכת עלות</h2>
+      <div class="sub">סה"כ: <b style="color:var(--fg)">${i.cost_estimate_total||'—'}</b></div>
+      <table id="costTable"></table>
+    </div>
+
+    <div class="card">
+      <h2>🖥️ סימולציה אקטיבית — המערכת בפעולה חיה</h2>
+      <div class="sub">סימולציה זו רצה בזמן אמת בעמוד זה ומדגימה את ליבת ההצעה.</div>
+      <div id="simMount"></div>
+      <div class="simstats">
+        <span>אירועים שהתקבלו: <b id="stIn">0</b></span>
+        <span>רעש שסונן: <b id="stNoise">0</b></span>
+        <span>פעולות אוטונומיות: <b id="stAct">0</b></span>
+        <span>אימותים שנסגרו: <b id="stVer">0</b></span>
+        <span>שהות שלך בעמוד: <b id="stDwell">0</b> שנ'</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="ideas.html"><button class="sec">← חזרה לרשימה</button></a>
+    </div>`;
+
+  // טבלת עלות
+  const rows = (i.cost_breakdown||'').split('\\n').filter(Boolean);
+  document.getElementById('costTable').innerHTML =
+    '<tr><th>פריט</th><th>הערכה</th></tr>' +
+    (rows.length ? rows.map(r2 => { const c = r2.split('|'); return '<tr><td>' + (c[0]||'').trim() + '</td><td>' + (c[1]||'').trim() + '</td></tr>'; }).join('') :
+     '<tr><td colspan="2" class="sub">לא צוינה</td></tr>');
+
+  // הרצת סימולציה מותאמת (sim_html יכול להכיל סקריפט ייעודי; ברירת מחדל: מנוע מבצעים כללי)
+  mountSim(i);
+})();
+
+function mountSim(i){
+  const el = document.getElementById('simMount');
+  if (i.sim_html && i.sim_html.trim().startsWith('<')) { el.innerHTML = '<div class="sim">' + i.sim_html + '</div>'; return; }
+  el.innerHTML = `<div class="sim">
+    <div class="simlog" id="simLog"></div>
+    <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="sec" id="simBtn" data-track="sim_toggle">⏸ השהה/המשך</button>
+      <button class="sec" id="simSpeed" data-track="sim_speed">⚡ מהירות</button>
+    </div>
+  </div>`;
+  const log = document.getElementById('simLog');
+  let paused = false, speed = 1, nIn=0, nNoise=0, nAct=0, nVer=0;
+  const t0 = Date.now();
+  setInterval(() => { document.getElementById('stDwell').textContent = Math.round((Date.now()-t0)/1000); }, 1000);
+  function add(cls, txt){ const d=document.createElement('div'); d.className=cls; d.textContent = new Date().toLocaleTimeString('he-IL') + '  ' + txt; log.appendChild(d); while(log.children.length>90) log.removeChild(log.firstChild); log.scrollTop = log.scrollHeight; }
+  const events = [
+    () => { nIn++; add('e-in','📥 אירוע התקבל: חיישן לחץ דם סטנדרטי — קריאה תקינה 118/76'); },
+    () => { nIn++; add('e-noise','🔇 רעש לא-מנטלי — נדחה אוטומטית (סוללה 84%, דפוס מוכר)'); nNoise++; },
+    () => { nIn++; add('e-in','📥 אירוע: פעימות לב — ספיגה תקינה'); },
+    () => { nIn++; add('e-alert','⚠️ סוללת חיישן גוועת (18%) — ניבוי: נפילה בעוד ~14 שעות'); nAct++; add('e-act','✅ פעולה: טכנאי תוזמן לפני הפער — הודעה נשלחה אוטונומית'); },
+    () => { nIn++; add('e-noise','🔇 קריאה כפולה — נדחתה בשער הסינון'); nNoise++; },
+    () => { nIn++; add('e-alert','⚠️ מטופל לא אישר נטילת מדידה 2 שעות'); nAct++; add('e-act','✅ פעולה: פנייה אישית נשלחה בוואטסאפ, אישור התקבל'); nVer++; add('e-sys','🔒 אימות נסגר — תוצאה נרשמה בספר הפעולות'); },
+    () => { nIn++; add('e-in','📥 אירוע: חיישן ננעל והועבר למצב לילה אוטומטי'); nVer++; add('e-sys','🔒 מחזור אימות יומי הושלם — 100% פעולות תועדו'); },
+    () => { nIn++; add('e-alert','⚠️ איתות מוקדם: נתון חורג 2 ס"מ מקו הבסיס (מגמה של 3 ימים)'); nAct++; add('e-act','✅ פעולה: ביקור אחות תוזמן ונכנס ליומן המבצעים'); nVer++; add('e-sys','🔒 אימות: סיכום מסלול נשלח לרופא המטפל (לא החלטה קלינית)'); },
+  ];
+  let k = 0;
+  setInterval(() => {
+    if (paused) return;
+    events[k % events.length](); k++;
+    document.getElementById('stIn').textContent = nIn;
+    document.getElementById('stNoise').textContent = nNoise;
+    document.getElementById('stAct').textContent = nAct;
+    document.getElementById('stVer').textContent = nVer;
+  }, 2600 / speed);
+  document.getElementById('simBtn').onclick = (e) => { paused = !paused; window.PORTAL.track('sim_pause',''); };
+  document.getElementById('simSpeed').onclick = () => { speed = speed === 1 ? 2 : (speed === 2 ? 4 : 1); window.PORTAL.track('sim_speed_set', 'x'+speed); };
+}
+</script>
+</body>
+</html>

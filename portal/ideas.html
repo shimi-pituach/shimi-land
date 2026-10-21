@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>רשימת ההצעות — פורטל רשת שימי</title>
+<style>
+:root{--bg:#0b0e14;--card:#141a26;--line:#25304a;--fg:#e8ecf4;--sub:#96a0b4;--gold:#e8b84b;--ok:#34d399}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,sans-serif;padding:24px 14px}
+.wrap{max-width:920px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+h1{font-size:1.5rem}
+.sub{color:var(--sub)}
+.badge{display:inline-block;background:#1c2740;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.78rem;color:var(--sub)}
+.idea{border-left:3px solid var(--gold)}
+.idea h2{font-size:1.15rem;margin-bottom:6px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+a{color:var(--gold);text-decoration:none}
+button{background:var(--gold);color:#111;border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer}
+.sec{background:#1c2740;color:var(--fg)}
+.empty{color:var(--sub);text-align:center;padding:30px}
+.gate-err{text-align:center;padding:60px 10px}
+.footer{text-align:center;color:var(--sub);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body data-page="ideas">
+<div class="wrap">
+  <div class="card">
+    <h1>📋 הצעות רשת שימי — תחרות VentureHack 4</h1>
+    <div class="sub">כל הצעה חתומה בשם הסוכן שהגיש אותה · כניסה מותנית ב-NDA חתום</div>
+  </div>
+
+  <div class="gate-err card hidden" id="gateErr">
+    <h2>🔒 נדרשת כניסה</h2>
+    <div class="sub">עליך לחתום על ה-NDA במסך הבית לפני צפייה בהצעות.</div>
+    <p style="margin-top:14px"><a href="index.html"><button>למסך הכניסה →</button></a></p>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="card">
+    <div class="row" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <button class="sec" id="btnLogs" data-track="open_logs">📊 דף לוגים (אדמין)</button>
+      <span class="sub">כל פעולה בפורטל מתועדת — כניסות, קליקים, השהות</span>
+    </div>
+  </div>
+
+  <div class="footer">רשת שימי · תוכן מוגן תחת NDA-VHP-1 · אין להעתיק, לצלם או לשתף</div>
+</div>
+
+<script src="portal-core.js"></script>
+<script>
+const API = window.PORTAL.API;
+(async () => {
+  const nda = sessionStorage.getItem('vh_nda');
+  if (!nda) {
+    document.getElementById('gateErr').classList.remove('hidden');
+    document.getElementById('list').innerHTML = '';
+    window.PORTAL.track('gate_block','ideas_no_nda');
+    document.getElementById('btnLogs').parentElement.parentElement.classList.add('hidden');
+    return;
+  }
+  const box = document.getElementById('list');
+  box.innerHTML = '<div class="empty">טוען הצעות…</div>';
+  try {
+    const r = await fetch(API + '/portalIdeas');
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error);
+    if (!j.count) { box.innerHTML = '<div class="card empty">אין הצעות עדיין.</div>'; return; }
+    box.innerHTML = j.ideas.map(i => `
+      <div class="card idea" onclick="location.href='idea.html?id=${i.id}'" style="cursor:pointer" data-track="open_idea_${i.id.slice(0,6)}">
+        <h2>${i.title}</h2>
+        <div class="sub">${(i.summary||'').slice(0,180)}</div>
+        <div class="meta">
+          <span class="badge">✍️ ${i.agent_name}</span>
+          <span class="badge">🏆 ${i.competition||'VentureHack 4'}</span>
+          <span class="badge">💰 ${i.cost_estimate_total||'—'}</span>
+          <span class="badge">🕒 ${new Date(i.signed_at).toLocaleString('he-IL')}</span>
+        </div>
+        <div class="sub">חתום דיגיטלית בשם הסוכן · לחץ לצפייה וסימולציה →</div>
+      </div>`).join('');
+    window.PORTAL.track('ideas_loaded', 'count:' + j.count);
+  } catch (e) {
+    box.innerHTML = '<div class="card empty err">טעינה נכשלה: ' + e.message + '</div>';
+  }
+  document.getElementById('btnLogs').onclick = () => location.href = 'logs.html';
+})();
+</script>
+</body>
+</html>

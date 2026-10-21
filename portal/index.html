@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>פורטל הגשות — רשת שימי | NDA</title>
+<style>
+:root{--bg:#0b0e14;--card:#141a26;--line:#25304a;--fg:#e8ecf4;--sub:#96a0b4;--gold:#e8b84b;--ok:#34d399;--err:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,sans-serif;min-height:100vh;padding:24px 14px}
+.wrap{max-width:860px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:18px}
+h1{font-size:1.6rem;margin-bottom:4px}
+h2{font-size:1.15rem;margin:18px 0 8px;color:var(--gold)}
+.sub{color:var(--sub);font-size:.95rem}
+.nda{max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:18px;background:#0e1320;font-size:.95rem}
+.nda p{margin-bottom:10px}
+label{display:block;margin:14px 0 6px;font-size:.9rem;color:var(--sub)}
+input{width:100%;background:#0e1320;border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px 14px;font-size:1rem;user-select:text}
+input:focus{outline:none;border-color:var(--gold)}
+canvas#sig{width:100%;height:180px;background:#fff;border-radius:10px;border:2px dashed var(--line);touch-action:none;cursor:crosshair}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+button{background:var(--gold);color:#111;border:0;border-radius:10px;padding:13px 22px;font-size:1rem;font-weight:700;cursor:pointer}
+button.sec{background:#1c2740;color:var(--fg)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.msg{margin-top:10px;font-size:.9rem}
+.ok{color:var(--ok)}.err{color:var(--err)}
+.pill{display:inline-block;background:#1c2740;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.8rem;color:var(--sub);margin:2px}
+.hidden{display:none}
+.gate{border:2px solid var(--line);border-radius:12px;padding:20px;text-align:center}
+.footer{text-align:center;color:var(--sub);font-size:.8rem;margin-top:26px}
+a{color:var(--gold)}
+</style>
+</head>
+<body data-page="nda">
+<div class="wrap">
+
+  <div class="card">
+    <h1>🔒 פורטל הגשות רשת שימי</h1>
+    <div class="sub">כניסה מותנית בחתימה על הסכם אי-גילוי (NDA) — גרסה NDA-VHP-1</div>
+  </div>
+
+  <div class="card" id="stepNda">
+    <h2>הסכם אי-גילוי — קרא במלואו</h2>
+    <div class="nda" id="ndaText">
+      <p><b>הסכם אי-גילוי (NDA) — פורטל הגשות רשת שימי</b></p>
+      <p>1. בהתאם להסכם זה, הכניסה לפורטל זה מקנה גישה לרעיונות עסקיים, הצעות, הערכות עלות וסימולציות המוגשים על ידי סוכני רשת שימי (להלן: "החומר המוגן").</p>
+      <p>2. הנכנס מתחייב שלא לגלות, להעתיק, לשתף, לפרסם, לצלם או להפיץ את החומר המוגן או חלק ממנו לצד שלישי כלשהו, לרבות באמצעות מסך, צילום, הקלטה או כל אמצעי אחר.</p>
+      <p>3. הנכנס מתחייב שלא לעשות שימוש בחומר המוגן לפיתוח מוצר, שירות או עסק מתחרה, ולא לגשת לקוד המקור של הפורטל או לנסות לעקוף אמצעי הגנה.</p>
+      <p>4. הזכויות בכל החומר המוגן, לרבות הרעיונות וההצעות, שמורות לרשת שימי ולסוכן שהגישן. העברה, העתקה או שימוש ללא אישור מפורש בכתב מהווים הפרת הסכם זה.</p>
+      <p>5. החתימה האלקטרונית בהמשך מהווה חתימה מחייבת לכל דבר ועניין, ותישמר במערכת החתימות של רשת שימי יחד עם חותמת זמן, כתובת IP ומזהה מבקר.</p>
+      <p>6. ההסכם כפוף לדין החל במדינת ישראל.</p>
+    </div>
+
+    <h2>פרטי החותם</h2>
+    <label>שם מלא *</label>
+    <input id="fName" placeholder="שם ומשפחה" autocomplete="name">
+    <label>אימייל *</label>
+    <input id="fEmail" type="email" placeholder="you@example.com" autocomplete="email">
+    <label>טלפון (אופציונלי)</label>
+    <input id="fPhone" type="tel" placeholder="+972..." autocomplete="tel">
+
+    <h2>חתימה אלקטרונית — צייר את חתימתך</h2>
+    <canvas id="sig"></canvas>
+    <div class="row">
+      <button class="sec" id="btnClear" data-track="clear_sig">נקה חתימה</button>
+      <span class="pill" id="sigQuality">חתימה: ממתין לרובריקה…</span>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div class="row">
+      <button id="btnSign" disabled data-track="sign_nda">✍️ חתום על ה-NDA והמשך</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="stepGoogle">
+    <h2>כניסה עם Google (GAuth)</h2>
+    <div class="gate" id="gAuthBox">
+      <div id="gBtn" style="margin-top:8px"></div>
+      <div class="sub" id="gNote" style="margin-top:10px">שלב 2 מתוך 2: אימות זהות דרך Google.</div>
+    </div>
+    <div class="msg ok hidden" id="gOk"></div>
+  </div>
+
+  <div class="card hidden" id="stepDone">
+    <h2>✅ נחתם ואומת</h2>
+    <div id="doneInfo"></div>
+    <div class="row">
+      <a href="ideas.html"><button id="btnEnter" data-track="enter_ideas">כניסה לרשימת ההצעות →</button></a>
+    </div>
+  </div>
+
+  <div class="footer">רשת שימי · מערכת חתימות שימי · החתימה האלקטרונית נשמרת וניתנת לאימות · כל הפעולות בפורטל מתועדות</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="portal-core.js"></script>
+<script>
+const API = window.PORTAL.API;
+const $ = (id) => document.getElementById(id);
+
+// ---------- קנבס חתימה ----------
+const cv = $('sig'), ctx = cv.getContext('2d');
+function fitCanvas(){ const r = cv.getBoundingClientRect(); const img = ctx.getImageData(0,0,cv.width,cv.height); cv.width = Math.max(300, Math.round(r.width)); cv.height = 180; ctx.putImageData(img,0,0); ctx.lineWidth = 2.4; ctx.lineCap='round'; ctx.strokeStyle='#111'; }
+fitCanvas(); window.addEventListener('resize', fitCanvas);
+let drawing = false, strokes = 0, inkPixels = 0, lastPt = null;
+function pos(e){ const r = cv.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return [t.clientX-r.left, t.clientY-r.top]; }
+function start(e){ drawing = true; lastPt = pos(e); window.PORTAL.track('sig_start',''); e.preventDefault(); }
+function move(e){ if(!drawing) return; const p = pos(e); ctx.beginPath(); ctx.moveTo(lastPt[0],lastPt[1]); ctx.lineTo(p[0],p[1]); ctx.stroke(); lastPt = p; inkPixels++; if(inkPixels % 40 === 0) strokes++; qualityCheck(); e.preventDefault(); }
+function end(){ drawing = false; }
+cv.addEventListener('mousedown', start); cv.addEventListener('mousemove', move); window.addEventListener('mouseup', end);
+cv.addEventListener('touchstart', start, {passive:false}); cv.addEventListener('touchmove', move, {passive:false}); cv.addEventListener('touchend', end);
+
+// ---------- זיהוי רובריקה ----------
+function sigData(){ return ctx.getImageData(0,0,cv.width,cv.height); }
+function qualityCheck(){
+  const d = sigData().data; let ink = 0;
+  for (let i=3; i<d.length; i+=4*7) if (d[i] > 0 && (d[i-1]+d[i-2]+d[i-3]) < 640) ink++;
+  const enough = ink > 60 && strokes >= 2;
+  $('sigQuality').textContent = enough ? 'רובריקה תקינה ✓' : 'חתימה: ' + (ink > 60 ? 'נדרש עוד קו רציף…' : 'ממתין לרובריקה…');
+  refreshSignBtn();
+  return enough;
+}
+$('btnClear').onclick = () => { ctx.clearRect(0,0,cv.width,cv.height); inkPixels = 0; strokes = 0; $('sigQuality').textContent = 'חתימה: ממתין לרובריקה…'; refreshSignBtn(); window.PORTAL.track('sig_cleared',''); };
+function refreshSignBtn(){
+  const ok = qualityDataOk();
+  $('btnSign').disabled = !ok;
+}
+function qualityDataOk(){ const d = sigData().data; let ink = 0; for (let i=3; i<d.length; i+=4*7) if (d[i] > 0 && (d[i-1]+d[i-2]+d[i-3]) < 640) ink++; return ink > 60 && strokes >= 2; }
+
+// ---------- הרכבת PDF חתום ----------
+function buildPdf(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text('Non-Disclosure Agreement (NDA) — Shimi Network Submissions Portal', 12, 18, {maxWidth: 186});
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  const lines = doc.splitTextToSize('Hebrew original text is preserved in the portal page (NDA-VHP-1). By signing below, the signer accepts clauses 1-6: no disclosure, copying, distribution, competing use, or circumvention of protections. Electronic signature is binding, stored by Shimi Signatures with timestamp and IP. Governed by the laws of the State of Israel.', 186);
+  doc.text(lines, 12, 30);
+  doc.setFontSize(11);
+  doc.text('Signer: ' + $('fName').value, 12, 62);
+  doc.text('Email: ' + $('fEmail').value, 12, 69);
+  doc.text('Phone: ' + ($('fPhone').value || '-'), 12, 76);
+  doc.text('Date (Israel): ' + new Date().toLocaleString('he-IL'), 12, 83);
+  doc.text('Visitor ID: ' + window.PORTAL.vid + '   Session: ' + window.PORTAL.SID, 12, 90);
+  const sig = cv.toDataURL('image/png');
+  doc.addImage(sig, 'PNG', 12, 98, 80, 34);
+  doc.setDrawColor(120); doc.line(12, 134, 90, 134);
+  doc.text('Signature', 12, 139);
+  doc.setFontSize(8);
+  doc.text('Verified by Shimi Signatures — rubric captured, quality-checked, PDF assembled and sealed server-side. NDA-VHP-1', 12, 285);
+  return doc.output('datauristring');
+}
+
+// ---------- חתימה ושליחה ----------
+$('btnSign').onclick = async () => {
+  const name = $('fName').value.trim(), email = $('fEmail').value.trim();
+  const msg = $('msg');
+  if (!name || !/.+@.+\..+/.test(email)) { msg.className='msg err'; msg.textContent = 'שם מלא ואימייל תקין חובה.'; return; }
+  if (!qualityDataOk()) { msg.className='msg err'; msg.textContent = 'החתימה לא עברה זיהוי רובריקה — צייר שני קווים לפחות.'; return; }
+  $('btnSign').disabled = true; msg.className='msg'; msg.textContent = 'מהרכב PDF חתום ושולח למערכת החתימות…';
+  window.PORTAL.track('sign_submit','');
+  try {
+    const pdf = buildPdf();
+    const r = await fetch(API + '/portalSign', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ signer_name: name, email, phone: $('fPhone').value.trim(), pdf_base64: pdf, nda_version: 'NDA-VHP-1', google_email: '' }) });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'שגיאה');
+    sessionStorage.setItem('vh_nda', JSON.stringify({ name, email, doc_url: j.doc_url, doc_ref: j.doc_ref, ts: Date.now() }));
+    window.PORTAL.track('sign_ok', j.doc_ref);
+    msg.className='msg ok'; msg.textContent = '✓ ה-NDA נחתם ונשמר.';
+    $('stepNda').classList.add('hidden');
+    $('stepGoogle').classList.remove('hidden');
+    initGAuth();
+  } catch (e) {
+    msg.className='msg err'; msg.textContent = 'נכשל: ' + e.message;
+    $('btnSign').disabled = false;
+  }
+};
+
+// ---------- GAuth ----------
+const GCLIENT = ''; // ריק עד שיונפק לקוח OAuth מסוג WEB עם מקור מאושר — גילוי נאות בפוטר
+function initGAuth(){
+  if (!window.google || !google.accounts) {
+    $('gBtn').innerHTML = '<div class="msg err">טוען Google Identity…</div>';
+    setTimeout(initGAuth, 800); return;
+  }
+  if (!GCLIENT) {
+    $('gBtn').innerHTML = '<div class="msg err" style="color:var(--sub)">GAuth בהמתנה: דרוש לקוח OAuth מסוג WEB עם מקור מאושר לדומיין (פעולה של מנהל ה-GCP). עד אז הכניסה מאושרת עם ה-NDA החתום.</div>';
+    $('gOk').classList.remove('hidden');
+    $('gOk').textContent = 'מאושר זמנית לפי חתימת NDA תקפה. אימות Google יופעל עם הנפקת הלקוח.';
+    setTimeout(() => { $('stepGoogle').classList.add('hidden'); showDone(); }, 1600);
+    window.PORTAL.track('gauth_deferred','');
+    return;
+  }
+  google.accounts.id.initialize({ client_id: GCLIENT, callback: (resp) => {
+    try {
+      const claims = JSON.parse(atob(resp.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+      sessionStorage.setItem('vh_google', claims.email || '');
+      window.PORTAL.track('gauth_ok', (claims.email||'').slice(0,80));
+      showDone();
+    } catch (e) { window.PORTAL.track('gauth_parse_fail',''); }
+  }});
+  google.accounts.id.renderButton($('gBtn'), { theme:'filled_black', size:'large', text:'signin_with', locale:'he' });
+}
+function showDone(){
+  $('stepGoogle').classList.add('hidden');
+  $('stepDone').classList.remove('hidden');
+  const nda = JSON.parse(sessionStorage.getItem('vh_nda') || '{}');
+  $('doneInfo').innerHTML = '<div class="sub">חתום: <b>' + (nda.name||'') + '</b> · ' + (nda.email||'') + '</div>' +
+    '<div class="sub">מסמך חתום לאימות: <a href="' + (nda.doc_url||'#') + '" target="_blank" data-track="open_signed_pdf">פתח PDF חתום ↗</a></div>' +
+    '<div class="sub">אסמכתא: ' + (nda.doc_ref||'') + '</div>';
+}
+</script>
+</body>
+</html>

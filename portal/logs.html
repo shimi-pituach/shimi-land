@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>לוגים — פורטל רשת שימי (אדמין)</title>
+<style>
+:root{--bg:#0b0e14;--card:#141a26;--line:#25304a;--fg:#e8ecf4;--sub:#96a0b4;--gold:#e8b84b;--err:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,sans-serif;padding:24px 14px}
+.wrap{max-width:1100px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+h1{font-size:1.4rem}
+.sub{color:var(--sub)}
+input{width:100%;background:#0e1320;border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px 14px;font-size:1rem;user-select:text}
+button{background:var(--gold);color:#111;border:0;border-radius:10px;padding:11px 20px;font-weight:700;cursor:pointer}
+.sec{background:#1c2740;color:var(--fg)}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:right;font-size:.82rem}
+th{color:var(--sub);background:#0e1320;position:sticky;top:0}
+td.k{white-space:nowrap}
+.filter{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.filter input{max-width:220px}
+.err{color:var(--err)}
+.pill{display:inline-block;background:#1c2740;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.75rem;color:var(--sub);margin-left:6px}
+</style>
+</head>
+<body data-page="logs">
+<div class="wrap">
+  <div class="card" id="gate">
+    <h1>📊 לוגים — אזור אדמין</h1>
+    <div class="sub">כל אירוע בפורטל מתועד: כניסות, קליקים, שינויים, נסיונות חסימה וזמני שהייה.</div>
+    <label style="display:block;margin:14px 0 6px;color:var(--sub);font-size:.9rem">סיסמת אדמין</label>
+    <input id="pw" type="password" placeholder="••••••••">
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <button id="go" data-track="logs_login">כניסה</button>
+      <a href="ideas.html"><button class="sec">← חזרה</button></a>
+    </div>
+    <div class="err" id="err" style="margin-top:10px"></div>
+  </div>
+
+  <div class="card hidden" id="board">
+    <div class="sub" id="stats"></div>
+    <div class="filter">
+      <input id="fText" placeholder="סינון חופשי (עמוד/אירוע/מבקר)">
+      <select id="fKind" style="background:#0e1320;border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px"></select>
+      <button class="sec" id="refresh" data-track="logs_refresh">רענן</button>
+    </div>
+    <div style="max-height:70vh;overflow-y:auto">
+      <table id="tbl"></table>
+    </div>
+  </div>
+</div>
+
+<script src="portal-core.js"></script>
+<script>
+const API = window.PORTAL.API;
+let EVENTS = [];
+document.getElementById('go').onclick = async () => {
+  const pw = document.getElementById('pw').value;
+  const err = document.getElementById('err');
+  err.textContent = '';
+  try {
+    const r = await fetch(API + '/portalEvent?pw=' + encodeURIComponent(pw) + '&limit=500');
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error || 'סיסמה שגויה');
+    EVENTS = j.events;
+    window.PORTAL.track('logs_view', 'count:' + j.count);
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('board').classList.remove('hidden');
+    render();
+  } catch (e) { err.textContent = 'נכשל: ' + e.message; window.PORTAL.track('logs_fail',''); }
+};
+document.getElementById('refresh').onclick = async () => {
+  const r = await fetch(API + '/portalEvent?pw=' + encodeURIComponent(document.getElementById('pw').value) + '&limit=500');
+  const j = await r.json(); if (j.ok) { EVENTS = j.events; render(); }
+};
+document.getElementById('fText').oninput = render;
+document.getElementById('fKind').onchange = render;
+
+function esc(s){ return String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function render(){
+  const q = document.getElementById('fText').value.trim().toLowerCase();
+  const k = document.getElementById('fKind').value;
+  const kinds = [...new Set(EVENTS.map(e=>e.kind))].sort();
+  const sel = document.getElementById('fKind');
+  sel.innerHTML = '<option value="">כל הסוגים</option>' + kinds.map(x=>'<option'+(x===k?' selected':'')+'>'+esc(x)+'</option>').join('');
+  const rows = EVENTS.filter(e => (!k || e.kind===k) && (!q || (e.page+' '+e.kind+' '+e.target+' '+e.visitor+' '+e.session).toLowerCase().includes(q)));
+  const dwellers = {};
+  EVENTS.forEach(e => { const key = e.session; dwellers[key] = Math.max(dwellers[key]||0, e.dwell_ms||0); });
+  const sessions = Object.keys(dwellers).length;
+  document.getElementById('stats').innerHTML =
+    'סה"כ אירועים: <b>' + EVENTS.length + '</b> · סשנים: <b>' + sessions + '</b> · מבקרים ייחודיים: <b>' + new Set(EVENTS.map(e=>e.visitor)).size + '</b>' +
+    ' <span class="pill">שהות מחושבת לכל סשן</span>';
+  document.getElementById('tbl').innerHTML =
+    '<tr><th>זמן</th><th>סוג</th><th>עמוד</th><th>יעד</th><th>מבקר</th><th>שהות בעמוד</th><th>UA/IP</th></tr>' +
+    (rows.length ? rows.map(e =>
+      '<tr><td class="k">'+esc(new Date(e.ts).toLocaleString('he-IL'))+'</td><td class="k">'+esc(e.kind)+'</td><td class="k">'+esc(e.page)+'</td><td>'+esc(e.target)+'</td><td class="k">'+esc(String(e.visitor||'').slice(0,14))+'</td><td class="k">'+Math.round((e.dwell_ms||0)/1000)+' שנ\'</td><td class="k" style="max-width:200px;overflow:hidden;text-overflow:ellipsis">'+esc(String(e.ua||'').split('|')[1]||'')+'</td></tr>'
+    ).join('') : '<tr><td colspan="7" class="sub">אין אירועים מסוננים</td></tr>');
+}
+</script>
+</body>
+</html>
