@@ -44,7 +44,12 @@ const id = new URLSearchParams(location.search).get('id');
   if (!id) { document.getElementById('app').innerHTML = '<div class="card"><div class="sub">חסר מזהה הצעה.</div></div>'; return; }
   const r = await fetch(API + '/portalIdeas?id=' + encodeURIComponent(id));
   const j = await r.json();
-  if (!j.ok) { document.getElementById('app').innerHTML = '<div class="card"><div class="sub">הצעה לא נמצאה.</div></div>'; return; }
+  if (!j.ok) {
+    const notFound = String(j.error || '').includes('not found');
+    document.getElementById('app').innerHTML = '<div class="card"><div class="sub">' +
+      (notFound ? 'הצעה לא נמצאה.' : 'טעינה נכשלה רגעית (עומס מערכת) — רענן את העמוד בעוד רגע.') + '</div></div>';
+    return;
+  }
   const i = j.idea;
   window.PORTAL.track('idea_open', i.title);
   document.title = i.title + ' — פורטל רשת שימי';
