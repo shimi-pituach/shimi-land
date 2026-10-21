@@ -6512,6 +6512,59 @@
       "folder": "gallery/lea-koda-21-10/",
       "desc": "Lea Kung Fu example — full-coverage athletic wear (alternative format)",
       "prompt_file": "gallery/lea-koda-21-10/20261021_lea_gym_example_f01_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f01_ready_stance",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f01 — ready stance (bandeau V)",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f01_ready_stance_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f02_frontkick_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f02 — front kick chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f02_frontkick_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f03_frontkick_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f03 — front kick extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f03_frontkick_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f04_frontkick_recovery",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f04 — front kick recovery",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f04_frontkick_recovery_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f05_spinkick_pivot",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f05 — spin kick pivot",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f05_spinkick_pivot_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f06_spinkick_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f06 — spin kick chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f06_spinkick_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f07_spinkick_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f07 — spin kick extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f07_spinkick_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson5_f08_spinkick_finish",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 5 f08 — spin kick finish",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson5_f08_spinkick_finish_prompt.md"
+    },
+    {
+      "name": "20261021_lea_kungfu_lesson5",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea Kung Fu lesson 5 page — front kick & spinning back kick"
     }
   ],
   "videos_count": 46
