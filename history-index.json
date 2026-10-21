@@ -6671,6 +6671,59 @@
       "name": "20261021_lea_kungfu_lesson7",
       "folder": "gallery/lea-koda-21-10/",
       "desc": "Lea Kung Fu lesson 7 page — elbow & knee strikes"
+    },
+    {
+      "name": "20261021_lea_lesson8_f01_chain_block",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f01 — chain: rising block",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f01_chain_block_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f02_chain_elbow",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f02 — chain: elbow strike",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f02_chain_elbow_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f03_chain_knee",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f03 — chain: knee strike",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f03_chain_knee_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f04_chain_roundhouse",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f04 — chain: roundhouse finisher",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f04_chain_roundhouse_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f05_dummy_entry",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f05 — dummy: entry",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f05_dummy_entry_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f06_dummy_paksau",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f06 — dummy: pak sau + strike",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f06_dummy_paksau_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f07_dummy_hook",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f07 — dummy: hook and roll",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f07_dummy_hook_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson8_f08_dummy_finish",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 8 master f08 — dummy: finishing punch",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson8_f08_dummy_finish_prompt.md"
+    },
+    {
+      "name": "20261021_lea_kungfu_lesson8_master",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea Kung Fu lesson 8 MASTER page — continuous chain & wooden dummy"
     }
   ],
   "videos_count": 46
