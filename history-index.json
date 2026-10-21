@@ -6565,6 +6565,59 @@
       "name": "20261021_lea_kungfu_lesson5",
       "folder": "gallery/lea-koda-21-10/",
       "desc": "Lea Kung Fu lesson 5 page — front kick & spinning back kick"
+    },
+    {
+      "name": "20261021_lea_lesson6_f01_ready_stance",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f01 — ready stance",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f01_ready_stance_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f02_sidekick_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f02 — side kick chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f02_sidekick_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f03_sidekick_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f03 — side kick extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f03_sidekick_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f04_sidekick_recovery",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f04 — side kick recovery",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f04_sidekick_recovery_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f05_roundhouse_pivot",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f05 — roundhouse pivot",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f05_roundhouse_pivot_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f06_roundhouse_chamber",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f06 — roundhouse chamber",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f06_roundhouse_chamber_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f07_roundhouse_extension",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f07 — roundhouse extension",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f07_roundhouse_extension_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson6_f08_roundhouse_finish",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 6 f08 — roundhouse finish",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson6_f08_roundhouse_finish_prompt.md"
+    },
+    {
+      "name": "20261021_lea_kungfu_lesson6",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea Kung Fu lesson 6 page — side kick & roundhouse"
     }
   ],
   "videos_count": 46
