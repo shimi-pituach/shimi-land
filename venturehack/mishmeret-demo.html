@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משמרת — דמו חי: זרימת RPM מקצה לקצה (סינתטי)</title>
+<style>
+  :root{--bg:#0E1420;--card:#161F30;--fg:#E8ECF4;--sub:#96A0B4;--acc:#E8B84B;--green:#34D399;--red:#F87171;--wa:#075E54;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:var(--bg);color:var(--fg);min-height:100vh}
+  .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
+  .synth-badge{position:fixed;top:10px;left:10px;background:#7C2D12;color:#FDE68A;border:1px solid #F59E0B;
+    padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;z-index:99}
+  h1{font-size:26px;margin:14px 0 4px}
+  .sub{color:var(--sub);font-size:14px;margin-bottom:14px}
+  .stage{background:var(--card);border:1px solid #263450;border-radius:14px;min-height:430px;padding:26px;position:relative;overflow:hidden}
+  .scene{display:none;animation:fade .6s}
+  .scene.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .clock{font-size:76px;font-weight:800;color:var(--acc);text-align:center;margin-top:60px;font-variant-numeric:tabular-nums}
+  .q{font-size:34px;font-weight:700;text-align:center;margin-top:8px}
+  .dim{color:var(--sub);text-align:center;margin-top:10px;font-size:15px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  .panel{background:#0B111C;border:1px solid #263450;border-radius:10px;padding:16px}
+  .panel h3{font-size:15px;color:var(--acc);margin-bottom:10px}
+  svg{width:100%;height:auto}
+  .alertline{background:#1B2334;border-right:3px solid var(--red);padding:6px 10px;border-radius:4px;margin:5px 0;font-size:13px;opacity:0;animation:slide .5s forwards}
+  .alertline.muted{border-right-color:#3A4A66;color:#5A6A88;text-decoration:line-through}
+  @keyframes slide{to{opacity:1}}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px;background:#263450;color:var(--sub)}
+  .cls{border:1px solid #263450;border-radius:10px;padding:12px 14px;margin:8px 0;background:#0B111C}
+  .cls b{color:var(--acc)}
+  .sev{float:left;font-size:12px;padding:2px 10px;border-radius:10px}
+  .sev.hi{background:#7F1D1D;color:#FCA5A5}.sev.mid{background:#78350F;color:#FCD34D}
+  .wamsg{background:var(--wa);color:#E7FFDB;border-radius:12px 12px 12px 2px;padding:12px 14px;max-width:78%;margin:10px 22px;font-size:14px;box-shadow:0 1px 4px #0005}
+  .wamsg .t{display:block;text-align:left;font-size:10px;color:#8FBFAC;margin-top:4px}
+  .okmsg{background:#123B2C;color:#C9F7E3;border-radius:12px;padding:12px 14px;max-width:78%;margin:10px 22px;font-size:14px}
+  .ledrow{display:flex;gap:10px;font-family:Consolas,monospace;font-size:12px;background:#0B111C;border:1px solid #263450;border-radius:6px;padding:7px 10px;margin:5px 0;opacity:0;animation:slide .4s forwards}
+  .ledrow .h{color:var(--sub);direction:ltr}
+  .ledrow .ok{color:var(--green);margin-right:auto}
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .kpi .box{background:#0B111C;border:1px solid #2E8B57;border-radius:10px;padding:16px;text-align:center}
+  .kpi .box .v{font-size:30px;font-weight:800;color:var(--green)}
+  .kpi .box .l{font-size:12px;color:var(--sub);margin-top:4px}
+  .ask{background:#1C2310;border:1px solid var(--acc);border-radius:10px;padding:14px 16px;margin-top:10px;font-size:15px}
+  .ctrl{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  button{background:#1B2540;color:var(--fg);border:1px solid #33456E;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px}
+  button:hover{background:#26345A}
+  button.active{background:var(--acc);color:#111;font-weight:700;border-color:var(--acc)}
+  .pbar{flex:1;height:8px;background:#1B2540;border-radius:6px;overflow:hidden;min-width:120px}
+  .pbar>div{height:100%;background:var(--acc);width:0%}
+  .tcode{color:var(--sub);font-size:12px;direction:ltr;text-align:right;margin-top:14px}
+  .footer-note{color:var(--sub);font-size:12.5px;margin-top:16px;line-height:1.7}
+  .footer-note b{color:var(--fg)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.kpi{grid-template-columns:1fr}.clock{font-size:54px}.q{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="synth-badge">⚠ הדגמה עם נתונים סינתטיים בלבד — אפס נתוני מטופל אמיתיים</div>
+<div class="wrap">
+  <h1>משמרת — המוח המבצעי האוטונומי לניטור מרחוק</h1>
+  <div class="sub">דמו חי: זרימת RPM אחת מקצה לקצה · 3 דקות · 6 תחנות · VentureHack 4 · 21/10/2026</div>
+
+  <div class="stage">
+    <!-- שאנל 1 -->
+    <div class="scene" id="s1">
+      <div class="clock" id="bigclock">03:07</div>
+      <div class="q">מי מסתכל על המסך ב-3 לפנות בוקר?</div>
+      <div class="dim">חדר בקרה של תוכנית "בית חולים בבית" · ריק · המכשירים מדווחים — אבל אין אף אחד מול המסך</div>
+    </div>
+
+    <!-- שאנל 2 -->
+    <div class="scene" id="s2">
+      <div class="grid">
+        <div class="panel">
+          <h3>טלמטריית מכשיר ביתי (מדומה) — מגמת סוללה</h3>
+          <svg viewBox="0 0 320 170">
+            <line x1="20" y1="150" x2="310" y2="150" stroke="#33456E"/>
+            <polyline id="battline" fill="none" stroke="#E8B84B" stroke-width="3"
+              points="20,60 60,62 100,66 140,74 180,86 220,102 260,118 300,134"/>
+            <text x="20" y="30" fill="#96A0B4" font-size="12">40%</text>
+            <text x="278" y="158" fill="#F87171" font-size="12">20% ←</text>
+          </svg>
+        </div>
+        <div class="panel">
+          <h3>זרם ההתראות — שועט, ואף אחד לא מסתכל</h3>
+          <div id="alerts2"></div>
+        </div>
+      </div>
+      <div class="dim" style="text-align:right;margin-top:10px">המטופל (מדומה) דילג על שתי מדידות ערב. סוללת החיישן במגמת ירידה 40%→20%. ההתראות גולשות במסך הריק.</div>
+    </div>
+
+    <!-- שאנל 3 -->
+    <div class="scene" id="s3">
+      <div class="grid">
+        <div class="panel">
+          <h3>דיכוי רעש אוטונומי</h3>
+          <div id="alerts3"></div>
+        </div>
+        <div class="panel">
+          <h3>סיווג ודירוג חומרה</h3>
+          <div class="cls"><span class="sev hi">חומרה גבוהה</span><br><b>כשל מכשיר צפוי בעוד ~36 שעות</b><br>
+            <span style="color:var(--sub);font-size:13px">רציונל: שיפוע מגמת סוללה 40%→20% ב-48 שעות; חיזוי נפילה לפני שקרתה (תחום 8 — חיזוי ומנע).</span></div>
+          <div class="cls"><span class="sev mid">חומרה בינונית</span><br><b>ירידת היענות — סימן מנע</b><br>
+            <span style="color:var(--sub);font-size:13px">רציונל: שתי מדידות ערב לא בוצעו; פנייה מוקדמת לפני הפרעת רצף הניטור.</span></div>
+        </div>
+      </div>
+      <div class="dim" style="text-align:right;margin-top:8px">כל החלטה עם רף הכרעה מפורש מראש (Falsifiability-first) — הפעולה יכולה להיכשל בכנות ברף שהוגדר לפניה.</div>
+    </div>
+
+    <!-- שאנל 4 -->
+    <div class="scene" id="s4">
+      <h3 style="color:var(--acc);margin-bottom:4px">פעולה בתוך מדיניות — לא עוד התראה על מסך</h3>
+      <div class="dim" style="text-align:right">הסכמה נתונה, שעת בוקר, ערוץ מזוהה</div>
+      <div class="wamsg">בוקר טוב 🌞 בדיקת הססגל בסדר? עמדת מדידה היום ב-10:00, וטכנאי יגיע מחר עם חיישן חלופי כדי שלא יהיה נתק.<span class="t">09:02 · וואטסאפ עסקי מזוהה · בהסכמה</span></div>
+      <div class="okmsg">📅 ביקור אחות נכנס אוטומטית ללוח הרכז — 10:00, עם תיוג הסיבה והרציונל</div>
+      <div class="okmsg">🔧 טכנאי הוקפץ עם חיישן חלופי — חלון הגעה לפני הנפילה החזויה</div>
+      <div class="dim" style="text-align:right">כל פעולה בכפוף לגבולות מדיניות המוסד ומשרד הבריאות. ההחלטה הקלינית נותרת בידי אדם תמיד.</div>
+    </div>
+
+    <!-- שאנל 5 -->
+    <div class="scene" id="s5">
+      <h3 style="color:var(--green);margin-bottom:6px">למחרת בבוקר — הלולאה נסגרה ואומתה</h3>
+      <div id="ledger"></div>
+      <div class="dim" style="text-align:right">כל פעולה ביומן החסין — רשומה אחר רשומה: מי פעל, מתי, על פי איזו מדיניות, ומה התוצאה בפועל. לא "נשלח" — "בוצע ואומת".</div>
+    </div>
+
+    <!-- שאנל 6 -->
+    <div class="scene" id="s6">
+      <div class="kpi">
+        <div class="box"><div class="v">60-70%</div><div class="l">לולאות שנסגרו בלי מגע אנושי<br>(יעד פיילוט 90 יום)</div></div>
+        <div class="box"><div class="v">&lt;15 דק'</div><div class="l">מאירוע עד ביצוע מאומת<br>(יעד פיילוט)</div></div>
+        <div class="box"><div class="v">20+ שעות</div><div class="l">שעות רכז שנחסכו לתוכנית בשבוע<br>(יעד פיילוט)</div></div>
+      </div>
+      <div class="ask"><b>הבקשה הקונקרטית מ-GMC Playground:</b> פיילוט של 3 חודשים בתוכנית בית-חולים-בבית אחת. ה-KPI נמדדים ישירות מהיומן החסין שלנו — לא מהערכות.</div>
+      <div class="footer-note">
+        <b>התשתית מאחורי הדמו — אמיתית ורצה בייצור (הנתונים בדמו סינתטיים; המנגנון אמיתי):</b><br>
+        · יומן כספים חסין בדיוק אגורה עם idempotency — <span id="txcount">…</span> רשומות אמיתיות בסביבת הייצור של הרשת (נספרו 21/10)<br>
+        · טלמטריית IoT חיה משער חכם אמיתי (סוללה ו-MAC) — אותו מנגנון קליטה שמדומה כאן למכשיר מטופל<br>
+        · ניתוב וואטסאפ עסקי מזוהה רב-משתמשים + שרשראות נפילה לסוכני פעולה<br>
+        <span class="tcode">Shimi Network · VentureHack 4 · i4Valley + GMC · ההחלטה הקלינית תמיד בידי אדם</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctrl">
+    <button id="playbtn">⏸ השהה</button>
+    <div class="pbar"><div id="pfill"></div></div>
+    <span id="tcode" class="tcode" style="direction:ltr">0:00 / 3:00</span>
+  </div>
+  <div class="ctrl">
+    <button class="sc" data-s="0">1 · הפתיח</button>
+    <button class="sc" data-s="1">2 · זרם האירועים</button>
+    <button class="sc" data-s="2">3 · סינון וסיווג</button>
+    <button class="sc" data-s="3">4 · פעולה במדיניות</button>
+    <button class="sc" data-s="4">5 · אימות ויומן</button>
+    <button class="sc" data-s="5">6 · KPI ובקשה</button>
+  </div>
+
+  <div class="footer-note">
+    מקורות הדמו: תסריט מאושר (מיכאלה, vh#168) · עוגנים מאומתים (vh#144/#124) · המסמך המלא: <span style="direction:ltr">aidoor.shimi.land/venturehack/mishmeret-idea.md</span> · חפילון v2: <span style="direction:ltr">mishmeret-deck-v2.pdf</span> · תסריט: <span style="direction:ltr">mishmeret-demo-script.md</span>
+  </div>
+</div>
+
+<script>
+// נתוני יומן אמיתיים שנספרו מהתשתית (21/10) — מוטמעים סטטית ליציבות
+document.getElementById('txcount').textContent = '55';
+
+const DUR = [20,30,40,40,30,20]; // שניות לכל שאנל (סה"כ 180)
+const TITLES = ['מי מסתכל על המסך?','זרם אירועים','סינון אוטונומי','פעולה במדיניות','אימות ויומן','KPI ובקשה'];
+let cur=0, t=0, timer=null, playing=true;
+
+function show(i){
+  document.querySelectorAll('.scene').forEach((s,x)=>s.classList.toggle('on',x===i));
+  document.querySelectorAll('.sc').forEach((b,x)=>b.classList.toggle('active',x===i));
+  cur=i;
+  if(i===1) fillAlerts('alerts2', RAW_ALERTS, false);
+  if(i===2){ fillAlerts('alerts3', TRIAGE_ALERTS, true); }
+  if(i===4) fillLedger();
+}
+
+const RAW_ALERTS = [
+  ['דלפק סוללה 22% — מכשיר 8842','hi'],
+  ['מדידת ערב לא בוצעה (שנית)','hi'],
+  ['סנכרון ענן תקין — מידע','ok'],
+  ['טמפרטורת מכשיר תקינה — מידע','ok'],
+  ['דלפק סוללה 21% — מכשיר 8842','hi'],
+];
+const TRIAGE_ALERTS = [
+  ['סנכרון ענן תקין — דוכא (רעש לא בר-פעולה)','muted'],
+  ['טמפרטורת מכשיר תקינה — דוכא (רעש לא בר-פעולה)','muted'],
+  ['דלפק סוללה 21% — אוחד לחתימת כשל אחת','ok'],
+  ['מדידת ערב לא בוצעה — סווג: סימן מנע','ok'],
+];
+function fillAlerts(id, arr, tri){
+  const box=document.getElementById(id); box.innerHTML='';
+  arr.forEach((a,i)=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='alertline'+(a[1]==='muted'?' muted':'')+(tri&&a[1]==='ok'?' ':'');
+      d.style.borderRightColor = a[1]==='hi'?'#F87171':(a[1]==='muted'?'#3A4A66':'#34D399');
+      d.innerHTML=a[0]+(a[1]==='muted'?' <span class="tag">דוכא</span>':'');
+      box.appendChild(d);
+    }, i*450);
+  });
+}
+function fillLedger(){
+  const rows=[
+    ['03:07','אירוע: מגמת סוללה 40%→20% זוהתה','b3f1',''],
+    ['03:07','סיווג: כשל מכשיר צפוי בעוד ~36 שעות (רף: שיפוע>10%/יום)','9ac2',''],
+    ['09:02','פנייה למטופל בוואטסאפ מזוהה — בהסכמה','d41e','✓ נמסר'],
+    ['09:03','ביקור אחות תואם ללוח הרכז — 10:00','7e0b','✓ נקלט'],
+    ['09:05','טכנאי הוקפץ עם חיישן חלופי — חלון לפני נפילה חזויה','12f8','✓ נשלח'],
+    ['10:14','מדידת הבוקר בוצעה ואומתה מול המכשיר','aa37','✓ אומת'],
+    ['10:15','הלולאה נסגרה: מאירוע עד תוצאה — 7 שעות ו-8 דקות, בלי מגע אנושי בלילה','f00d','✓ נסגרה'],
+  ];
+  const box=document.getElementById('ledger'); box.innerHTML='';
+  rows.forEach((r,i)=>{
+    setTimeout(()=>{
+      const d=document.createElement('div'); d.className='ledrow';
+      d.innerHTML='<span>'+r[0]+'</span><span>'+r[1]+'</span><span class="h">#'+r[2]+'</span><span class="ok">'+r[3]+'</span>';
+      box.appendChild(d);
+    }, i*380);
+  });
+}
+
+function tick(){
+  t++;
+  const total=180;
+  document.getElementById('pfill').style.width=(t/total*100)+'%';
+  document.getElementById('tcode').textContent = fmt(t)+' / 3:00';
+  // שעון בפתיחה
+  if(cur===0 && t<20){ const m=3, s=7+t; document.getElementById('bigclock').textContent='03:'+String(Math.min(s,59)).padStart(2,'0'); }
+  // מעבר שאנל לפי זמן מצטבר
+  let acc=0;
+  for(let i=0;i<DUR.length;i++){ acc+=DUR[i]; if(t<=acc){ if(cur!==i) show(i); break; } }
+  if(t>=total){ t=0; show(0); }
+}
+function fmt(x){return Math.floor(x/60)+':'+String(x%60).padStart(2,'0')}
+document.getElementById('playbtn').onclick=()=>{
+  playing=!playing;
+  document.getElementById('playbtn').textContent = playing?'⏸ השהה':'▶ המשך';
+  if(playing){ timer=setInterval(tick,1000); } else { clearInterval(timer); }
+};
+document.querySelectorAll('.sc').forEach(b=>b.onclick=()=>{
+  let acc=0, idx=+b.dataset.s;
+  for(let i=0;i<idx;i++) acc+=DUR[i];
+  t=acc; show(idx);
+});
+show(0);
+timer=setInterval(tick,1000);
+</script>
+</body>
+</html>
