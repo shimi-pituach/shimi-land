@@ -1,6 +1,6 @@
 {
  "version": "2.1-rescue-22-10",
- "count": 1204,
+ "count": 1206,
  "items": [
   {
    "url": "https://aidoor.shimi.land/gallery/lea-bikini/lea_bikini_1_seed161003.png",
@@ -7376,6 +7376,20 @@
    "char": "לאה",
    "folder": "lea-koda-22-10",
    "title": "20261022_lea_wordforword_front_prompt.md",
+   "kind": "md"
+  },
+  {
+   "url": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261022_lea_straplessfix_front.jpg",
+   "char": "לאה",
+   "folder": "lea-koda-22-10",
+   "title": "20261022_lea_straplessfix_front.jpg",
+   "kind": "img"
+  },
+  {
+   "url": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261022_lea_straplessfix_front_prompt.md",
+   "char": "לאה",
+   "folder": "lea-koda-22-10",
+   "title": "20261022_lea_straplessfix_front_prompt.md",
    "kind": "md"
   }
  ],
