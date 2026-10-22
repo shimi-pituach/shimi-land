@@ -6724,6 +6724,59 @@
       "name": "20261021_lea_kungfu_lesson8_master",
       "folder": "gallery/lea-koda-21-10/",
       "desc": "Lea Kung Fu lesson 8 MASTER page — continuous chain & wooden dummy"
+    },
+    {
+      "name": "20261021_lea_lesson9_f01_active_guard_stage1",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f01 — partner straight punch, Lea active guard",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f01_active_guard_stage1_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f02_straight_punch_deflection_stage2",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f02 — punch deflection",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f02_straight_punch_deflection_stage2_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f03_arm_pin_elbow_counter_stage3",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f03 — arm pin + elbow counter",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f03_arm_pin_elbow_counter_stage3_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f04_leg_sweep_stage4",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f04 — leg sweep unbalance",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f04_leg_sweep_stage4_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f05_roundhouse_kick_stage5",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f05 — partner roundhouse kick",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f05_roundhouse_kick_stage5_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f06_absorb_kick_stage6",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f06 — absorb kick on forearms",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f06_absorb_kick_stage6_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f07_leg_catch_stage7",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f07 — catch the leg",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f07_leg_catch_stage7_prompt.md"
+    },
+    {
+      "name": "20261021_lea_lesson9_f08_knee_finish_stage8",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea lesson 9 f08 — controlled knee finish",
+      "prompt_file": "gallery/lea-koda-21-10/20261021_lea_lesson9_f08_knee_finish_stage8_prompt.md"
+    },
+    {
+      "name": "20261021_lea_kungfu_lesson9_partners",
+      "folder": "gallery/lea-koda-21-10/",
+      "desc": "Lea Kung Fu lesson 9 page — partner drills (advanced counters)"
     }
   ],
   "videos_count": 46
