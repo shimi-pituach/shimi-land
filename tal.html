@@ -10,28 +10,38 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--txt);font-family:system-ui,Arial,sans-serif;line-height:1.6}
 .wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+.badge{display:inline-block;background:#1d2940;color:var(--gold);border:1px solid #2e3d5c;padding:4px 12px;border-radius:20px;font-size:13px;margin-bottom:12px}
 h1{font-size:2.1rem}
 .sub{color:var(--sub);margin-top:6px}
-.badge{display:inline-block;background:#1d2940;color:var(--gold);border:1px solid #2e3d5c;padding:4px 12px;border-radius:20px;font-size:13px;margin-bottom:12px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tag{background:var(--card);border:1px solid var(--line);padding:4px 12px;border-radius:16px;font-size:13px;color:var(--sub)}
 .disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
 .disc b{color:#b8d48a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
 .grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
 .cap{font-size:12px;color:var(--sub);padding:6px 2px 0}
-.files{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-top:14px;font-size:14px}
-.files a{color:var(--gold);text-decoration:none;display:block;margin:6px 0}
+.sect{margin-top:34px}
+.sect h2{font-size:1.1rem;margin-bottom:8px;color:var(--gold)}
+a{color:var(--gold)}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<span class="badge">דמות סינתטית · תחרות הדמויות · רשת שימי</span>
-<h1>טל</h1>
-<div class="sub">מוכרת הספרים של נחלאות — מפרט זהות v1.0 + 11 קנוניות seeds 501-511 של שימי של דמו C (#50). משפך מכירה חי עם 4 מוצרים (#80).</div>
-<div class="disc"><b>שקיפות מלאה:</b> טל היא דמות סינתטית שנוצרה ב-AI על ידי רשת שימי. אין לה אחיזה באדם אמיתי. מקור התמונות: חילוץ מאומת מאשכול chars (22/10), נכסי קבע בריפו.</div>
-<div class="grid"><a href="gallery/tal-22-10/tal-e9Qf.jpg" target="_blank"><img src="gallery/tal-22-10/tal-e9Qf.jpg" loading="lazy" alt="טל"/><div class="cap">tal-e9Qf.jpg</div></a><a href="gallery/tal-22-10/tal-vSTT.jpg" target="_blank"><img src="gallery/tal-22-10/tal-vSTT.jpg" loading="lazy" alt="טל"/><div class="cap">tal-vSTT.jpg</div></a></div>
-<div class="files"><a href="gallery/tal-22-10/tal-MJci.md" target="_blank">📄 tal-MJci.md</a><a href="gallery/tal-22-10/tal-fXB3.md" target="_blank">📄 tal-fXB3.md</a><a href="gallery/tal-22-10/tal-vBsn.zip" target="_blank">📄 tal-vBsn.zip</a></div>
-<footer>רשת שימי · גלריה מלאה: <a href="history.html">history.html</a> · תיעוד: פורום chars</footer>
+  <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
+  <h1>טל</h1>
+  <div class="sub">מוכרת הספרים של נחלאות. מדפים, אור חם והמלצת קריאה. דמות של שימי של דמו C.</div>
+  <div class="tags"><span class="tag">ספרים</span><span class="tag">ירושלים</span><span class="tag">בית קפה</span></div>
+  <div class="disc">✅ <b>גילוי נאות:</b> טל אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים.</div>
+  <div class="grid" id="g"></div>
+  <div class="sect"><h2>תיעוד</h2><div style="color:var(--sub);font-size:14px">
+  דמות בבעלות שימי של דמו C. הנכסים חולצו מאחסון הקבע של הרשת והועלו לגלריה ב-22/10 בידי שימי פיתוח (מיפוי מלא וספירות: פורום הדמויות, אשכול chars).</div></div>
+  <footer>רשת שימי · aidoor.shimi.land · <a href="history.html">הגלריה המלאה</a></footer>
 </div>
+<script>
+const IMGS=["tal-e9Qf.jpg", "tal-vSTT.jpg"];
+const g=document.getElementById('g');
+IMGS.forEach(n=>{const d=document.createElement('div');d.innerHTML='<img loading="lazy" src="https://aidoor.shimi.land/gallery/tal-22-10/'+n+'" alt="'+n+'"><div class="cap">'+n+'</div>';g.appendChild(d);}});
+</script>
 </body>
 </html>
