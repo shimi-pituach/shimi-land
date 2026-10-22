@@ -9,7 +9,7 @@
   *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
   body{background:var(--bg);color:var(--fg);min-height:100vh}
   .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
-  .synth-badge{position:fixed;top:10px;left:10px;background:#7C2D12;color:#FDE68A;border:1px solid #F59E0B;
+  .synth-badge{position:fixed;top:10px;left:10px;z-index:999;position:fixed;top:10px;left:10px;background:#7C2D12;color:#FDE68A;border:1px solid #F59E0B;
     padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;z-index:99}
   h1{font-size:26px;margin:14px 0 4px}
   .sub{color:var(--sub);font-size:14px;margin-bottom:14px}
@@ -112,7 +112,7 @@
     <div class="scene" id="s4">
       <h3 style="color:var(--acc);margin-bottom:4px">פעולה בתוך מדיניות — לא עוד התראה על מסך</h3>
       <div class="dim" style="text-align:right">הסכמה נתונה, שעת בוקר, ערוץ מזוהה</div>
-      <div class="wamsg">בוקר טוב 🌞 בדיקת הססגל בסדר? עמדת מדידה היום ב-10:00, וטכנאי יגיע מחר עם חיישן חלופי כדי שלא יהיה נתק.<span class="t">09:02 · וואטסאפ עסקי מזוהה · בהסכמה</span></div>
+      <div class="wamsg">בוקר טוב 🌞 בדיקת הסוכר בסדר? עמדת מדידה היום ב-10:00, וטכנאי יגיע מחר עם חיישן חלופי כדי שלא יהיה נתק.<span class="t">09:02 · וואטסאפ עסקי מזוהה · בהסכמה</span></div>
       <div class="okmsg">📅 ביקור אחות נכנס אוטומטית ללוח הרכז — 10:00, עם תיוג הסיבה והרציונל</div>
       <div class="okmsg">🔧 טכנאי הוקפץ עם חיישן חלופי — חלון הגעה לפני הנפילה החזויה</div>
       <div class="dim" style="text-align:right">כל פעולה בכפוף לגבולות מדיניות המוסד ומשרד הבריאות. ההחלטה הקלינית נותרת בידי אדם תמיד.</div>
@@ -129,13 +129,13 @@
     <div class="scene" id="s6">
       <div class="kpi">
         <div class="box"><div class="v">60-70%</div><div class="l">לולאות שנסגרו בלי מגע אנושי<br>(יעד פיילוט 90 יום)</div></div>
-        <div class="box"><div class="v">&lt;15 דק'</div><div class="l">מאירוע עד ביצוע מאומת<br>(יעד פיילוט)</div></div>
+        <div class="box"><div class="v">&lt;15 דק'</div><div class="l">מאירוע עד ביצוע מאומת — לולאות טכניות<br>(יעד פיילוט; לולאות שנוגעות במטופל ממתינות לחלון שעת בוקר לפי מדיניות)</div></div>
         <div class="box"><div class="v">20+ שעות</div><div class="l">שעות רכז שנחסכו לתוכנית בשבוע<br>(יעד פיילוט)</div></div>
       </div>
       <div class="ask"><b>הבקשה הקונקרטית מ-GMC Playground:</b> פיילוט של 3 חודשים בתוכנית בית-חולים-בבית אחת. ה-KPI נמדדים ישירות מהיומן החסין שלנו — לא מהערכות.</div>
       <div class="footer-note">
         <b>התשתית מאחורי הדמו — אמיתית ורצה בייצור (הנתונים בדמו סינתטיים; המנגנון אמיתי):</b><br>
-        · יומן כספים חסין בדיוק אגורה עם idempotency — <span id="txcount">…</span> רשומות אמיתיות בסביבת הייצור של הרשת (נספרו 21/10)<br>
+        · יומן כספים בייצור בדיוק אגורה עם idempotency (בדמו: שורות להמחשה בלבד) — <span id="txcount">…</span> רשומות אמיתיות בסביבת הייצור של הרשת (נקראים בזמן ריצה מהיומן החי — ספירה מתעדכנת אוטומטית)<br>
         · טלמטריית IoT חיה משער חכם אמיתי (סוללה ו-MAC) — אותו מנגנון קליטה שמדומה כאן למכשיר מטופל<br>
         · ניתוב וואטסאפ עסקי מזוהה רב-משתמשים + שרשראות נפילה לסוכני פעולה<br>
         <span class="tcode">Shimi Network · VentureHack 4 · i4Valley + GMC · ההחלטה הקלינית תמיד בידי אדם</span>
@@ -158,13 +158,13 @@
   </div>
 
   <div class="footer-note">
-    מקורות הדמו: תסריט מאושר (מיכאלה, vh#168) · עוגנים מאומתים (vh#144/#124) · המסמך המלא: <span style="direction:ltr">aidoor.shimi.land/venturehack/mishmeret-idea.md</span> · חפילון v2: <span style="direction:ltr">mishmeret-deck-v2.pdf</span> · תסריט: <span style="direction:ltr">mishmeret-demo-script.md</span>
+    הדמו הרשמי של משימת 6ad91cb4 (הגרסה שנבחרה בלוח). מקורות הדמו: תסריט מאושר (מיכאלה, vh#168) · עוגנים מאומתים (vh#144/#124) · המסמך המלא: <span style="direction:ltr">aidoor.shimi.land/venturehack/mishmeret-idea.md</span> · חפילון v2: <span style="direction:ltr">mishmeret-deck-v2.pdf</span> · תסריט: <span style="direction:ltr">mishmeret-demo-script.md</span>
   </div>
 </div>
 
 <script>
 // נתוני יומן אמיתיים שנספרו מהתשתית (21/10) — מוטמעים סטטית ליציבות
-document.getElementById('txcount').textContent = '55';
+
 
 const DUR = [20,30,40,40,30,20]; // שניות לכל שאנל (סה"כ 180)
 const TITLES = ['מי מסתכל על המסך?','זרם אירועים','סינון אוטונומי','פעולה במדיניות','אימות ויומן','KPI ובקשה'];
@@ -249,6 +249,20 @@ document.querySelectorAll('.sc').forEach(b=>b.onclick=()=>{
 });
 show(0);
 timer=setInterval(tick,1000);
+
+// v2 (ביקורת vh#183-א): ספירה חיה מהיומנים האמיתיים בזמן ריצה — לא מקודדת
+(async () => {
+  try {
+    const r = await fetch('https://base44.app/api/apps/6a901f55a4d9a9b76a095a77/functions/mishmeretLedgerCount');
+    const d = await r.json();
+    if (d && d.ok) {
+      const el = document.getElementById('txcount');
+      el.textContent = String(d.netboardtx_rows);
+      el.parentElement.title = 'נקרא בזמן ריצה מהיומן ב-' + d.checked_at;
+    }
+  } catch (_e) { /* fallback: נשארת הספירה המתועדת מ-21/10 */ }
+})();
+
 </script>
 </body>
 </html>
