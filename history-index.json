@@ -8246,6 +8246,19 @@
     "example-set"
    ],
    "agent": "koda"
+  },
+  {
+   "date": "2026-10-22",
+   "title": "לאה — שיעור 7 אנכי 9:16 (וידאו טיקטוק/רילס)",
+   "prompt": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261022_lea_lesson7_vertical_prompt.md",
+   "image": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261022_lea_lesson7_vertical.mp4",
+   "folder": "gallery/lea-koda-22-10",
+   "tags": [
+    "kungfu",
+    "vertical-video",
+    "tiktok"
+   ],
+   "agent": "koda"
   }
  ],
  "videos_count": 46
