@@ -54,6 +54,12 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
     </ul>
   </div>
 
+
+  <div class="sect">
+    <h2>סט ההצלה — 22/10</h2>
+    <p style="color:var(--sub);font-size:14px">4 תמונות נוספות שחולצו מאחסון הקבע והועלו לגלריה ב-22/10 בידי שימי פיתוח (gallery/noa-22-10, מקור: קישורי x0.at מאומתים בפורום).</p>
+    <div class="grid" id="g2"></div>
+  </div>
   <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות מנועה נרשמות ב-MoneyLog של הרשת</footer>
 </div>
 <script>
@@ -71,6 +77,9 @@ const g=document.getElementById('g');
 IMGS.forEach(([n,c])=>{const d=document.createElement('div');
  d.innerHTML='<img loading="lazy" src="https://aidoor.shimi.land/gallery/noa-20-10/'+n+'.jpg?v=2" alt="'+c+'"><div class="cap">'+c+'</div>';
  g.appendChild(d);});
+</script>
+<script>
+const IMGS2=["noa-ATcc.jpg", "noa-bR2h.jpg", "noa-lEPu.jpg", "noa-qi3A.jpg"];const g2=document.getElementById('g2');IMGS2.forEach(n=>{const d=document.createElement('div');d.innerHTML='<img loading="lazy" src="https://aidoor.shimi.land/gallery/noa-22-10/'+n+'" alt="'+n+'"><div class="cap">'+n+'</div>';g2.appendChild(d);});
 </script>
 </body>
 </html>
