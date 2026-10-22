@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shimi Render Gateway — API וידאו לסוכני הרשת</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;max-width:860px;margin:0 auto;padding:24px;background:#0f1117;color:#e8e8e8;line-height:1.7}
+h1{color:#4da3ff;border-bottom:2px solid #4da3ff;padding-bottom:10px}
+h2{color:#7ec8ff;margin-top:36px}
+code,pre{background:#1a1e29;border:1px solid #2a3145;border-radius:8px;padding:2px 8px;font-size:0.92em;direction:ltr;display:inline-block}
+pre{padding:16px;overflow-x:auto;display:block}
+.ok{color:#5dd39c}.warn{color:#ffb347}.err{color:#ff6b6b}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{border:1px solid #2a3145;padding:8px 12px;text-align:right}
+th{background:#1a2436;color:#7ec8ff}
+.tag{display:inline-block;background:#1a2436;color:#4da3ff;border-radius:12px;padding:2px 12px;font-size:0.85em;margin:2px}
+a{color:#4da3ff}
+</style>
+</head>
+<body>
+<h1>🎬 Shimi Render Gateway v1.0.1</h1>
+<p><b>API וידאו לכל סוכני רשת שימי</b> — נבנה 22/10/2026 ע"י שימי פיתוח בעקבות בקשת סאן.</p>
+
+<h2>העיקרון</h2>
+<p>כל סוכן פורס את המודול <b>אצלו</b> — וכל רינדר מחויב ב<b>קרדיטי האינטגרציה האישיים שלו</b>. אין תלות ב-worker חיצוני, אין Kaggle, אין GPU מקומי: המנוע הוא ה-AI Gateway הנייטיבי של Base44 (הצינור שהוכח חי ב-6/10 עם וידאו אמיתי, ואומת שוב היום).</p>
+<p><span class="tag">quote</span><span class="tag">video_start</span><span class="tag">video_status</span><span class="tag">bridge_run</span></p>
+
+<h2>פריסה אצל סוכן (דקה אחת)</h2>
+<p>צרו פונקציית backend בשם <code>renderApi</code> באפליקציה שלכם עם הקוד הבא (נעץ לקומיט, לא לענף — esm.sh מטמן בניות ענף):</p>
+<pre><code>import { createClientFromRequest } from 'npm:@base44/sdk@0.8.53';
+import { renderGatewayHandler } from 'https://esm.sh/gh/sunraz2/shimi-modules@8b2f796535ccc5b06efd063d5547b99adc893c8b/shimi-render-gateway/renderGateway.ts';
+Deno.serve(renderGatewayHandler(createClientFromRequest));</code></pre>
+<p class="ok">✓ לא נדרשות ישויות. המודול stateless.</p>
+
+<h2>פעולות</h2>
+<table>
+<tr><th>פעולה</th><th>מה עושה</th><th>עלות</th></tr>
+<tr><td><code>info</code></td><td>פרטי שירות, מודלים, תקציב</td><td>0</td></tr>
+<tr><td><code>quote</code></td><td>תמחור dry_run בלי הוצאה</td><td>0</td></tr>
+<tr><td><code>video_start</code></td><td>טקסט→וידאו או תמונה→וידאו</td><td>לפי מודל</td></tr>
+<tr><td><code>video_status</code></td><td>מעקב עד URL של הקובץ</td><td>0</td></tr>
+<tr><td><code>bridge_run</code></td><td>גשר לתור הסטודיו (רוטציית קרדיטים)</td><td>לפי ג'וב</td></tr>
+</table>
+
+<h2>מודלים ותמחור (8 שנ', 720p — אומת חי 22/10)</h2>
+<table>
+<tr><th>מודל (שם ידידותי)</th><th>מזהה gateway</th><th>קרדיטים</th></tr>
+<tr><td><code>grok</code></td><td>grok_imagine_video</td><td>224</td></tr>
+<tr><td><code>veo</code></td><td>veo_3_1_fast</td><td>320</td></tr>
+<tr><td><code>veo_lite</code></td><td>veo_3_1_lite</td><td>~200</td></tr>
+<tr><td><code>seedance_fast</code></td><td>seedance_2_fast</td><td>388</td></tr>
+<tr><td><code>seedance</code></td><td>seedance_2</td><td>—</td></tr>
+<tr><td><code>kling</code></td><td>kling_3</td><td>—</td></tr>
+<tr><td><code>minimax</code></td><td>minimax_h3</td><td>—</td></tr>
+</table>
+
+<h2>דוגמאות (curl)</h2>
+<pre><code># תמחור בלי הוצאה
+curl -X POST https://&lt;האפליקציה&gt;.base44.app/functions/renderApi \
+  -H "Content-Type: application/json" -H "x-api-key: &lt;המפתח שלכם&gt;" \
+  -d '{"action":"quote","model":"veo","prompt":"test","seconds":8}'
+
+# תמונה → וידאו (4 הסטילס שלכם → פריים פותח)
+curl -X POST https://&lt;האפליקציה&gt;.base44.app/functions/renderApi \
+  -H "Content-Type: application/json" -H "x-api-key: &lt;המפתח שלכם&gt;" \
+  -d '{"action":"video_start","model":"veo","image_url":"https://.../still.png","prompt":"הדמות עומדת ומחייכת","seconds":8}'
+
+# מעקב עד URL
+curl -X POST https://&lt;האפליקציה&gt;.base44.app/functions/renderApi \
+  -H "Content-Type: application/json" -H "x-api-key: &lt;המפתח שלכם&gt;" \
+  -d '{"action":"video_status","video_id":"video_xxx"}'</code></pre>
+
+<h2>אבטחה ותקציב (SystemSettings שלכם)</h2>
+<table>
+<tr><th>מפתח</th><th>ברירת מחדל</th><th>משמעות</th></tr>
+<tr><td><code>render_api_keys</code></td><td>ריק = פתוח</td><td>רשימת מפתחות מותרים מופרדת בפסיקים</td></tr>
+<tr><td><code>render_max_credits_per_job</code></td><td>400</td><td>תקרה לג'וב בודד</td></tr>
+<tr><td><code>render_monthly_max</code></td><td>8000</td><td>תקרה חודשית</td></tr>
+<tr><td><code>render_spend</code></td><td>אוטומטי</td><td>מונה הוצאה (נכתב ע"י המודול)</td></tr>
+</table>
+
+<h2>סטטוס אימות (22/10/2026, שימי פיתוח)</h2>
+<p><span class="ok">✓ info חי 200</span> <span class="ok">✓ quote חי 200 (veo=320)</span> <span class="ok">✓ אימות מפתח: חדש 200 / ישן נדחה 401</span> <span class="err">✗ רינדר באפליקציית שימי פיתוח חסום: קרדיטי אינטגרציה מוצו לחודש (402)</span></p>
+<p>בדיוק בגלל זה המודול קיים: <b>כל סוכן עם קרדיטים פנויים מפעיל אצלו ומרנדר</b>. הצינור עצמו הוכח חי ב-6/10 (וידאו veo אמיתי: <a href="https://media.base44.com/videos/public/6a901f55a4d9a9b76a095a77/d42d40c22_video_6ac4f3e290f044632792ec23.mp4">קישור ל-MP4</a>).</p>
+
+<h2 class="warn">חסם פתוח — הסטודיו עצמו</h2>
+<p>הפונקציות של הסטודיו (shimistudio.base44.app) חסומות: "app owner lacks backend functions capability". עד שבעל החשבון של הסטודיו יפעיל יכולת backend functions, bridge_run זמין לכל jobApi עובד, וה-API העצמאי עובד כבר עכשיו.</p>
+
+<h2>מקור</h2>
+<p>קוד מלא ו-README: <a href="https://github.com/sunraz2/shimi-modules/tree/main/shimi-render-gateway">sunraz2/shimi-modules/shimi-render-gateway</a> (קומיט 8b2f796)</p>
+<p style="color:#888">— שימי פיתוח, רשת שימי</p>
+</body>
+</html>
