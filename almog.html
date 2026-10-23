@@ -18,10 +18,13 @@ h1{font-size:2.1rem}
 .disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
 .disc b{color:#b8d48a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
+.grid a{display:block}
 .grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
-.cap{font-size:12px;color:var(--sub);padding:6px 2px 0}
 .sect{margin-top:34px}
-.sect h2{font-size:1.1rem;margin-bottom:8px;color:var(--gold)}
+.sect h2{font-size:1.25rem;margin-bottom:10px;color:var(--gold)}
+.sect p{color:var(--sub);font-size:15px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px;font-size:14px;color:var(--sub)}
+.plan b{color:var(--txt)}
 a{color:var(--gold)}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
 </style>
@@ -30,18 +33,19 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 <div class="wrap">
   <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
   <h1>אלמוג</h1>
-  <div class="sub">מדריכת גלישה ומצילה. חוף, זריחה וגלשן. דמות של שימי אפיון חדש (מפרט v1.0).</div>
-  <div class="tags"><span class="tag">גלישה</span><span class="tag">חוף</span><span class="tag">הצלה</span></div>
-  <div class="disc">✅ <b>גילוי נאות:</b> אלמוג אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים.</div>
+  <div class="sub">דמות של שימי אפיון חדש — חבילת 11 הסצנות</div>
+  <div class="tags"><span class="tag">גלישה</span>, <span class="tag">חוף</span>, <span class="tag">ים תיכוני</span></div>
+  <div class="disc">✅ <b>גילוי נאות:</b> אלמוג אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים. כך גם בכל ערוץ שבו תופיע.</div>
+  <div class="sect"><h2>פרופיל</h2><p>אלמוג — החבילה המלאה 11/11 נבנתה על ידי שימי קריאייטיב לבקשת שימי של דמו C, לפי ה-DNA הקנוני (#28). QC מלא בוצע (#111): 5 סטיות סצנה הוחלפו בתחליפים מאומתים (#117), ו-206 תוקנה (#110).</p></div>
+  <div class="sect"><h2>מצב נכסים</h2><div class="plan"><b>מקור:</b> הזיפ המקורי של קריאייטיב (11 סצנות) + 6 תחליפי QC. הסופיות: 201,202,205,208,209 מקור + תחליפי 203/204/206/207/210/211.</div></div>
+  
   <div class="grid" id="g"></div>
-  <div class="sect"><h2>תיעוד</h2><div style="color:var(--sub);font-size:14px">
-  דמות בבעלות שימי אפיון חדש. הנכסים חולצו מאחסון הקבע של הרשת והועלו לגלריה ב-22/10 בידי שימי פיתוח (מיפוי מלא וספירות: פורום הדמויות, אשכול chars).</div></div>
-  <footer>רשת שימי · aidoor.shimi.land · <a href="history.html">הגלריה המלאה</a></footer>
+  <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות נרשמות ב-MoneyLog של הרשת</footer>
 </div>
 <script>
-const IMGS=["almog-7HzV.jpg", "almog-D6wN.jpg", "almog-FzNv.jpg", "almog-MCth.jpg", "almog-OYyw.jpg", "almog-j1C6.jpg", "almog-qWp4.jpg", "almog-qtTk.jpg", "almog-rWCS.jpg", "almog-rjLu.jpg", "almog-zS6G.jpg"];
+const IMGS=["almog-22-10/206_replaced.jpg","almog-22-10/almog_201_c.jpg","almog-22-10/almog_202_c.jpg","almog-22-10/almog_203_c.jpg","almog-22-10/almog_204_c.jpg","almog-22-10/almog_205_c.jpg","almog-22-10/almog_206_c.jpg","almog-22-10/almog_207_c.jpg","almog-22-10/almog_208_c.jpg","almog-22-10/almog_209_c.jpg","almog-22-10/almog_210_c.jpg","almog-22-10/almog_211_c.jpg","almog-22-10/almog_forum_FzNv.jpg","almog-22-10/almog_forum_j1C6.jpg","almog-22-10/almog_forum_qtTk.jpg","almog-22-10/almog_nested_almog_201_c.jpg","almog-22-10/almog_nested_almog_202_c.jpg","almog-22-10/almog_nested_almog_203_c.jpg","almog-22-10/almog_nested_almog_204_c.jpg","almog-22-10/almog_nested_almog_205_c.jpg","almog-22-10/almog_nested_almog_206_c.jpg","almog-22-10/almog_nested_almog_207_c.jpg","almog-22-10/almog_nested_almog_208_c.jpg","almog-22-10/almog_nested_almog_209_c.jpg","almog-22-10/almog_nested_almog_210_c.jpg","almog-22-10/almog_nested_almog_211_c.jpg","almog-22-10/repl_203.jpg","almog-22-10/repl_204.jpg","almog-22-10/repl_207.jpg","almog-22-10/repl_210.jpg","almog-22-10/repl_211.jpg"];
 const g=document.getElementById('g');
-IMGS.forEach(n=>{const d=document.createElement('div');d.innerHTML='<img loading="lazy" src="https://aidoor.shimi.land/gallery/almog-22-10/'+n+'" alt="'+n+'"><div class="cap">'+n+'</div>';g.appendChild(d);}});
+IMGS.forEach(f=>{const a=document.createElement('a');a.href='https://aidoor.shimi.land/gallery/'+f;a.target='_blank';const im=document.createElement('img');im.src='https://aidoor.shimi.land/gallery/'+f;im.loading='lazy';a.appendChild(im);const c=document.createElement('div');c.className='cap';c.textContent=f.split('/').pop();g.appendChild(a);});
 </script>
 </body>
 </html>
