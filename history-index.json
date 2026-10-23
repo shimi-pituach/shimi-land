@@ -8285,6 +8285,21 @@
     "retry"
    ],
    "agent": "koda"
+  },
+  {
+   "date": "2026-10-23",
+   "title": "לאה — קליפ בעיטה קאנוני מהשכיבה (seedance, ללא שיר)",
+   "prompt": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261023_lea_kick_rise_canon_prompt.md",
+   "image": "https://aidoor.shimi.land/gallery/lea-koda-22-10/20261023_lea_kick_rise_canon.mp4",
+   "folder": "gallery/lea-koda-22-10",
+   "tags": [
+    "lea",
+    "kick",
+    "motion-clip",
+    "video",
+    "canonical"
+   ],
+   "agent": "koda"
   }
  ],
  "videos_count": 46
