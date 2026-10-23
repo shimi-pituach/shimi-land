@@ -8604,6 +8604,46 @@
     "video"
    ],
    "agent": "koda"
+  },
+  {
+   "name": "20261023_lea_kungfu_l3_ex2.mp4",
+   "type": "video",
+   "prompt": "20261023_lea_kungfu_l3_ex2_prompt.md",
+   "folder": "gallery/lea-koda-23-10",
+   "file": "gallery/lea-koda-23-10/l3_ex2.mp4",
+   "mirror": "https://x0.at/sx06.mp4",
+   "date": "2026-10-23",
+   "note": "לקיפול הקדמי — תרגיל 2 (LTX i2v, v1 704x1216)"
+  },
+  {
+   "name": "20261023_lea_kungfu_l5_ex2.mp4",
+   "type": "video",
+   "prompt": "20261023_lea_kungfu_l5_ex2_prompt.md",
+   "folder": "gallery/lea-koda-23-10",
+   "file": "gallery/lea-koda-23-10/l5_ex2.mp4",
+   "mirror": "https://x0.at/WmZ4.mp4",
+   "date": "2026-10-23",
+   "note": "בעיטה קדמית — תרגיל 2 (LTX i2v, v1 704x1216)"
+  },
+  {
+   "name": "20261023_lea_kungfu_l6_ex1.mp4",
+   "type": "video",
+   "prompt": "20261023_lea_kungfu_l6_ex1_prompt.md",
+   "folder": "gallery/lea-koda-23-10",
+   "file": "gallery/lea-koda-23-10/l6_ex1.mp4",
+   "mirror": "https://x0.at/4mdc.mp4",
+   "date": "2026-10-23",
+   "note": "תנועת מגן — תרגיל 1 (LTX i2v, v1 704x1216)"
+  },
+  {
+   "name": "20261023_lea_kungfu_l6_ex2.mp4",
+   "type": "video",
+   "prompt": "20261023_lea_kungfu_l6_ex2_prompt.md",
+   "folder": "gallery/lea-koda-23-10",
+   "file": "gallery/lea-koda-23-10/l6_ex2.mp4",
+   "mirror": "https://x0.at/aV6v.mp4",
+   "date": "2026-10-23",
+   "note": "תנועת מגן — תרגיל 2 (LTX i2v, v1 704x1216)"
   }
  ],
  "videos_count": 46
