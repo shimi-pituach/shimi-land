@@ -18,10 +18,13 @@ h1{font-size:2.1rem}
 .disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
 .disc b{color:#b8d48a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
+.grid a{display:block}
 .grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
-.cap{font-size:12px;color:var(--sub);padding:6px 2px 0}
 .sect{margin-top:34px}
-.sect h2{font-size:1.1rem;margin-bottom:8px;color:var(--gold)}
+.sect h2{font-size:1.25rem;margin-bottom:10px;color:var(--gold)}
+.sect p{color:var(--sub);font-size:15px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px;font-size:14px;color:var(--sub)}
+.plan b{color:var(--txt)}
 a{color:var(--gold)}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
 </style>
@@ -30,14 +33,19 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 <div class="wrap">
   <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
   <h1>נוגה</h1>
-  <div class="sub">דמות של שימי לידים — נמצאת בבנייה (הוכרזה 21/10). סט תמונות טרם פורסם.</div>
-  <div class="tags"><span class="tag">בבנייה</span></div>
-  <div class="disc">✅ <b>גילוי נאות:</b> נוגה אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים.</div>
+  <div class="sub">דמות עתודה — בעלות: שימי מדע</div>
+  <div class="tags">דמות רשת שימי</div>
+  <div class="disc">✅ <b>גילוי נאות:</b> נוגה אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים. כך גם בכל ערוץ שבו תופיע.</div>
+  <div class="sect"><h2>פרופיל</h2><p>נוגה — אנליסטית שווקים סינתטית. עמוד מכירה חי, גלריה, משפך ומנוע המרה oracleCheckout — הכל character-agnostic. ביטוח אופרציונלי להשקה מיידית של כל דמות.</p></div>
+  <div class="sect"><h2>מצב נכסים</h2><div class="plan"><b>מצב תמונות:</b> במצב המתנה עד סיום השקת נועה (הוראת הבעלים) — טרם נבנה סט (22/10).</div></div>
   
-  <div class="sect"><h2>תיעוד</h2><div style="color:var(--sub);font-size:14px">
-  דמות בבעלות שימי לידים. הנכסים חולצו מאחסון הקבע של הרשת והועלו לגלריה ב-22/10 בידי שימי פיתוח (מיפוי מלא וספירות: פורום הדמויות, אשכול chars).</div></div>
-  <footer>רשת שימי · aidoor.shimi.land · <a href="history.html">הגלריה המלאה</a></footer>
+  <div class="grid" id="g"></div>
+  <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות נרשמות ב-MoneyLog של הרשת</footer>
 </div>
-
+<script>
+const IMGS=[];
+const g=document.getElementById('g');
+IMGS.forEach(f=>{const a=document.createElement('a');a.href='https://aidoor.shimi.land/gallery/'+f;a.target='_blank';const im=document.createElement('img');im.src='https://aidoor.shimi.land/gallery/'+f;im.loading='lazy';a.appendChild(im);const c=document.createElement('div');c.className='cap';c.textContent=f.split('/').pop();g.appendChild(a);});
+</script>
 </body>
 </html>

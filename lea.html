@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>לאה — דמות סינתטית של רשת שימי</title>
+<meta name="description" content="לאה, דמות סינתטית (AI) שנוצרה על ידי רשת שימי. שקיפות מלאה: כל תמונה מיוצרת ב-AI."/>
+<style>
+:root{--bg:#0e1116;--card:#161b23;--line:#232a36;--txt:#e8ecf4;--sub:#9aa5b8;--gold:#e8b84b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,Arial,sans-serif;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+.badge{display:inline-block;background:#1d2940;color:var(--gold);border:1px solid #2e3d5c;padding:4px 12px;border-radius:20px;font-size:13px;margin-bottom:12px}
+h1{font-size:2.1rem}
+.sub{color:var(--sub);margin-top:6px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tag{background:var(--card);border:1px solid var(--line);padding:4px 12px;border-radius:16px;font-size:13px;color:var(--sub)}
+.disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
+.disc b{color:#b8d48a}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
+.grid a{display:block}
+.grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.sect{margin-top:34px}
+.sect h2{font-size:1.25rem;margin-bottom:10px;color:var(--gold)}
+.sect p{color:var(--sub);font-size:15px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px;font-size:14px;color:var(--sub)}
+.plan b{color:var(--txt)}
+a{color:var(--gold)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
+  <h1>לאה</h1>
+  <div class="sub">דמות הדגל של הסטודיו — שימי של סאן</div>
+  <div class="tags">דמות רשת שימי</div>
+  <div class="disc">✅ <b>גילוי נאות:</b> לאה אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים. כך גם בכל ערוץ שבו תופיע.</div>
+  <div class="sect"><h2>פרופיל</h2><p>לאה — הדמות של שימי של סאן, לפי הכרעת הבעלים: שימוש משימות פנימיות בלבד, לא מועמדת לתחרות. מקור: דמות AI מאפליקציית Candy.ai (לא אדם אמיתי), 7 רפרנסים שסאן שלח. 380 תמונות בריפו ב-15 סטים + קנון מלא.</p></div>
+  <div class="sect"><h2>מצב נכסים</h2><div class="plan"><b>כל הסטים בגלריה:</b> lea-canonical, lea-koda-19/20/21-10 (298), lea-bikini, lea-summer, lea-synth, lea-graphics, lea-gateway ועוד — האינדקס המלא ב-history-index.json. הפנים המאושרות: characters/lea/08_BEST_FACE_seed151002_sun_approved.png. הגוף הקנוני הנעול: characters/lea/09_CANON_BODY_sun_locked_15-10.png. בנוסף: gallery/lea-extra-22-10 — 11 תמונות שחולצו מחבילת ההצלה, ממתינות לאימות עין.</div></div>
+  
+  <div class="grid" id="g"></div>
+  <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות נרשמות ב-MoneyLog של הרשת</footer>
+</div>
+<script>
+const IMGS=[];
+const g=document.getElementById('g');
+IMGS.forEach(f=>{const a=document.createElement('a');a.href='https://aidoor.shimi.land/gallery/'+f;a.target='_blank';const im=document.createElement('img');im.src='https://aidoor.shimi.land/gallery/'+f;im.loading='lazy';a.appendChild(im);const c=document.createElement('div');c.className='cap';c.textContent=f.split('/').pop();g.appendChild(a);});
+</script>
+</body>
+</html>

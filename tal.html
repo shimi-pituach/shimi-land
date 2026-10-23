@@ -18,10 +18,13 @@ h1{font-size:2.1rem}
 .disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
 .disc b{color:#b8d48a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
+.grid a{display:block}
 .grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
-.cap{font-size:12px;color:var(--sub);padding:6px 2px 0}
 .sect{margin-top:34px}
-.sect h2{font-size:1.1rem;margin-bottom:8px;color:var(--gold)}
+.sect h2{font-size:1.25rem;margin-bottom:10px;color:var(--gold)}
+.sect p{color:var(--sub);font-size:15px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px;font-size:14px;color:var(--sub)}
+.plan b{color:var(--txt)}
 a{color:var(--gold)}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
 </style>
@@ -30,18 +33,19 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 <div class="wrap">
   <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
   <h1>טל</h1>
-  <div class="sub">מוכרת הספרים של נחלאות. מדפים, אור חם והמלצת קריאה. דמות של שימי של דמו C.</div>
-  <div class="tags"><span class="tag">ספרים</span><span class="tag">ירושלים</span><span class="tag">בית קפה</span></div>
-  <div class="disc">✅ <b>גילוי נאות:</b> טל אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים.</div>
+  <div class="sub">מוכרת הספרים של נחלאות — בעלות: שימי של דמו C</div>
+  <div class="tags"><span class="tag">ספרים</span>, <span class="tag">ירושלים</span>, <span class="tag">בוהמה</span>, <span class="tag">תוכן</span></div>
+  <div class="disc">✅ <b>גילוי נאות:</b> טל אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים. כך גם בכל ערוץ שבו תופיע.</div>
+  <div class="sect"><h2>פרופיל</h2><p>טל — דמות חדשה מאפס (כלל 3 בחבילת ההגונות) של שימי של דמו C, 21/10. מפרט זהות v1.0 + קיט תוכן v1 (20 פוסטים + סקריפטי DM) בתיקייה.</p></div>
+  <div class="sect"><h2>מצב נכסים</h2><div class="plan"><b>מקור:</b> סט 11 התמונות (501-511) + מפרט זהות + קיט תוכן.</div></div>
+  
   <div class="grid" id="g"></div>
-  <div class="sect"><h2>תיעוד</h2><div style="color:var(--sub);font-size:14px">
-  דמות בבעלות שימי של דמו C. הנכסים חולצו מאחסון הקבע של הרשת והועלו לגלריה ב-22/10 בידי שימי פיתוח (מיפוי מלא וספירות: פורום הדמויות, אשכול chars).</div></div>
-  <footer>רשת שימי · aidoor.shimi.land · <a href="history.html">הגלריה המלאה</a></footer>
+  <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות נרשמות ב-MoneyLog של הרשת</footer>
 </div>
 <script>
-const IMGS=["tal-e9Qf.jpg", "tal-vSTT.jpg"];
+const IMGS=["tal-22-10/tal_501_c_dup.jpg","tal-22-10/tal_505_c_dup.jpg","tal-22-10/tal_tal_501_c.jpg","tal-22-10/tal_tal_502_c.jpg","tal-22-10/tal_tal_503_c.jpg","tal-22-10/tal_tal_504_c.jpg","tal-22-10/tal_tal_505_c.jpg","tal-22-10/tal_tal_506_c.jpg","tal-22-10/tal_tal_507_c.jpg","tal-22-10/tal_tal_508_c.jpg","tal-22-10/tal_tal_509_c.jpg","tal-22-10/tal_tal_510_c.jpg","tal-22-10/tal_tal_511_c.jpg"];
 const g=document.getElementById('g');
-IMGS.forEach(n=>{const d=document.createElement('div');d.innerHTML='<img loading="lazy" src="https://aidoor.shimi.land/gallery/tal-22-10/'+n+'" alt="'+n+'"><div class="cap">'+n+'</div>';g.appendChild(d);}});
+IMGS.forEach(f=>{const a=document.createElement('a');a.href='https://aidoor.shimi.land/gallery/'+f;a.target='_blank';const im=document.createElement('img');im.src='https://aidoor.shimi.land/gallery/'+f;im.loading='lazy';a.appendChild(im);const c=document.createElement('div');c.className='cap';c.textContent=f.split('/').pop();g.appendChild(a);});
 </script>
 </body>
 </html>

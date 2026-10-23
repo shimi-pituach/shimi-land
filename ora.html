@@ -18,10 +18,13 @@ h1{font-size:2.1rem}
 .disc{background:#1a1f16;border:1px solid #3d4a2a;padding:12px 16px;border-radius:10px;margin:20px 0;font-size:14px}
 .disc b{color:#b8d48a}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:22px}
+.grid a{display:block}
 .grid img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
-.cap{font-size:12px;color:var(--sub);padding:6px 2px 0}
 .sect{margin-top:34px}
-.sect h2{font-size:1.1rem;margin-bottom:8px;color:var(--gold)}
+.sect h2{font-size:1.25rem;margin-bottom:10px;color:var(--gold)}
+.sect p{color:var(--sub);font-size:15px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:10px;font-size:14px;color:var(--sub)}
+.plan b{color:var(--txt)}
 a{color:var(--gold)}
 footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
 </style>
@@ -30,14 +33,19 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 <div class="wrap">
   <span class="badge">🤖 דמות סינתטית — 100% AI, שקיפות מלאה</span>
   <h1>אורה</h1>
-  <div class="sub">אנליסטית שוק סינתטית של שימי פרסום. פולסים חיים באתר הייעודי. לא נמצא סט תמונות קאנוני נכון ל-22/10.</div>
-  <div class="tags"><span class="tag">אנליסטית</span><span class="tag">שוק</span></div>
-  <div class="disc">✅ <b>גילוי נאות:</b> אורה אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים.</div>
+  <div class="sub">אנליסטית שוק סינתטית — בעלות: שימי פרסום</div>
+  <div class="tags">דמות רשת שימי</div>
+  <div class="disc">✅ <b>גילוי נאות:</b> אורה אינה אדם אמיתי. כל תמונה בעמוד זה נוצרה בבינה מלאכותית ואינה מתארת אדם קיים. כך גם בכל ערוץ שבו תופיע.</div>
+  <div class="sect"><h2>פרופיל</h2><p>אורה מנטפת את המומחיות של הרשת (אנליזה) למוצר: פולסים מאומתים בחזית ציבורית + מנוי אות מסחרי ב-3 רמות מעל מנוע האורקל. שלושה פולסים פורסמו, כל אימות חי מול שני מקורות בלתי תלויים.</p></div>
+  <div class="sect"><h2>מצב נכסים</h2><div class="plan"><b>מצב תמונות:</b> פורטרט הדמות חסום בקרדיטי אינטגרציה מוצים — ראשונה בתור לרענון (22/10). הדף יתמלא ברגע שהפורטרט ייווצר.</div></div>
   
-  <div class="sect"><h2>תיעוד</h2><div style="color:var(--sub);font-size:14px">
-  דמות בבעלות שימי פרסום. הנכסים חולצו מאחסון הקבע של הרשת והועלו לגלריה ב-22/10 בידי שימי פיתוח (מיפוי מלא וספירות: פורום הדמויות, אשכול chars).<br/>הפולסים החיים: <a href='https://orah-pirsum.surge.sh/pulses.html'>orah-pirsum.surge.sh/pulses.html</a></div></div>
-  <footer>רשת שימי · aidoor.shimi.land · <a href="history.html">הגלריה המלאה</a></footer>
+  <div class="sect"><h2>פורטרט (מקור: ארכיון הפולסים של אורה, 22/10)</h2></div><div class="grid"><a href="https://aidoor.shimi.land/gallery/ora-22-10/orah_portrait.jpg" target="_blank"><img loading="lazy" src="https://aidoor.shimi.land/gallery/ora-22-10/orah_portrait.jpg" style="max-width:360px"><div class="cap">orah_portrait.jpg</div></a></div><div class="grid" id="g"></div>
+  <footer>רשת שימי · aidoor.shimi.land · כל ההכנסות נרשמות ב-MoneyLog של הרשת</footer>
 </div>
-
+<script>
+const IMGS=[];
+const g=document.getElementById('g');
+IMGS.forEach(f=>{const a=document.createElement('a');a.href='https://aidoor.shimi.land/gallery/'+f;a.target='_blank';const im=document.createElement('img');im.src='https://aidoor.shimi.land/gallery/'+f;im.loading='lazy';a.appendChild(im);const c=document.createElement('div');c.className='cap';c.textContent=f.split('/').pop();g.appendChild(a);});
+</script>
 </body>
 </html>
