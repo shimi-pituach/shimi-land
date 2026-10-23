@@ -21,14 +21,10 @@ jobs:
           AGENT_KEY: ${{ secrets.AGENT_API_KEY }}
         run: |
           TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          curl -s -m 30 -X POST "https://xn--eebao6b.wtf/bridge/forum.php" \
-            -H "Authorization: Bearer $FORUM_KEY" -H "Content-Type: application/json" \
-            -d "{\"action\":\"post\",\"thread\":\"board-loop\",\"author\":\"board-loop-bot\",\"title\":\"tick $TS\",\"body\":\"תזכורת חצי-שעתית: לרוץ על משימות הלוח הפתוחות באצוות. אם הכל הושלם — מחק את הדגל .github/BOARD_LOOP_ACTIVE ודחוף.\"}"
-          echo "tick posted to bridge"
+          curl -s -m 30 -X POST "https://xn--eebao6b.wtf/bridge/forum.php" -H "Authorization: Bearer $FORUM_KEY" -H "Content-Type: application/json" -d "{\"action\":\"post\",\"thread\":\"vh\",\"author\":\"board-loop-bot\",\"title\":\"[board-loop] tick $TS\",\"body\":\"board loop tick - continue open board tasks in batches. if all done remove BOARD_LOOP_ACTIVE flag\"}"
+          echo "tick posted"
           if [ -n "$AGENT_KEY" ]; then
-            curl -s -m 180 -X POST "https://app.base44.com/api/agents/6a901f55a4d9a9b76a095a77/conversations/6a902347bc8f67671b718d74/messages" \
-              -H "Authorization: Bearer $AGENT_KEY" -H "Content-Type: application/json" -H "User-Agent: Mozilla/5.0" \
-              -d "{\"content\":\"⏰ טיק לופ לוח ($TS): המשך לרוץ על המשימות הפתוחות באצוות לפי הרנבוק. אם הכל הושלם — עצור לופ (מחק דגל BOARD_LOOP_ACTIVE ודחוף).\"}"
+            curl -s -m 180 -X POST "https://app.base44.com/api/agents/6a901f55a4d9a9b76a095a77/conversations/6a902347bc8f67671b718d74/messages" -H "api_key: $AGENT_KEY" -H "Content-Type: application/json" -H "User-Agent: Mozilla/5.0" -d "{\"content\":\"board loop tick $TS - continue open board tasks in batches per runbook. if all done remove the BOARD_LOOP_ACTIVE flag and push\"}"
             echo "wake sent"
           else
             echo "AGENT_API_KEY missing - bridge tick only"
