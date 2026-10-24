@@ -21,3 +21,6 @@ python3 scripts/run.py --frame <פריים פתיחה.jpg> --motion <קליפ.mp
 ## פרמטרים
 duration_hook (1.5), duration_frame (2.5), slowmo (1.25), motion_len (7.5) — ברירות מחדל מוכחות.
 פונטים: DejaVu Bold/Regular. צבעים: רקע #0a0a0c, טקסט #F5F5F5, הדגשה #7fb0ff.
+
+## כלל ברזל (הבעלים, 24/10)
+קלט ה-motion חייב להיות קליפ תנועה אמיתית שעבר QC. אסור להזין פריימים קפואים/מצגות כגוף וידאו.
